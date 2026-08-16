@@ -6,10 +6,10 @@ These artifacts document the single protected reporting-split evaluation of the 
 
 - Aggregate report: `benchmark_report.json`
 - Aggregate SHA-256: `a169bffa170707da166206640150702c87202670a1a22745ff6128ad46ff5b69`
-- Localizer implementation SHA-256: `7819d767b5ab3aeadd40bb99addefcf28948bca9c07bb7a84b5fb20345f39881`
+- Implementation SHA-256: `7819d767b5ab3aeadd40bb99addefcf28948bca9c07bb7a84b5fb20345f39881`
 - Report state: `working_tree_dirty=false` in all seven schema-v2 reports
 - Protocol: 200 pairs per suite, 7 suites, both architectures, report split, medium difficulty, 1000×1000 search images, supersample 2
-- Result: 1,398/1,400 within 1 px; two genuine FinFET periodic-ambiguity failures
+- Result: 1,398/1,400 within 1 px; two FinFET periodic-ambiguity failures
 
 The absolute manifest and image paths embedded in the reports record the original sealed evaluation location on the external volume. Exact manifest copies are in `manifests/`; the complete 2,800-image archive remains at `/Volumes/External/drift-sense-release-2026-08-16/frozen-report/datasets/report/`. Representative image triples are checked in under `cases/` so the release remains inspectable without copying the full image corpus into Git.
 
@@ -28,4 +28,4 @@ The absolute manifest and image paths embedded in the reports record the origina
 
 The benchmark ran on macOS 26.5.2 arm64 with CPython 3.14.6, NumPy 2.5.2, SciPy 1.18.0, OpenCV 4.14.0, and Pillow 12.3.0. No GPU, learned weights, or network service was used. The primary runtime metric is evaluator wall time immediately around `localize()` and excludes image decoding and report construction.
 
-The results were independently rechecked against every manifest, sidecar, image SHA-256, report row, Euclidean error, subgroup, and aggregate before release. Later documentation, presentation, and website commits do not change the recorded implementation fingerprint.
+Release verification rechecked every manifest, sidecar, image SHA-256, report row, Euclidean error, subgroup, and aggregate before release. Later documentation, presentation, and website commits do not change the recorded implementation fingerprint.

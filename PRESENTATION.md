@@ -23,7 +23,7 @@ Frozen example: `iid/000002_dram`, seed `1011209461`, selected mechanically as t
 - Match separable line-constant sequences only when their measured energy supports that model; otherwise preserve joint two-dimensional residual evidence.
 - When site-specific information is insufficient, score the structural map and apply the required center-nearest rule over every threshold-qualified non-maximum-suppressed peak, including peaks beyond top-K.
 - Raw tied maxima always drive the required center-nearest selection. When a reliable real-space basis is available, group the same peaks by nearest integer-lattice offset for family validation and offset diagnostics; trust that evidence only when its representatives cover at least 65% of the raw tied peaks.
-- Invoke center-nearest selection only when a score tie is corroborated by local peak perturbation, transform-estimate instability, or low residual evidence. Record the raw/grouped counts, coverage, and supporting evidence in diagnostics. In the joint residual path, rank by the two-channel mean but require candidate-local support from both channels.
+- Invoke center-nearest selection only when a score tie is corroborated by local score-neighborhood variation, low transform-estimate confidence, or low residual evidence. Record the raw/grouped counts, coverage, and supporting evidence in diagnostics. In the joint residual path, rank by the two-channel mean and accept its global maximum as residual evidence only when both channels support that coordinate.
 
 Evidence status: the shared-pipeline stage study is complete on one fixed 100-pair IID development manifest. It is development-only configuration evidence, not frozen-suite performance.
 
@@ -54,7 +54,7 @@ parabolic peak refinement → x y
 
 ## Slide 5 — Shared-pipeline development evidence
 
-Populate this slide only from `development_pipeline_study.json` produced by `benchmark_pipeline.py` against one fixed development manifest. Do not construct it from comparisons between legacy method aliases. The first row is the ZNCC starting point; subsequent rows use the `full` implementation while progressively enabling production controls.
+Populate this slide only from `development_pipeline_study.json` produced by `benchmark_pipeline.py` against one fixed development manifest. Do not construct it from comparisons between legacy method aliases. The first row is the ZNCC starting point; subsequent rows use the `full` implementation while progressively enabling the selected pipeline controls.
 
 | Shared-pipeline stage | ≤1 px | ≤3 px | P95 error (px) | Mean inference wall (ms) | Decision |
 |---|---:|---:|---:|---:|---|
@@ -64,7 +64,7 @@ Populate this slide only from `development_pipeline_study.json` produced by `ben
 | + structural spatial residual | 100% | 100% | 0.643 | 220.0 | fixes remaining gross aliases |
 | + reliable-basis lattice-family diagnostics | 100% | 100% | 0.643 | 222.9 | retain interpretable family evidence |
 | + multi-evidence ambiguity rule | 100% | 100% | 0.643 | 220.0 | retain safe center-nearest fallback |
-| + parabolic subpixel refinement | 100% | 100% | 0.259 | 217.3 | selected production refinement |
+| + parabolic subpixel refinement | 100% | 100% | 0.259 | 217.3 | selected release refinement |
 
 The representation, refinement, and top-K blocks in the same artifact are alternatives rather than cumulative stages. Label every Slide 5 number “development only”; this study supports configuration selection and does not replace the protected held-out results on Slide 6.
 
@@ -84,8 +84,8 @@ Source all cells from the immutable aggregate created by a reporting-split bench
 
 - Pooled: 1,398/1,400 (99.8571%) within 1 px, median 0.0830 px, P95 0.3193 px, P99 0.4361 px, maximum 313.800 px, and mean runtime 239.405 ms. The mean error of 0.5152 px is outlier-inflated; the within-5-px mean is 0.1143 px.
 - Success image: `iid/000002_dram`, 0.094 px.
-- Genuine failure image: `scan_distortion/000185_finfet`, 313.800 px. Weak site-specific FinFET residual, 4,428 periodic alternatives, 50.9% basis coverage, and strong row shift cause center-nearest fallback to select the wrong off-center lattice site.
-- The other genuine failure is `high_noise/000081_finfet`, 247.665 px, from the same identifiable low-residual periodic-ambiguity mode. Both are flagged ambiguous; no post-report tuning was performed.
+- Failure image: `scan_distortion/000185_finfet`, 313.800 px. Weak site-specific FinFET residual, 4,428 periodic alternatives, 50.9% basis coverage, and strong row shift cause center-nearest fallback to select the wrong off-center lattice site.
+- The other failure is `high_noise/000081_finfet`, 247.665 px, from the same identifiable low-residual periodic-ambiguity mode. Both are flagged ambiguous; no post-report tuning was performed.
 - The primary renderer uses area versus Lanczos for reference/search by default. The alternate capture renderer uses Kaiser versus Hann polyphase paths and changes edge response, blur, illumination, noise ordering, and parameter distributions, while retaining the shared latent architecture and coordinate geometry. State this scope with its results.
 - Confirm that `runtime_ms` is evaluator wall time around `localize()`; present internal `localizer_runtime_ms` separately if it is shown.
 
@@ -205,4 +205,4 @@ for result in report["results"]:
 PY
 ```
 
-The seven per-suite artifacts under `results/frozen/reports/` each declare schema version 2, their manifest and image bindings, clean commit state, and `runtime_ms` as evaluator wall time around `localize()`. `results/frozen/ARTIFACTS.md` indexes the release evidence and the two genuine failures.
+The seven per-suite artifacts under `results/frozen/reports/` each declare schema version 2, their manifest and image bindings, clean commit state, and `runtime_ms` as evaluator wall time around `localize()`. `results/frozen/ARTIFACTS.md` indexes the release evidence and the two failures above 5 px.

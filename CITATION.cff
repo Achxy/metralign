@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software or its frozen benchmark artifacts, cite this repository and record the source and artifact identifiers."
+title: "Metralign: deterministic localization under periodic semiconductor structures"
+type: software
+authors:
+  - family-names: Jayadevan
+    given-names: Achyuth
+  - family-names: Karmakar
+    given-names: Pramit
+repository-code: "https://github.com/Achxy/metralign"
+url: "https://achxy.github.io/metralign/"
+license: MIT
+version: 0.1.0
+date-released: 2026-08-17
