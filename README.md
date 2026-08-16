@@ -169,11 +169,11 @@ python benchmark_suites.py \
   --output-dir data/generated/benchmark-frozen \
   --split report \
   --report-pairs 200 \
-  --method all \
+  --method full \
   --confirm-report
 ```
 
-`--confirm-report` records the confirmation in the plan and prevents accidental reads of the frozen reporting split. Do not use it until the method and settings are frozen. The resulting per-suite reports are schema version 2; the aggregate benchmark wrapper is schema version 1 and preserves each suite's manifest hash, metrics, failure counts, environment, and metric definition.
+`--confirm-report` records the confirmation in the plan and prevents accidental reads of the frozen reporting split. Do not use it until the method and settings are frozen. The command above documents the sealed protocol; the official reporting split has already been run once and is archived under `results/frozen/`. The resulting per-suite reports are schema version 2; the aggregate benchmark wrapper is schema version 1 and preserves each suite's manifest hash, metrics, failure counts, environment, and metric definition.
 
 ### Shared-pipeline development study
 
@@ -193,19 +193,35 @@ python benchmark_pipeline.py \
   --top-k-values 8 16 32 64 128
 ```
 
-`benchmark_pipeline.py` writes `development_pipeline_study.json`. Its stage block starts at ZNCC and progressively enables phase calibration, raw then structural spatial residuals, lattice-family grouping, the multi-evidence ambiguity rule, and parabolic refinement. Its representation, refinement, and top-K blocks are controlled alternatives, not cumulative stages. Every value is development-only evidence for configuration selection; it must not be presented as frozen held-out performance. The input data directory must contain `manifest.jsonl`, and the output directory must not already exist.
+`benchmark_pipeline.py` writes `development_pipeline_study.json`. Its stage block starts at ZNCC and progressively enables phase calibration, raw then structural spatial residuals, reliable-basis lattice-family diagnostics, the multi-evidence ambiguity rule, and parabolic refinement. Its representation, refinement, and top-K blocks are controlled alternatives, not cumulative stages. Every value is development-only evidence for configuration selection; it must not be presented as frozen held-out performance. The input data directory must contain `manifest.jsonl`, and the output directory must not already exist.
 
 ## Experimental status
 
-Frozen held-out performance: not yet measured.
+The frozen reporting split contains 1,400 previously protected pairs: 200 per suite, alternating DRAM and FinFET, at 1000×1000 search resolution and supersample 2. The method and configuration were fixed at clean algorithm commit `c9363bfce535a812eb541417f3297602e97f619a`; all reports declare implementation SHA-256 `7819d767b5ab3aeadd40bb99addefcf28948bca9c07bb7a84b5fb20345f39881` and `working_tree_dirty=false`.
 
-The files under `results/` whose names begin with `dev_` are development checks on six or fewer generated IID samples. They are not frozen-model results, are not an adequate robustness evaluation, and must not be used as final accuracy or runtime claims. A release result must identify immutable suite manifests, seeds, configuration, method arguments, software versions, and hardware.
+| Frozen suite | Count | ≤0.5 px | ≤1 px | Median (px) | P95 (px) | Max (px) | P95 runtime (ms) |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| IID | 200 | 100.0% | 100.0% | 0.094 | 0.296 | 0.447 | 263.296 |
+| High noise | 200 | 98.5% | 99.5% | 0.090 | 0.318 | 247.665 | 312.943 |
+| Geometry OOD | 200 | 100.0% | 100.0% | 0.084 | 0.285 | 0.469 | 289.272 |
+| Transform OOD | 200 | 100.0% | 100.0% | 0.090 | 0.313 | 0.451 | 276.439 |
+| Periodic ambiguity | 200 | 100.0% | 100.0% | 0.025 | 0.086 | 0.165 | 381.369 |
+| Scan distortion | 200 | 99.5% | 99.5% | 0.125 | 0.392 | 313.800 | 273.494 |
+| Cross-generator | 200 | 99.0% | 100.0% | 0.110 | 0.366 | 0.543 | 259.503 |
 
-Candidate-K status: no completed development K sweep is checked into this workspace. Both current entries in `experiments/ledger.jsonl` use `top_k=32`; this is a fixed development configuration, not evidence that K was optimized. `benchmark_pipeline.py` provides a repeatable development-only K sweep when one is run. The ambiguity scan and its optional lattice grouping are not truncated to K, but K still controls the retained list used for ordinary candidate ranking and runner-up diagnostics.
+Pooled performance is 1,394/1,400 (99.5714%) within 0.5 px and 1,398/1,400 (99.8571%) within 1, 3, and 5 px. Median error is 0.0830 px, P95 is 0.3193 px, P99 is 0.4361 px, and maximum error is 313.800 px. Mean error is 0.5152 px because the two genuine failures are large; mean error over the 1,398 cases within 5 px is 0.1143 px. Evaluator wall time around `localize()` averages 239.405 ms with P95 359.649 ms, excluding image I/O.
+
+Both failures are FinFET cases flagged ambiguous. In `high_noise/000081_finfet`, weak site-specific residual evidence leaves 4,606 periodic alternatives and center-nearest selection is 247.665 px from an off-center ground truth. In `scan_distortion/000185_finfet`, weak residual evidence, 4,428 alternatives, only 50.9% reliable-basis coverage, and strong row shift produce a 313.800 px error. The estimated scale and rotation remain close in both cases; the identifiable limitation is absolute-site disambiguation when FinFET evidence is nearly one-dimensional. No tuning followed inspection of the reporting split.
+
+The machine-readable aggregate, seven schema-v2 reports, exact manifests, ledger, development studies, representative cases, and failure montages are in `results/frozen/`; see `results/frozen/ARTIFACTS.md`. The aggregate file SHA-256 is `a169bffa170707da166206640150702c87202670a1a22745ff6128ad46ff5b69`. An independent audit recomputed all 1,400 records, 2,800 image bindings, ground-truth errors, group metrics, and aggregate values.
+
+The shared-pipeline and generator-component artifacts under `results/frozen/development/` remain development-only. On the fixed 100-pair IID development manifest, the K sweep at 8, 16, 32, 64, and 128 produced identical coordinate metrics; mean runtimes ranged from 207.1 to 226.3 ms. K=32 is retained as a stable middle setting, not as a held-out optimization claim. The ambiguity scan and its optional lattice diagnostics are not truncated to K, but K still controls the retained list used for ordinary ranking and runner-up diagnostics.
+
+The final presentation is available as `DriftSense_LatticeLock_Frozen.pptx` and `DriftSense_LatticeLock_Frozen.pdf`. `PRESENTATION.md` records the evidence mapping behind every slide.
 
 ## Fresh-machine reproduction
 
-The commands below are the complete POSIX setup and smoke path for the default method. Selecting a final configuration still requires the held-out protocol described above.
+The commands below are the complete POSIX setup and smoke path for the frozen default method.
 
 ```bash
 # Run from the root of a fresh release checkout.
@@ -261,8 +277,11 @@ requirements-dev.txt      constrained local package and test install
 tests/                    unit and CLI tests
 examples/                 runnable command recipes
 results/                  machine-readable evaluation reports
+results/frozen/           sealed reports, manifests, cases, and audit index
 tools/scan_release.py     release-residue scanner
 PRESENTATION.md           evidence-linked slide outline
+DriftSense_LatticeLock_Frozen.pptx  editable final presentation
+DriftSense_LatticeLock_Frozen.pdf   rendered final presentation
 references.md             source and mechanism audit
 ```
 

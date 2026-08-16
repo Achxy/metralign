@@ -1,0 +1,78 @@
+{
+  "id": "000081_finfet",
+  "architecture": "finfet",
+  "suite": "high_noise",
+  "difficulty": "medium",
+  "seed": 1119583052,
+  "reference": "000081_finfet_reference.png",
+  "search": "000081_finfet_search.png",
+  "center_x": 261.51623550495214,
+  "center_y": 427.0759969234569,
+  "physical_center_x": -239.7994820749296,
+  "physical_center_y": -71.95154989365732,
+  "center_pre_scan_x": 261.69918327624276,
+  "center_pre_scan_y": 427.0759969234569,
+  "center_scan_shift_x": -0.18294777129061712,
+  "nominal_scale": 0.1,
+  "image_size": 1000,
+  "actual_scale": 0.09927965836414122,
+  "rotation_deg": 0.07782905011242508,
+  "template_rotation_deg": -0.07782905011242508,
+  "reference_geometry": {
+    "width": 1000,
+    "height": 1000,
+    "world_center_x": -239.7994820749296,
+    "world_center_y": -71.95154989365732,
+    "pixel_size": 0.09989516247499614,
+    "rotation_deg": -0.12643844907716115,
+    "anisotropy": 0.0005719195770349878,
+    "drift_linear": -0.28405047878044026,
+    "drift_quadratic": -0.06363596056419961
+  },
+  "search_geometry": {
+    "width": 1000,
+    "height": 1000,
+    "world_center_x": 0.0,
+    "world_center_y": 0.0,
+    "pixel_size": 1.006199700129883,
+    "rotation_deg": -0.20426749918958623,
+    "anisotropy": 0.0009194148778304054,
+    "drift_linear": 0.29372145589754567,
+    "drift_quadratic": 0.16514674563861273
+  },
+  "noise_parameters": {
+    "reference": {
+      "edge_strength": 0.13185549291520457,
+      "psf_sigma": 0.5626953683637205,
+      "poisson_peak": 155.9474479101902,
+      "gaussian_sigma": 0.028403401908729257,
+      "gain": 0.8891294515248934,
+      "offset": 0.008302968719838459,
+      "slow_intensity_drift": -0.045490331339383336,
+      "scan_jitter_sigma": 0.2845178171309282,
+      "scan_jitter_correlation": 4.881298929336148
+    },
+    "search": {
+      "edge_strength": 0.2570913078843562,
+      "psf_sigma": 0.8912573086975621,
+      "poisson_peak": 64.76221623801811,
+      "gaussian_sigma": 0.03191394399184253,
+      "gain": 1.0546318519102245,
+      "offset": -0.013198785157135727,
+      "slow_intensity_drift": 0.020666566536550534,
+      "scan_jitter_sigma": 0.28544560057071505,
+      "scan_jitter_correlation": 5.031760041477597
+    }
+  },
+  "distortion_parameters": {
+    "geometry_variant": "default",
+    "reference_row_shift_rms": 0.13653261959552765,
+    "search_row_shift_rms": 0.09876301884651184,
+    "reference_resampler": "area",
+    "search_resampler": "lanczos",
+    "reference_renderer": "primary_area",
+    "search_renderer": "primary_lanczos",
+    "supersample": 2,
+    "disabled_augmentations": []
+  }
+}
