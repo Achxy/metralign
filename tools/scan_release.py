@@ -29,6 +29,11 @@ TERMS = (
     "password",
 )
 
+# Exact, non-secret strings required by checked-in infrastructure.
+SAFE_LINES = {
+    "id-token: write",
+}
+
 SKIP_DIRECTORIES = {
     ".git",
     ".mypy_cache",
@@ -54,6 +59,8 @@ def scan_bytes(label: str, content: bytes) -> list[str]:
     findings = []
     for line_number, line in enumerate(text.splitlines(), 1):
         lowered = line.casefold()
+        if lowered.strip() in SAFE_LINES:
+            continue
         matched = sorted({term for term in TERMS if term in lowered})
         if matched:
             findings.append(f"{label}:{line_number}: {', '.join(matched)}")

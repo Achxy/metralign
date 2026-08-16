@@ -1,0 +1,212 @@
+:root {
+  color-scheme: dark;
+  --void: #000000;
+  --ink: oklch(93.5% 0.012 88);
+  --ink-soft: oklch(72% 0.01 88);
+  --line: oklch(25% 0.006 88);
+  --signal: oklch(64% 0.15 33);
+  --font-display: "Newsreader", Georgia, serif;
+  --font-body: "Instrument Sans", "Avenir Next", sans-serif;
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--void);
+}
+
+body {
+  min-height: 100svh;
+  margin: 0;
+  padding: max(1.5rem, env(safe-area-inset-top)) max(1.25rem, env(safe-area-inset-right))
+    max(1.25rem, env(safe-area-inset-bottom)) max(1.25rem, env(safe-area-inset-left));
+  display: grid;
+  grid-template-rows: 1fr auto;
+  color: var(--ink);
+  background: var(--void);
+  font-family: var(--font-body);
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  width: min(100%, 76rem);
+  margin: auto;
+  padding-block: clamp(2rem, 9vh, 7.5rem) clamp(3rem, 9vh, 7rem);
+}
+
+.intro {
+  margin-bottom: clamp(1.75rem, 4vw, 3rem);
+  animation: reveal 700ms var(--ease-out-quint) both;
+}
+
+h1 {
+  max-width: 12ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 9vw, 7.2rem);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.88;
+}
+
+.subtitle {
+  max-width: 38rem;
+  margin: clamp(1rem, 2.5vw, 1.75rem) 0 0;
+  color: var(--ink-soft);
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  font-stretch: 88%;
+  line-height: 1.5;
+}
+
+.video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--void);
+  animation: reveal 800ms 100ms var(--ease-out-quint) both;
+}
+
+.video-frame::before {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--line);
+  content: "";
+  pointer-events: none;
+  z-index: 1;
+}
+
+iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+iframe:focus-visible {
+  outline: 0.25rem solid var(--signal);
+  outline-offset: 0.25rem;
+}
+
+.video-link {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  background: var(--void);
+}
+
+.video-link img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.play-mark {
+  position: relative;
+  width: clamp(3.5rem, 8vw, 5.25rem);
+  color: var(--signal);
+  filter: drop-shadow(0 0.25rem 1rem rgb(0 0 0 / 55%));
+  transition: transform 180ms var(--ease-out-quint);
+}
+
+.play-mark svg {
+  display: block;
+  width: 100%;
+  fill: currentColor;
+}
+
+.play-mark__triangle {
+  fill: var(--ink);
+}
+
+.video-link:focus-visible {
+  outline: 0.25rem solid var(--signal);
+  outline-offset: 0.25rem;
+}
+
+@media (hover: hover) {
+  .video-link:hover .play-mark {
+    transform: scale(1.06);
+  }
+}
+
+footer {
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  animation: fade-in 500ms 300ms var(--ease-out-quint) both;
+}
+
+footer p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+  letter-spacing: 0.035em;
+  line-height: 1.5;
+}
+
+footer span {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 48rem) {
+  body {
+    padding-inline: max(3rem, env(safe-area-inset-left));
+  }
+
+  .intro {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(17rem, 0.34fr);
+    column-gap: clamp(2rem, 6vw, 7rem);
+    align-items: end;
+  }
+
+  .subtitle {
+    margin: 0 0 0.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
