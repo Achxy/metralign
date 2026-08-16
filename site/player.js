@@ -6,7 +6,7 @@ if (frame && canEmbed) {
   const videoId = frame.dataset.videoId;
 
   player.src = `https://www.youtube-nocookie.com/embed/${videoId}?rel=0`;
-  player.title = "Drift-Sense project explanation";
+  player.title = "Metralign project explanation";
   player.allow =
     "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
   player.referrerPolicy = "strict-origin-when-cross-origin";
