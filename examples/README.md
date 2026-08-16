@@ -16,7 +16,7 @@ python infer.py \
   --search data/generated/example/000000_finfet_search.png
 ```
 
-Inference stdout contains only the predicted `x y` center in search-image pixels. Add `--diagnostics` to receive method, scores, the phase-drift transform estimate, ambiguity state, confidence, residual-channel evidence, lattice-group coverage, and internal runtime as JSON on stderr. When a reliable real-space basis exists, threshold-qualified peaks are grouped by integer-lattice offset only if grouped representatives cover at least 65% of the raw tied peaks. Center-nearest selection additionally requires support from local peak perturbation, transform instability, or low residual evidence. The default rotation bound is 3.0°.
+Inference stdout contains only the predicted `x y` center in search-image pixels. Add `--diagnostics` to receive method, scores, the phase-drift transform estimate, ambiguity state, confidence, residual-channel evidence, lattice-group coverage, and internal runtime as JSON on stderr. Raw tied maxima always drive center-nearest selection. When a reliable real-space basis exists, integer-lattice grouping supplies family evidence and offset diagnostics only if grouped representatives cover at least 65% of those raw peaks. Center-nearest selection additionally requires support from local peak perturbation, transform instability, or low residual evidence. The default rotation bound is 3.0°.
 
 ## Evaluate the generated pair
 

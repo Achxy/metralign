@@ -12,7 +12,12 @@ from scipy import ndimage
 from .ambiguity import choose_candidate
 from .candidates import top_k_candidates
 from .confidence import confidence_from_evidence
-from .correlation import weighted_score_map, zncc_map
+from .correlation import (
+    balanced_residual_score_map,
+    candidate_supported_peak,
+    weighted_score_map,
+    zncc_map,
+)
 from .lattice import estimate_lattice, estimate_relative_transform, reciprocal_to_real_basis
 from .refine import dft_peak, dft_peak_1d, parabolic_peak
 from .representations import (
@@ -42,10 +47,10 @@ class LocalizationConfig:
     gradient_weight: float = 0.18
     residual_weight: float = 0.32
     ambiguity_margin: float = 0.004
-    # Calibrated above the ~0.063 capture-instability spread measured across
-    # ideal periodic lattice families, while normal residual evidence uses the
-    # much tighter ``ambiguity_margin`` below.
-    periodic_stability_margin: float = 0.07
+    # Calibrated above the 0.07129 worst observed top-to-center valid-peak gap
+    # across the 100-pair development periodic family, while normal residual
+    # evidence uses the much tighter ``ambiguity_margin`` below.
+    periodic_stability_margin: float = 0.075
     residual_evidence_floor: float = 0.25
     transform_fallback_confidence: float = 0.35
     # Cumulative ablation controls for the shared ``full`` pipeline.  Defaults
@@ -329,7 +334,13 @@ def _periodic_backbone_tie_prediction(
         spectral_scale=float(estimate.scale),
         spectral_rotation_deg=float(estimate.rotation_deg),
         spectral_confidence=float(estimate.confidence),
-        lattice_offset=_lattice_offset_for_choice(search, candidates[0], chosen, real_basis),
+        lattice_offset=_lattice_offset_for_choice(
+            search,
+            candidates[0],
+            chosen,
+            real_basis,
+            allow_estimate=cfg.enable_lattice_grouping,
+        ),
         ambiguity_evidence=_ambiguity_evidence(
             decision, residual_evidence, float(estimate.confidence)
         ),
@@ -424,11 +435,12 @@ def _lattice_offset_for_choice(
     best: object,
     selected: object,
     real_basis: np.ndarray | None = None,
+    allow_estimate: bool = True,
 ) -> list[float] | None:
     """Express an ambiguity tie-break displacement in real-lattice units."""
     if best.x == selected.x and best.y == selected.y:
         return None
-    if real_basis is None:
+    if real_basis is None and allow_estimate:
         real_basis = _reliable_real_basis(search)
     if real_basis is None:
         return None
@@ -692,19 +704,16 @@ def _periodic_localize(
     else:
         x_map = zncc_map(search_channels["period_x"], template_channels["period_x"])
         y_map = zncc_map(search_channels["period_y"], template_channels["period_y"])
-        score_map = np.minimum(x_map, y_map).astype(np.float32)
-        peak_y, peak_x = np.unravel_index(int(np.argmax(score_map)), score_map.shape)
-        refined_x, refined_y, curvature = _refine_2d(
-            score_map, int(peak_x), int(peak_y), cfg.subpixel_refinement
+        # Both residual directions carry evidence. A hard minimum lets one
+        # scan-distorted direction veto a strong correct match; equal-weight
+        # fusion retains corroboration while the conservative minimum below is
+        # still used to decide whether residual SNR is sufficient at all.
+        score_map, conservative_map = balanced_residual_score_map(x_map, y_map)
+        supported_peak = candidate_supported_peak(
+            score_map, conservative_map, cfg.residual_evidence_floor
         )
-        center_x = refined_x + (template.shape[1] - 1.0) / 2.0
-        center_y = refined_y + (template.shape[0] - 1.0) / 2.0
-        channel_scores = {
-            "period_x": float(x_map[peak_y, peak_x]),
-            "period_y": float(y_map[peak_y, peak_x]),
-        }
-        if float(np.max(score_map)) < cfg.residual_evidence_floor:
-            residual_evidence = float(np.max(score_map))
+        if supported_peak is None:
+            raw_y, raw_x = np.unravel_index(int(np.argmax(score_map)), score_map.shape)
             return _periodic_backbone_tie_prediction(
                 reference,
                 search,
@@ -714,10 +723,23 @@ def _periodic_localize(
                 rotation,
                 template,
                 start,
-                residual_evidence,
+                float(conservative_map[raw_y, raw_x]),
             )
+        peak_y, peak_x = supported_peak
+        refined_x, refined_y, curvature = _refine_2d(
+            score_map, int(peak_x), int(peak_y), cfg.subpixel_refinement
+        )
+        center_x = refined_x + (template.shape[1] - 1.0) / 2.0
+        center_y = refined_y + (template.shape[0] - 1.0) / 2.0
+        channel_scores = {
+            "period_x": float(x_map[peak_y, peak_x]),
+            "period_y": float(y_map[peak_y, peak_x]),
+        }
+        residual_evidence = float(conservative_map[peak_y, peak_x])
 
-    residual_evidence = float(axis_evidence if use_axis_projection else np.max(score_map))
+    residual_evidence = float(
+        axis_evidence if use_axis_projection else conservative_map[peak_y, peak_x]
+    )
     candidates = top_k_candidates(score_map, cfg.top_k, cfg.nms_radius)
     decision, real_basis = _choose_candidate_with_evidence(
         candidates,
@@ -790,7 +812,13 @@ def _periodic_localize(
         spectral_scale=float(estimate.scale),
         spectral_rotation_deg=float(estimate.rotation_deg),
         spectral_confidence=float(estimate.confidence),
-        lattice_offset=_lattice_offset_for_choice(search, candidates[0], chosen, real_basis),
+        lattice_offset=_lattice_offset_for_choice(
+            search,
+            candidates[0],
+            chosen,
+            real_basis,
+            allow_estimate=cfg.enable_lattice_grouping,
+        ),
         ambiguity_evidence=_ambiguity_evidence(
             decision, residual_evidence, float(estimate.confidence)
         ),

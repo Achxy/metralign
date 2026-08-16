@@ -49,3 +49,39 @@ def weighted_score_map(
     total_weight = sum(weights[name] for name in maps)
     combined = sum(weights[name] * value for name, value in maps.items()) / total_weight
     return np.asarray(combined, dtype=np.float32), maps
+
+
+def balanced_residual_score_map(
+    first: np.ndarray,
+    second: np.ndarray,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Fuse orthogonal residual evidence and retain weakest-channel support.
+
+    The arithmetic mean ranks candidates without allowing one scan-corrupted
+    direction to veto a strong match. The elementwise minimum is returned as a
+    separate, candidate-local support gate so a single-channel spike cannot be
+    accepted as a two-direction residual match.
+    """
+    first = np.asarray(first, dtype=np.float32)
+    second = np.asarray(second, dtype=np.float32)
+    if first.shape != second.shape:
+        raise ValueError("residual score maps must have equal shapes")
+    fused = 0.5 * (first + second)
+    support = np.minimum(first, second)
+    return np.asarray(fused, dtype=np.float32), np.asarray(support, dtype=np.float32)
+
+
+def candidate_supported_peak(
+    fused: np.ndarray,
+    support: np.ndarray,
+    minimum_support: float,
+) -> tuple[int, int] | None:
+    """Return the fused-map maximum only when that same site has support."""
+    fused = np.asarray(fused)
+    support = np.asarray(support)
+    if fused.shape != support.shape:
+        raise ValueError("fused and support maps must have equal shapes")
+    y, x = np.unravel_index(int(np.argmax(fused)), fused.shape)
+    if float(support[y, x]) < minimum_support:
+        return None
+    return int(y), int(x)

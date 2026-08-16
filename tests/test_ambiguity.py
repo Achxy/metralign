@@ -77,3 +77,43 @@ def test_score_tie_requires_secondary_ambiguity_evidence():
     assert insufficient_residual.score_tied and insufficient_residual.secondary_evidence
     assert insufficient_residual.ambiguous
     assert insufficient_residual.candidate.x == 15
+
+
+def test_symmetric_center_boundary_returns_an_actual_tied_maximum():
+    score_map = np.full((22, 22), -1.0, dtype=np.float32)
+    score_map[10, 6] = 1.0
+    score_map[11, 15] = 0.999
+    candidates = top_k_candidates(score_map, k=2, nms_radius=2)
+
+    decision = choose_candidate(
+        candidates,
+        score_map,
+        search_shape=(30, 30),
+        template_shape=(9, 9),
+        nms_radius=2,
+        residual_evidence=0.01,
+    )
+
+    assert decision.ambiguous
+    assert (decision.candidate.x, decision.candidate.y) in {(6, 10), (15, 11)}
+    assert score_map[decision.candidate.y, decision.candidate.x] >= 0.999
+
+
+def test_periodic_development_band_includes_closest_valid_peak():
+    score_map = np.full((31, 31), -1.0, dtype=np.float32)
+    score_map[4, 4] = 1.0
+    score_map[15, 15] = 1.0 - 0.07129
+    candidates = top_k_candidates(score_map, k=2, nms_radius=2)
+
+    decision = choose_candidate(
+        candidates,
+        score_map,
+        search_shape=(41, 41),
+        template_shape=(11, 11),
+        absolute_margin=0.075,
+        nms_radius=2,
+        residual_evidence=0.01,
+    )
+
+    assert decision.ambiguous
+    assert (decision.candidate.x, decision.candidate.y) == (15, 15)

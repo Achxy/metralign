@@ -93,9 +93,12 @@ def choose_candidate(
     lattice_grouped = False
     lattice_group_coverage = 0.0
     lattice_group_count = raw_tied_count
-    tied: list[Candidate]
+    raw_tied = [
+        Candidate(int(x), int(y), float(score_map[int(y), int(x)]))
+        for x, y in zip(tied_x, tied_y, strict=True)
+    ]
     if real_basis is not None and tied_y.size > 1:
-        tied = _group_by_lattice_offset(
+        grouped = _group_by_lattice_offset(
             tied_x,
             tied_y,
             score_map,
@@ -103,24 +106,15 @@ def choose_candidate(
             real_basis,
             lattice_tolerance,
         )
-        lattice_group_count = len(tied)
-        lattice_group_coverage = len(tied) / max(raw_tied_count, 1)
+        lattice_group_count = len(grouped)
+        lattice_group_coverage = len(grouped) / max(raw_tied_count, 1)
         # A reciprocal basis is considered reliable for ambiguity grouping only
-        # when it explains most tied maxima.  Lower coverage indicates a bright
-        # harmonic or incomplete basis and must not override center-nearest.
-        if tied and lattice_group_coverage >= 0.65:
+        # when it explains most tied maxima. Grouping is diagnostic: the
+        # contractual center-nearest rule always considers every raw tied peak,
+        # including the small fraction not explained by a noisy basis estimate.
+        if grouped and lattice_group_coverage >= 0.65:
             lattice_grouped = True
-        else:
-            tied = [
-                Candidate(int(x), int(y), float(score_map[int(y), int(x)]))
-                for x, y in zip(tied_x, tied_y, strict=True)
-            ]
-    else:
-        tied = [
-            Candidate(int(x), int(y), float(score_map[int(y), int(x)]))
-            for x, y in zip(tied_x, tied_y, strict=True)
-        ]
-    tied_count = len(tied)
+    tied_count = len(raw_tied)
     score_tied = tied_count > 1 and margin <= threshold
     perturbation_support = margin <= perturbation_threshold + 1e-12
     transform_support = transform_stability is not None and transform_stability < 0.35
@@ -145,7 +139,15 @@ def choose_candidate(
         )
     center_x = (search_shape[1] - template_shape[1]) / 2.0
     center_y = (search_shape[0] - template_shape[0]) / 2.0
-    chosen = min(tied, key=lambda item: (item.x - center_x) ** 2 + (item.y - center_y) ** 2)
+    chosen = min(
+        raw_tied,
+        key=lambda item: (
+            (item.x - center_x) ** 2 + (item.y - center_y) ** 2,
+            -item.score,
+            item.y,
+            item.x,
+        ),
+    )
     return AmbiguityDecision(
         chosen,
         True,

@@ -22,8 +22,8 @@ Evidence status: representative frozen sample not yet selected.
 - Periodicity suppression for disambiguation: apply the same one-real-lattice-period spatial-difference transfer function to both captures.
 - Match separable line-constant sequences only when their measured energy supports that model; otherwise preserve joint two-dimensional residual evidence.
 - When site-specific information is insufficient, score the structural map and apply the required center-nearest rule over every threshold-qualified non-maximum-suppressed peak, including peaks beyond top-K.
-- When a reliable real-space basis is available, group those peaks by nearest integer-lattice offset from the best peak. Accept grouping only when its representatives cover at least 65% of the raw tied peaks; otherwise retain the raw peaks.
-- Invoke center-nearest selection only when a score tie is corroborated by local peak perturbation, transform-estimate instability, or low residual evidence. Record the raw/grouped counts, coverage, and supporting evidence in diagnostics.
+- Raw tied maxima always drive the required center-nearest selection. When a reliable real-space basis is available, group the same peaks by nearest integer-lattice offset for family validation and offset diagnostics; trust that evidence only when its representatives cover at least 65% of the raw tied peaks.
+- Invoke center-nearest selection only when a score tie is corroborated by local peak perturbation, transform-estimate instability, or low residual evidence. Record the raw/grouped counts, coverage, and supporting evidence in diagnostics. In the joint residual path, rank by the two-channel mean but require candidate-local support from both channels.
 
 Evidence status: component ablation not yet measured on frozen suites.
 
@@ -42,7 +42,7 @@ matched one-lattice-period spatial differences
 line-constant energy test
    ↙ separable 1-D sequences   ↘ joint 2-D residual correlation
         ↓
-all-peak threshold scan → reliable-basis integer-lattice grouping when coverage passes
+raw all-peak threshold scan → optional reliable-basis lattice-family diagnostics
         ↓
 score tie + independent ambiguity evidence → center-nearest selection
         ↓
