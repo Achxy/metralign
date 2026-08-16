@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "protocol_status": "locked_before_outcome_inspection",
+  "locked_at": "2026-08-17T04:45:31+05:30",
+  "study": "xfeat-official-fixed-external-development-benchmark",
+  "claim_boundary": "This is a retrospective, post-freeze external benchmark on frozen image bytes. It is development evidence and is not added to the original frozen claim or presented as a state-of-the-art comparison.",
+  "task": {
+    "input": "one 1000x1000 finer-sampling reference and one 1000x1000 wider-field search image",
+    "output": "reference field-of-view center (x, y) in search-image pixels",
+    "known_prior": "nominal reference/search sampling ratio 0.1",
+    "error": "Euclidean center error in search-image pixels",
+    "success_denominator": "all selected records; unresolved estimates count as failures"
+  },
+  "upstream": {
+    "project": "XFeat: Accelerated Features for Lightweight Image Matching",
+    "official_repository": "https://github.com/verlab/accelerated_features",
+    "official_commit": "e92685f57f8318b18725c5c8c0bd28c7fe188d9a",
+    "source_archive_sha256": "2a567feda3bf4ed2a919f96a8bb07013b778bad207bb2693d0a65b121b074a36",
+    "inference_code_bundle_sha256": "3ea50cd28a4f753efe7d296fabbdf067bf060c1bd79d7f2fb38a545abd4596ca",
+    "inference_code_bundle_files": [
+      "modules/xfeat.py",
+      "modules/model.py",
+      "modules/interpolator.py"
+    ],
+    "weights_file": "weights/xfeat.pt",
+    "weights_sha256": "0f5187fd7bedd26c7fe6acc9685444493a165a35ecc087b33c2db3627f3ea10b",
+    "paper_doi": "10.1109/CVPR52733.2024.00259",
+    "repository_license": "Apache-2.0",
+    "repository_license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "license_note": "The checkpoint is distributed inside the Apache-2.0 repository; no separate checkpoint license was found in the pinned tree."
+  },
+  "fixed_adapter": {
+    "method_id": "xfeat_official_star_homography",
+    "reference_resampling": "resize to round(native_dimension * 0.1) with cv2.INTER_AREA, then repeat grayscale into three identical uint8 channels",
+    "search_preprocessing": "repeat grayscale into three identical uint8 channels; no intensity normalization beyond the official implementation's division by 255",
+    "matcher": "official XFeat.match_xfeat_star",
+    "matcher_top_k": 8000,
+    "matcher_defaults": {
+      "dual_scale_factors": [0.6, 1.3],
+      "fine_confidence": 0.25
+    },
+    "geometric_estimator": "cv2.findHomography with cv2.USAC_MAGSAC",
+    "geometric_settings": {
+      "reprojection_threshold_px": 3.5,
+      "max_iterations": 1000,
+      "confidence": 0.999,
+      "minimum_matches": 4,
+      "minimum_inliers": 4
+    },
+    "coordinate": "project the pixel-center coordinate ((w-1)/2, (h-1)/2) of the nominally downsampled reference through the estimated homography",
+    "unresolved_conditions": [
+      "fewer than four official XFeat* matches",
+      "homography estimation failure",
+      "fewer than four MAGSAC inliers",
+      "non-finite projected center"
+    ],
+    "out_of_bounds_policy": "finite projections are retained and scored even when outside the search frame",
+    "origin_of_settings": "XFeat* top_k=8000 and USAC_MAGSAC(3.5 px, 1000 iterations, 0.999 confidence) are copied from the pinned official matching-and-registration notebook; only the known 0.1 sampling-ratio adaptation is task-specific"
+  },
+  "determinism": {
+    "device": "cpu",
+    "torch_manual_seed": 0,
+    "opencv_rng_seed": 0,
+    "opencv_threads": 1,
+    "torch_threads": 4,
+    "method_order": ["xfeat_official_star_homography"],
+    "sample_order": "manifest order",
+    "warmup": "none; the first selected record is included in runtime summaries",
+    "runtime_scope": "reference resampling, official matching, MAGSAC, and center projection; excludes image decoding, manifest hashing, and one-time model loading"
+  },
+  "software_lock": {
+    "python": "3.12",
+    "torch": "2.8.0",
+    "opencv_contrib_python_headless": "4.10.0.84",
+    "numpy": "2.2.6",
+    "pillow": "11.3.0",
+    "tqdm": "4.67.1"
+  },
+  "primary_population": {
+    "label": "retrospective-frozen-report-all1400",
+    "selection": "all records in all seven frozen reporting manifests",
+    "record_count": 1400,
+    "manifest_sha256": {
+      "cross_generator": "5d63b4c002fe4557b6058a0a0ac71dadb7c79d6c4bfdfc28809081bb1e2641e3",
+      "geometry_ood": "18e582fe6019448dc240242779877346d7a6ff40d47fca1706cbe78c09f38421",
+      "high_noise": "94731fe604ba2975ddb5f04b46a2611ff5f6d21552ef8720dbc36b09a19289e2",
+      "iid": "2838cbca5cdf69ce32aa2706bc10a76bb49d0668c87bc7b62de9ee47c9f67310",
+      "periodic_ambiguity": "fac14a21bb427b4e6b9bba18254f9a78984ff2d3ec8ed6a553fd568ab5568ccd",
+      "scan_distortion": "11b36f416f063fc156907c9c38a1752269e234c732c54d0e1b8015e2b1de1067",
+      "transform_ood": "4c778a682fd76bdf5e0ca766d1729a76c8a9da2e8fa6b8570fde66bfa204153f"
+    }
+  },
+  "runtime_gate": {
+    "purpose": "choose full-population versus predeclared subset using runtime only, never accuracy, coverage, matches, or errors",
+    "timing_probe": "within each (suite, architecture), the record with the smallest SHA-256 of manifest_sha256 + NUL + record_id; 14 records total",
+    "full_population_condition": "projected adapter runtime for 1400 records is at most 4500 seconds",
+    "projection": "median timing-probe runtime multiplied by 1400",
+    "inspection_rule": "do not print or inspect prediction, status, match, inlier, or error fields until the population decision is recorded"
+  },
+  "predeclared_runtime_fallback": {
+    "label": "retrospective-frozen-report-hash-stratified-280",
+    "selection": "within each (suite, architecture), take the 20 records with the smallest SHA-256 of manifest_sha256 + NUL + record_id",
+    "record_count": 280,
+    "rationale": "equal 20-record cells preserve suite and architecture coverage without outcome-dependent selection"
+  },
+  "independent_renderer_population": {
+    "label": "independent-renderer-final100-development",
+    "selection": "all records in the bound final-100 manifest, evaluated only after the frozen-population decision",
+    "record_count": 100,
+    "manifest_sha256": "4a0bacc04be5c22e5dae4e89d84357e05954b9befd655ef3d6a10d1ced6e0d34",
+    "claim_boundary": "development transfer check; renderer source overlaps repository development and is not a held-out claim"
+  },
+  "forbidden_after_lock": [
+    "change XFeat mode or top_k after inspecting outcomes",
+    "change homography thresholds after inspecting outcomes",
+    "select or omit records based on predictions or errors",
+    "initialize from Metralign coordinates",
+    "describe the result as a state-of-the-art benchmark"
+  ]
+}

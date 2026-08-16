@@ -15,6 +15,7 @@ def test_center_tie_break_scans_beyond_truncated_top_k():
         template_shape=(20, 20),
         absolute_margin=1e-6,
         nms_radius=3,
+        residual_evidence=0.0,
     )
 
     assert decision.ambiguous
@@ -117,3 +118,60 @@ def test_periodic_development_band_includes_closest_valid_peak():
 
     assert decision.ambiguous
     assert (decision.candidate.x, decision.candidate.y) == (15, 15)
+
+
+def test_user_prior_replaces_image_center_only_for_ambiguous_selection():
+    score_map = np.full((31, 31), -1.0, dtype=np.float32)
+    score_map[5, 5] = 1.0
+    score_map[15, 15] = 1.0
+    candidates = top_k_candidates(score_map, k=2, nms_radius=2)
+
+    default = choose_candidate(
+        candidates,
+        score_map,
+        search_shape=(41, 41),
+        template_shape=(11, 11),
+        residual_evidence=0.01,
+        nms_radius=2,
+    )
+    with_prior = choose_candidate(
+        candidates,
+        score_map,
+        search_shape=(41, 41),
+        template_shape=(11, 11),
+        residual_evidence=0.01,
+        nms_radius=2,
+        prior_center=(10.0, 10.0),
+    )
+
+    assert (default.candidate.x, default.candidate.y) == (15, 15)
+    assert default.selection_prior_source == "image_center_default"
+    assert (with_prior.candidate.x, with_prior.candidate.y) == (5, 5)
+    assert with_prior.selection_prior_center == (10.0, 10.0)
+    assert with_prior.selection_prior_source == "user_supplied"
+    assert len(with_prior.hypotheses) == 2
+
+
+def test_local_peak_perturbation_alone_does_not_authorize_center_fallback():
+    score_map = np.full((31, 31), -1.0, dtype=np.float32)
+    score_map[4:7, 4:7] = 0.98
+    score_map[5, 5] = 1.0
+    score_map[14:17, 14:17] = 0.979
+    score_map[15, 15] = 0.999
+    candidates = top_k_candidates(score_map, k=2, nms_radius=2)
+
+    decision = choose_candidate(
+        candidates,
+        score_map,
+        search_shape=(41, 41),
+        template_shape=(11, 11),
+        nms_radius=2,
+    )
+
+    assert decision.score_tied
+    assert decision.local_perturbation_support
+    assert not decision.transform_instability_support
+    assert not decision.low_residual_support
+    assert not decision.secondary_evidence
+    assert not decision.ambiguous
+    assert (decision.candidate.x, decision.candidate.y) == (5, 5)

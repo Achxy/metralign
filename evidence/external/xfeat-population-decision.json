@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "study": "xfeat-official-fixed-external-development-benchmark",
+  "decision_recorded_at": "2026-08-17T05:20:11+05:30",
+  "decision_basis": "runtime_only",
+  "protocol_sha256": "002bd25e5788b30c6f67ac0c3e2b06fe0d9e09ba3bfc6dfac4979816c6cde8ef",
+  "timing_probe_report_sha256": "513b0bc2c582ce2e62a23c94c56cf81e1425296b9b9ebb71678bd4647a67df98",
+  "timing_probe": {
+    "record_count": 14,
+    "cell_rule": "one lowest-SHA-256 record per frozen suite and architecture",
+    "median_runtime_ms": 171.0241665,
+    "projected_all1400_runtime_seconds": 239.4338331,
+    "full_population_runtime_limit_seconds": 4500.0,
+    "model_load_ms_excluded": 26.290208,
+    "runtime_ms_by_suite": {
+      "cross_generator": [264.65475, 146.9755],
+      "geometry_ood": [181.335208, 141.693208],
+      "high_noise": [183.751083, 143.401667],
+      "iid": [180.403, 161.745125],
+      "periodic_ambiguity": [180.303208, 144.483959],
+      "scan_distortion": [180.697334, 143.466125],
+      "transform_ood": [182.812041, 143.2345]
+    }
+  },
+  "environment": {
+    "hardware": "Apple M3 CPU (arm64)",
+    "device": "cpu",
+    "python": "3.12.13",
+    "torch": "2.8.0",
+    "torch_threads": 4,
+    "opencv": "4.10.0",
+    "numpy": "2.2.6"
+  },
+  "outcome_blinding": "Every dataset result block in the timing probe contains only runtime_only=true and runtime_ms. Predictions, status, match counts, inlier counts, and coordinate errors were neither emitted nor inspected before this decision.",
+  "decision": {
+    "population": "retrospective-frozen-report-all1400",
+    "selection_argument": "all1400",
+    "record_count": 1400,
+    "reason": "The locked median-runtime projection is below the predeclared 4500-second limit.",
+    "fallback_used": false
+  },
+  "measurement_hold": "The selected-population and independent-final100 measurements must not start until the repository has a clean code/protocol freeze commit."
+}

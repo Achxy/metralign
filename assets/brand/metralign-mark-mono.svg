@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Metralign monochrome mark</title>
+  <desc id="desc">Two interlocking coordinate frames around one measured site.</desc>
+  <rect width="64" height="64" rx="14" fill="#070a0e"/>
+  <path d="M15 15h18v6H21v12h-6zM49 49H31v-6h12V31h6zM49 15v18h-6V21H31v-6zM15 49V31h6v12h12v6z" fill="#f2eee4"/>
+  <rect x="27" y="27" width="10" height="10" rx="2" fill="#070a0e" stroke="#f2eee4" stroke-width="2"/>
+</svg>

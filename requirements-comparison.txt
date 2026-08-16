@@ -1,0 +1,14 @@
+# Optional dependencies for compare_external_baselines.py. Core inference does
+# not import these packages. Core numerical packages remain pinned by
+# constraints.txt.
+-c constraints.txt
+
+scikit-image==0.25.2 ; python_full_version < "3.11"
+scikit-image==0.26.0 ; python_full_version >= "3.11"
+imageio==2.37.4
+lazy-loader==0.5
+networkx==3.4.2 ; python_full_version < "3.11"
+networkx==3.6.1 ; python_full_version >= "3.11"
+tifffile==2025.5.10 ; python_full_version < "3.11"
+tifffile==2026.3.3 ; python_full_version >= "3.11" and python_full_version < "3.12"
+tifffile==2026.8.16 ; python_full_version >= "3.12"

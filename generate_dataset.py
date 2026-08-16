@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate deterministic Drift-Sense image pairs."""
+"""Generate deterministic Metralign image pairs."""
 
 from __future__ import annotations
 

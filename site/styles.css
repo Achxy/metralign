@@ -46,6 +46,18 @@ main {
   animation: reveal 700ms var(--ease-out-quint) both;
 }
 
+.identity {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(0.9rem, 2vw, 1.5rem);
+}
+
+.brand-mark {
+  width: clamp(2.75rem, 5vw, 4.5rem);
+  height: auto;
+  flex: none;
+}
+
 h1 {
   max-width: 12ch;
   margin: 0;

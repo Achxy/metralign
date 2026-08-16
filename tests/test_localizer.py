@@ -1,4 +1,6 @@
 import numpy as np
+from pathlib import Path
+import json
 from PIL import Image
 from scipy import ndimage
 
@@ -16,6 +18,62 @@ def test_baseline_recovers_nonperiodic_patch_center():
     search[40:50, 60:70] += template
     prediction = localize(reference, search, LocalizationConfig(method="baseline0"))
     assert np.hypot(prediction.x - 64.5, prediction.y - 44.5) < 0.8
+
+
+def test_full_small_nonperiodic_strip_uses_diagnostic_structural_fallback():
+    rng = np.random.default_rng(187)
+    reference = rng.normal(size=(100, 800)).astype(np.float32)
+    template = _resize(reference, 0.1)
+    search = rng.normal(0, 0.02, size=(160, 500)).astype(np.float32)
+    top, left = 63, 277
+    search[top : top + template.shape[0], left : left + template.shape[1]] += template
+
+    prediction = localize(reference, search, LocalizationConfig(method="full"))
+    baseline = localize(reference, search, LocalizationConfig(method="baseline0"))
+
+    assert prediction.method == "full"
+    assert prediction.x == baseline.x
+    assert prediction.y == baseline.y
+    assert np.hypot(prediction.x - 316.5, prediction.y - 67.5) < 0.1
+    assert prediction.pipeline_stages["fallback"] == "baseline0_small_periodic_template"
+    assert prediction.ambiguity_evidence["fallback_applied"] is True
+    assert prediction.ambiguity_evidence["fallback_unsupported_inputs"] == ["template"]
+    assert prediction.decision_support["status"] == "review"
+    assert prediction.decision_support["review_recommended"] is True
+    assert prediction.decision_support["conservative_abstention_recommended"] is True
+    assert prediction.decision_support["absolute_site_confidence"] == 0.0
+    assert prediction.decision_support["reasons"] == ["periodic_model_unsupported"]
+
+
+def test_full_periodic_strip_too_short_for_one_period_does_not_crash(monkeypatch):
+    estimate = PeriodicTransformEstimate(
+        scale=0.1,
+        rotation_deg=0.0,
+        pitch_x=10.0,
+        pitch_y=15.0,
+        x_vector=(0.1, 0.0),
+        y_vector=(0.0, 1 / 15),
+        axis_separable=True,
+        confidence=1.0,
+    )
+    monkeypatch.setattr(localizer_module, "estimate_periodic_transform", lambda *args: estimate)
+    ref_y, ref_x = np.indices((200, 800), dtype=np.float32)
+    reference = np.cos(2 * np.pi * ref_x / 100) + np.cos(2 * np.pi * ref_y / 150)
+    reference[71:88, 333:356] += 2.0
+    template = _resize(reference, 0.1)
+    search = np.random.default_rng(3).normal(0, 0.01, size=(180, 500)).astype(np.float32)
+    top, left = 91, 203
+    search[top : top + template.shape[0], left : left + template.shape[1]] += template
+
+    prediction = localize(reference, search, LocalizationConfig(method="full"))
+
+    assert prediction.method == "full"
+    assert np.hypot(prediction.x - 242.5, prediction.y - 100.5) < 0.2
+    assert prediction.ambiguity_evidence["fallback_reason"] == (
+        "periodic_difference_input_too_small"
+    )
+    assert prediction.ambiguity_evidence["fallback_template_shape"] == [20, 80]
+    assert prediction.ambiguity_evidence["estimated_pitch"] == [10.0, 15.0]
 
 
 def test_invalid_method_is_rejected():
@@ -134,3 +192,38 @@ def test_full_stage_controls_share_one_pipeline_and_are_diagnostic():
     }
     assert not prediction.ambiguity_flag
     assert "residual" in prediction.channel_scores
+
+
+def test_external_stage_prior_recovers_archived_ambiguous_cases():
+    root = Path(__file__).parents[1] / "results" / "frozen" / "cases"
+    case_names = (
+        "failure_high_noise_000081_finfet",
+        "failure_scan_distortion_000185_finfet",
+    )
+    for name in case_names:
+        case = root / name
+        metadata = json.loads(next(case.glob("*.json")).read_text(encoding="utf-8"))
+        reference = np.asarray(Image.open(next(case.glob("*_reference.png"))), dtype=np.float32)
+        search = np.asarray(Image.open(next(case.glob("*_search.png"))), dtype=np.float32)
+
+        prediction = localize(
+            reference,
+            search,
+            LocalizationConfig(
+                method="full",
+                prior_center_x=float(metadata["center_x"]) + 3.0,
+                prior_center_y=float(metadata["center_y"]) - 4.0,
+            ),
+        )
+        error = float(
+            np.hypot(
+                prediction.x - float(metadata["center_x"]),
+                prediction.y - float(metadata["center_y"]),
+            )
+        )
+
+        assert error <= 0.2
+        assert prediction.ambiguity_flag
+        assert prediction.decision_support["review_recommended"]
+        assert prediction.ambiguity_evidence["selection_prior_source"] == "user_supplied"
+        assert prediction.hypothesis_count > len(prediction.hypotheses)

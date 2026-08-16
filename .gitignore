@@ -9,12 +9,16 @@ __pycache__/
 *.egg-info/
 build/
 dist/
+tmp/
 
 # Editors and operating systems
 .DS_Store
 .idea/
 .vscode/
 *.swp
+
+# Local presentation export supplied outside the release artifact set
+/DriftSense_Metralign_Final.pdf
 
 # Local configuration and credentials
 .env

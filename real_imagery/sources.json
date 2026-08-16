@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "selection_rule": "For each dataset, sort area codes numerically, retain areas having exactly one 50k, one 100k, and one 200k TIFF, and select the first three areas.",
+  "content_crop": {
+    "expected_width_px": 1280,
+    "expected_height_px": 1024,
+    "caption_rows_removed_from_bottom": 134
+  },
+  "datasets": [
+    {
+      "id": "boiko_ordered_v1",
+      "article_id": 11783661,
+      "title": "Electron microscopy dataset for the recognition of nanoscale ordering effects and location of nanoparticles — Dataset 1 (ordered)",
+      "doi": "10.6084/m9.figshare.11783661.v1",
+      "landing_url": "https://figshare.com/articles/dataset/11783661",
+      "api_url": "https://api.figshare.com/v2/articles/11783661",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "authors": ["Daniil Boiko", "Evgeniy Pentsak", "Vera Cherepanova", "Valentine Ananikov"],
+      "category": "ordered",
+      "areas": [
+        {
+          "area": "A6",
+          "files": [
+            {"magnification_k": 50, "file_id": 21510591, "name": "501-S1-A6-50k-ordered.tif", "size": 1310842, "md5": "234270f96c9664ee1a36b6a0c5a7bb66", "url": "https://ndownloader.figshare.com/files/21510591"},
+            {"magnification_k": 100, "file_id": 21510594, "name": "502-S1-A6-100k-ordered.tif", "size": 1310842, "md5": "4274e88f9b82cbaccb3ebedddb905618", "url": "https://ndownloader.figshare.com/files/21510594"},
+            {"magnification_k": 200, "file_id": 21510597, "name": "503-S1-A6-200k-ordered.tif", "size": 1310842, "md5": "2f999cff1b78ec1052a3851cf7d231b9", "url": "https://ndownloader.figshare.com/files/21510597"}
+          ]
+        },
+        {
+          "area": "A7",
+          "files": [
+            {"magnification_k": 50, "file_id": 21510543, "name": "486-S1-A7-50k-ordered.tif", "size": 1310842, "md5": "9f172b02676bdbb5e3d4b1875d93c4d2", "url": "https://ndownloader.figshare.com/files/21510543"},
+            {"magnification_k": 100, "file_id": 21510546, "name": "487-S1-A7-100k-ordered.tif", "size": 1310842, "md5": "ed3943120d2839bf0e07d451b4ac260a", "url": "https://ndownloader.figshare.com/files/21510546"},
+            {"magnification_k": 200, "file_id": 21510549, "name": "488-S1-A7-200k-ordered.tif", "size": 1310842, "md5": "fa802b0149640b8d5c01f41efb2cf136", "url": "https://ndownloader.figshare.com/files/21510549"}
+          ]
+        },
+        {
+          "area": "A8",
+          "files": [
+            {"magnification_k": 50, "file_id": 21510903, "name": "605-S1-A8-50k-ordered.tif", "size": 1310842, "md5": "79d218b040b0a387b2633a15dc087e90", "url": "https://ndownloader.figshare.com/files/21510903"},
+            {"magnification_k": 100, "file_id": 21510906, "name": "606-S1-A8-100k-ordered.tif", "size": 1310842, "md5": "fdcdd89f0530fb667f0dd70dd77549ea", "url": "https://ndownloader.figshare.com/files/21510906"},
+            {"magnification_k": 200, "file_id": 21510909, "name": "607-S1-A8-200k-ordered.tif", "size": 1310842, "md5": "82b2cb7b811ccc3c0bb2833e088a93eb", "url": "https://ndownloader.figshare.com/files/21510909"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boiko_disordered_v1",
+      "article_id": 11783667,
+      "title": "Electron microscopy dataset for the recognition of nanoscale ordering effects and location of nanoparticles — Dataset 2 (disordered)",
+      "doi": "10.6084/m9.figshare.11783667.v1",
+      "landing_url": "https://figshare.com/articles/dataset/11783667",
+      "api_url": "https://api.figshare.com/v2/articles/11783667",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "authors": ["Daniil Boiko", "Evgeniy Pentsak", "Vera Cherepanova", "Valentine Ananikov"],
+      "category": "disordered",
+      "areas": [
+        {
+          "area": "A2",
+          "files": [
+            {"magnification_k": 50, "file_id": 21511758, "name": "126-S3-A2-50k-disordered.tif", "size": 1310842, "md5": "468ca97435511d42c2f7c2e5cebc04c7", "url": "https://ndownloader.figshare.com/files/21511758"},
+            {"magnification_k": 100, "file_id": 21511761, "name": "127-S3-A2-100k-disordered.tif", "size": 1310842, "md5": "863a916434eb215d9202f3508239e221", "url": "https://ndownloader.figshare.com/files/21511761"},
+            {"magnification_k": 200, "file_id": 21511764, "name": "128-S3-A2-200k-disordered.tif", "size": 1310842, "md5": "c6c6f01471409edd5d392e398ffba398", "url": "https://ndownloader.figshare.com/files/21511764"}
+          ]
+        },
+        {
+          "area": "A3",
+          "files": [
+            {"magnification_k": 50, "file_id": 21511626, "name": "82-S3-A3-50k-disordered.tif", "size": 1310842, "md5": "4733740687aa96257d43f984df405729", "url": "https://ndownloader.figshare.com/files/21511626"},
+            {"magnification_k": 100, "file_id": 21511623, "name": "81-S3-A3-100k-disordered.tif", "size": 1310842, "md5": "f69b134fee4eca82d84fc12e793676f5", "url": "https://ndownloader.figshare.com/files/21511623"},
+            {"magnification_k": 200, "file_id": 21511620, "name": "80-S3-A3-200k-disordered.tif", "size": 1310842, "md5": "e4a7be1c4e4ab219ce5bb2d5fe581fa1", "url": "https://ndownloader.figshare.com/files/21511620"}
+          ]
+        },
+        {
+          "area": "A4",
+          "files": [
+            {"magnification_k": 50, "file_id": 21511851, "name": "156-S3-A4-50k-disordered.tif", "size": 1310842, "md5": "f34f278b699a3ac19e7d35adf012034a", "url": "https://ndownloader.figshare.com/files/21511851"},
+            {"magnification_k": 100, "file_id": 21511854, "name": "157-S3-A4-100k-disordered.tif", "size": 1310842, "md5": "dde7115916e355358b4b9ed02851f587", "url": "https://ndownloader.figshare.com/files/21511854"},
+            {"magnification_k": 200, "file_id": 21511857, "name": "158-S3-A4-200k-disordered.tif", "size": 1310842, "md5": "2cefaef1768f757caf6763470387f808", "url": "https://ndownloader.figshare.com/files/21511857"}
+          ]
+        }
+      ]
+    }
+  ],
+  "primary_paper": {
+    "title": "Electron microscopy dataset for the recognition of nanoscale ordering effects and location of nanoparticles",
+    "doi": "10.1038/s41597-020-0439-1",
+    "url": "https://doi.org/10.1038/s41597-020-0439-1"
+  }
+}

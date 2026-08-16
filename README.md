@@ -35,7 +35,7 @@ Metralign estimates where a finely sampled reference field appears inside a wide
 
 The default method uses the lattice twice. Phase drift first estimates scale, rotation, and axis-aligned pitch. Matched differences at rounded pitch shifts then suppress the repeated backbone so that weaker site-specific evidence can determine absolute position. If robust-normalized backbone fallback produces multiple score-tied peaks and secondary ambiguity evidence is present, the method applies the prescribed center-nearest rule among those peaks.
 
-Metralign is the project name. The Python distribution and import package retain the names `drift-sense` and `drift_sense`.
+The Python distribution is `metralign`. The internal import namespace remains `drift_sense` for compatibility with the frozen release artifacts.
 
 <p align="center">
   <img src="results/frozen/cases/success_iid_000002_dram/000002_dram_reference.png" width="780" alt="Synthetic DRAM reference image from frozen IID case 000002">
@@ -223,7 +223,7 @@ Citation metadata is available in [`CITATION.cff`](CITATION.cff).
   author  = {Achyuth Jayadevan and Pramit Karmakar},
   title   = {Metralign: deterministic localization under periodic semiconductor structures},
   year    = {2026},
-  version = {0.1.0},
+  version = {0.2.0},
   url     = {https://github.com/Achxy/metralign}
 }
 ```

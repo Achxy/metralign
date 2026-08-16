@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 import itertools
 import time
 
@@ -21,10 +21,12 @@ from .correlation import (
 from .lattice import estimate_lattice, estimate_relative_transform, reciprocal_to_real_basis
 from .refine import dft_peak, dft_peak_1d, parabolic_peak
 from .representations import (
+    PeriodicTransformEstimate,
     build_channels,
     estimate_periodic_transform,
     periodic_difference_channels,
 )
+from .safety import assess_absolute_site
 from .spectral import robust_float
 
 try:
@@ -62,6 +64,8 @@ class LocalizationConfig:
     enable_lattice_grouping: bool = True
     enable_ambiguity_rule: bool = True
     subpixel_refinement: str = "parabolic"
+    prior_center_x: float | None = None
+    prior_center_y: float | None = None
 
 
 @dataclass
@@ -82,7 +86,11 @@ class Prediction:
     spectral_rotation_deg: float
     spectral_confidence: float
     lattice_offset: list[float] | None
-    ambiguity_evidence: dict[str, float | int | bool]
+    ambiguity_evidence: dict[str, object]
+    decision_support: dict[str, object]
+    hypothesis_count: int
+    hypotheses_truncated: bool
+    hypotheses: list[dict[str, object]]
     pipeline_stages: dict[str, bool | str]
     channel_scores: dict[str, float]
     runtime_ms: float
@@ -143,6 +151,79 @@ def _pipeline_stages(cfg: LocalizationConfig) -> dict[str, bool | str]:
     }
 
 
+def _prior_center(cfg: LocalizationConfig) -> tuple[float, float] | None:
+    if cfg.prior_center_x is None:
+        return None
+    assert cfg.prior_center_y is not None
+    return float(cfg.prior_center_x), float(cfg.prior_center_y)
+
+
+def _single_hypothesis(x: float, y: float, score: float) -> list[dict[str, object]]:
+    return [
+        {
+            "rank": 1,
+            "center": [float(x), float(y)],
+            "score": float(score),
+            "score_delta": 0.0,
+            "selected": True,
+            "lattice_offset_from_selected": None,
+        }
+    ]
+
+
+def _hypothesis_diagnostics(
+    decision: object,
+    template_shape: tuple[int, int],
+    real_basis: np.ndarray | None,
+) -> list[dict[str, object]]:
+    """Convert score-map peaks to output-coordinate hypotheses."""
+    half_x = (template_shape[1] - 1.0) / 2.0
+    half_y = (template_shape[0] - 1.0) / 2.0
+    selected = decision.candidate
+    best_score = max((item.score for item in decision.hypotheses), default=selected.score)
+    result: list[dict[str, object]] = []
+    for rank, candidate in enumerate(decision.hypotheses, 1):
+        lattice_offset = None
+        if real_basis is not None:
+            delta = np.array(
+                [candidate.x - selected.x, candidate.y - selected.y], dtype=np.float64
+            )
+            try:
+                lattice_offset = np.linalg.solve(real_basis, delta).tolist()
+            except np.linalg.LinAlgError:
+                lattice_offset = None
+        result.append(
+            {
+                "rank": rank,
+                "center": [float(candidate.x + half_x), float(candidate.y + half_y)],
+                "score": float(candidate.score),
+                "score_delta": float(best_score - candidate.score),
+                "selected": bool(candidate == selected),
+                "lattice_offset_from_selected": lattice_offset,
+            }
+        )
+    return result
+
+
+def _decision_support(
+    confidence: float,
+    decision: object,
+    residual_evidence: float,
+    transform_stability: float,
+) -> dict[str, object]:
+    return assess_absolute_site(
+        match_confidence=confidence,
+        # ``ambiguous`` here means that the image score supports a candidate
+        # family, not that the optional center/prior fallback was applied.
+        # Keeping those concepts separate lets diagnostics recommend review
+        # even when strong residual evidence makes the score-best candidate the
+        # least assumptive coordinate to return.
+        ambiguous=bool(decision.score_tied),
+        residual_evidence=float(residual_evidence),
+        transform_stability=float(transform_stability),
+    ).to_dict()
+
+
 def _baseline0(reference: np.ndarray, search: np.ndarray, cfg: LocalizationConfig) -> Prediction:
     start = time.perf_counter()
     template = robust_float(_resize(reference, cfg.nominal_scale)).astype(np.float32)
@@ -154,9 +235,12 @@ def _baseline0(reference: np.ndarray, search: np.ndarray, cfg: LocalizationConfi
     runner = candidates[1].score if len(candidates) > 1 else -1.0
     score = float(score_map[y, x])
     margin = score - runner
+    confidence = confidence_from_evidence(score, margin, curvature)
+    output_x = rx + (template.shape[1] - 1) / 2.0
+    output_y = ry + (template.shape[0] - 1) / 2.0
     return Prediction(
-        x=rx + (template.shape[1] - 1) / 2.0,
-        y=ry + (template.shape[0] - 1) / 2.0,
+        x=output_x,
+        y=output_y,
         method="baseline0",
         score=score,
         selected_score=score,
@@ -164,7 +248,7 @@ def _baseline0(reference: np.ndarray, search: np.ndarray, cfg: LocalizationConfi
         score_margin=margin,
         ambiguity_flag=False,
         tied_count=1,
-        confidence=confidence_from_evidence(score, margin, curvature),
+        confidence=confidence,
         selected_scale=cfg.nominal_scale,
         selected_rotation_deg=0.0,
         spectral_scale=cfg.nominal_scale,
@@ -185,6 +269,15 @@ def _baseline0(reference: np.ndarray, search: np.ndarray, cfg: LocalizationConfi
             "lattice_group_count": 1,
             "lattice_group_coverage": 0.0,
         },
+        decision_support=assess_absolute_site(
+            match_confidence=confidence,
+            ambiguous=False,
+            residual_evidence=score,
+            transform_stability=1.0,
+        ).to_dict(),
+        hypothesis_count=1,
+        hypotheses_truncated=False,
+        hypotheses=_single_hypothesis(output_x, output_y, score),
         pipeline_stages={
             "phase_calibration": False,
             "evidence_channel": "structural",
@@ -194,6 +287,74 @@ def _baseline0(reference: np.ndarray, search: np.ndarray, cfg: LocalizationConfi
             "subpixel_refinement": "parabolic",
         },
         channel_scores={"structural": score},
+        runtime_ms=(time.perf_counter() - start) * 1000.0,
+    )
+
+
+def _supports_periodic_difference(
+    image_shape: tuple[int, int],
+    pitch_x: float,
+    pitch_y: float,
+) -> bool:
+    """Return whether one-period differencing leaves a usable image interior."""
+    shift_x = max(1, int(round(pitch_x)))
+    shift_y = max(1, int(round(pitch_y)))
+    return bool(
+        image_shape[1] > 2 * shift_x + 4
+        and image_shape[0] > 2 * shift_y + 4
+    )
+
+
+def _small_periodic_template_fallback(
+    reference: np.ndarray,
+    search: np.ndarray,
+    cfg: LocalizationConfig,
+    estimate: PeriodicTransformEstimate,
+    pitch_x: float,
+    pitch_y: float,
+    template_shape: tuple[int, int],
+    unsupported_inputs: list[str],
+    start: float,
+) -> Prediction:
+    """Use the existing ``baseline0`` matcher when periodic differencing is undefined.
+
+    This is an execution fallback, not a second periodic decision rule.  It is
+    deliberately identical to the public ``baseline0`` matcher and is exposed
+    in both stage and ambiguity diagnostics while retaining the requested
+    ``full`` method in the output contract.
+    """
+    baseline = _baseline0(reference, search, cfg)
+    stages = _pipeline_stages(cfg)
+    stages["fallback"] = "baseline0_small_periodic_template"
+    evidence = dict(baseline.ambiguity_evidence)
+    evidence.update(
+        {
+            "fallback_applied": True,
+            "fallback_reason": "periodic_difference_input_too_small",
+            "fallback_unsupported_inputs": list(unsupported_inputs),
+            "fallback_template_shape": [int(template_shape[0]), int(template_shape[1])],
+            "estimated_pitch": [float(pitch_x), float(pitch_y)],
+        }
+    )
+    decision_support = dict(baseline.decision_support)
+    decision_support.update(
+        {
+            "status": "review",
+            "review_recommended": True,
+            "conservative_abstention_recommended": True,
+            "absolute_site_confidence": 0.0,
+            "reasons": ["periodic_model_unsupported"],
+        }
+    )
+    return replace(
+        baseline,
+        method=cfg.method,
+        spectral_scale=float(estimate.scale),
+        spectral_rotation_deg=float(estimate.rotation_deg),
+        spectral_confidence=float(estimate.confidence),
+        ambiguity_evidence=evidence,
+        decision_support=decision_support,
+        pipeline_stages=stages,
         runtime_ms=(time.perf_counter() - start) * 1000.0,
     )
 
@@ -309,6 +470,7 @@ def _periodic_backbone_tie_prediction(
         cfg.residual_evidence_floor,
         cfg.enable_lattice_grouping,
         cfg.enable_ambiguity_rule,
+        _prior_center(cfg),
     )
     chosen = decision.candidate
     peak_x, peak_y, curvature = _refine_2d(
@@ -318,6 +480,7 @@ def _periodic_backbone_tie_prediction(
     runner = candidates[1].score if len(candidates) > 1 else -1.0
     best_margin = best_score - runner
     confidence = confidence_from_evidence(chosen.score, decision.margin, curvature)
+    hypotheses = _hypothesis_diagnostics(decision, template.shape, real_basis)
     return Prediction(
         x=peak_x + (template.shape[1] - 1.0) / 2.0,
         y=peak_y + (template.shape[0] - 1.0) / 2.0,
@@ -344,6 +507,12 @@ def _periodic_backbone_tie_prediction(
         ambiguity_evidence=_ambiguity_evidence(
             decision, residual_evidence, float(estimate.confidence)
         ),
+        decision_support=_decision_support(
+            confidence, decision, residual_evidence, float(estimate.confidence)
+        ),
+        hypothesis_count=decision.tied_count,
+        hypotheses_truncated=bool(decision.hypotheses_truncated),
+        hypotheses=hypotheses,
         pipeline_stages=_pipeline_stages(cfg),
         channel_scores={"structural": chosen.score, "residual": residual_evidence},
         runtime_ms=(time.perf_counter() - start) * 1000.0,
@@ -376,6 +545,7 @@ def _choose_candidate_with_evidence(
     residual_floor: float,
     enable_lattice_grouping: bool = True,
     enable_ambiguity_rule: bool = True,
+    prior_center: tuple[float, float] | None = None,
 ) -> tuple[object, np.ndarray | None]:
     decision = choose_candidate(
         candidates,
@@ -388,6 +558,7 @@ def _choose_candidate_with_evidence(
         residual_floor=residual_floor,
         transform_stability=transform_stability,
         apply_center_rule=enable_ambiguity_rule,
+        prior_center=prior_center,
     )
     real_basis = None
     if enable_lattice_grouping and decision.score_tied and decision.tied_count > 1:
@@ -405,6 +576,7 @@ def _choose_candidate_with_evidence(
                 residual_floor=residual_floor,
                 transform_stability=transform_stability,
                 apply_center_rule=enable_ambiguity_rule,
+                prior_center=prior_center,
             )
     return decision, real_basis
 
@@ -413,7 +585,7 @@ def _ambiguity_evidence(
     decision: object,
     residual_evidence: float,
     transform_stability: float,
-) -> dict[str, float | int | bool]:
+) -> dict[str, object]:
     return {
         "score_threshold": float(decision.threshold),
         "local_perturbation": float(decision.local_perturbation),
@@ -427,6 +599,11 @@ def _ambiguity_evidence(
         "lattice_grouped": bool(decision.lattice_grouped),
         "lattice_group_count": int(decision.lattice_group_count),
         "lattice_group_coverage": float(decision.lattice_group_coverage),
+        "selection_prior_center": [
+            float(decision.selection_prior_center[0]),
+            float(decision.selection_prior_center[1]),
+        ],
+        "selection_prior_source": str(decision.selection_prior_source),
     }
 
 
@@ -463,6 +640,10 @@ def _bounded_residual_transform(
     coarse_search = _resize(search, factor)
     coarse_pitch_x = max(1.0, pitch_x * factor)
     coarse_pitch_y = max(1.0, pitch_y * factor)
+    if not _supports_periodic_difference(
+        coarse_search.shape, coarse_pitch_x, coarse_pitch_y
+    ):
+        return cfg.nominal_scale, 0.0
     search_channels = periodic_difference_channels(
         coarse_search,
         coarse_pitch_x,
@@ -564,6 +745,23 @@ def _periodic_localize(
             initial_template,
             start,
             0.0,
+        )
+    unsupported_inputs: list[str] = []
+    if not _supports_periodic_difference(search.shape, pitch_x, pitch_y):
+        unsupported_inputs.append("search")
+    if not _supports_periodic_difference(initial_template.shape, pitch_x, pitch_y):
+        unsupported_inputs.append("template")
+    if unsupported_inputs:
+        return _small_periodic_template_fallback(
+            reference,
+            search,
+            cfg,
+            estimate,
+            pitch_x,
+            pitch_y,
+            initial_template.shape,
+            unsupported_inputs,
+            start,
         )
     search_channels = periodic_difference_channels(
         search, pitch_x, pitch_y, cfg.periodic_evidence_channel
@@ -754,6 +952,7 @@ def _periodic_localize(
         cfg.residual_evidence_floor,
         cfg.enable_lattice_grouping,
         cfg.enable_ambiguity_rule,
+        _prior_center(cfg),
     )
     chosen = decision.candidate
     # Make the center-nearest ambiguity rule authoritative rather than merely a
@@ -796,6 +995,7 @@ def _periodic_localize(
     selected_score = float(chosen.score)
     best_margin = best_score - runner
     confidence = confidence_from_evidence(selected_score, decision.margin, curvature)
+    hypotheses = _hypothesis_diagnostics(decision, template.shape, real_basis)
     return Prediction(
         x=float(center_x),
         y=float(center_y),
@@ -822,6 +1022,12 @@ def _periodic_localize(
         ambiguity_evidence=_ambiguity_evidence(
             decision, residual_evidence, float(estimate.confidence)
         ),
+        decision_support=_decision_support(
+            confidence, decision, residual_evidence, float(estimate.confidence)
+        ),
+        hypothesis_count=decision.tied_count,
+        hypotheses_truncated=bool(decision.hypotheses_truncated),
+        hypotheses=hypotheses,
         pipeline_stages=_pipeline_stages(cfg),
         channel_scores=channel_scores,
         runtime_ms=(time.perf_counter() - start) * 1000.0,
@@ -836,6 +1042,16 @@ def localize(reference: np.ndarray, search: np.ndarray, cfg: LocalizationConfig 
         raise ValueError("reference and search must be two-dimensional grayscale images")
     if min(reference.shape) < 32 or min(search.shape) < 32:
         raise ValueError("images are too small")
+    if (cfg.prior_center_x is None) != (cfg.prior_center_y is None):
+        raise ValueError("prior center x and y must be provided together")
+    if cfg.prior_center_x is not None:
+        prior_x, prior_y = float(cfg.prior_center_x), float(cfg.prior_center_y)
+        if not np.isfinite(prior_x) or not np.isfinite(prior_y):
+            raise ValueError("prior center must be finite")
+        if not (0.0 <= prior_x <= search.shape[1] - 1.0):
+            raise ValueError("prior center x is outside the search image")
+        if not (0.0 <= prior_y <= search.shape[0] - 1.0):
+            raise ValueError("prior center y is outside the search image")
     if cfg.method == "baseline0":
         return _baseline0(reference, search, cfg)
     if cfg.method not in {"multiscale", "full", "structure_gradient", "structure_residual"}:
@@ -911,6 +1127,7 @@ def localize(reference: np.ndarray, search: np.ndarray, cfg: LocalizationConfig 
         template.shape,
         cfg.ambiguity_margin,
         cfg.nms_radius,
+        prior_center=_prior_center(cfg),
     )
     chosen = decision.candidate
     peak_x, peak_y, curvature = parabolic_peak(score_map, chosen.x, chosen.y)
@@ -931,6 +1148,8 @@ def localize(reference: np.ndarray, search: np.ndarray, cfg: LocalizationConfig 
         except np.linalg.LinAlgError:
             lattice_offset = None
     confidence = confidence_from_evidence(chosen.score, decision.margin, curvature)
+    residual_evidence = float(channel_scores.get("residual", chosen.score))
+    hypotheses = _hypothesis_diagnostics(decision, template.shape, real_basis)
     return Prediction(
         x=peak_x + (template.shape[1] - 1) / 2.0,
         y=peak_y + (template.shape[0] - 1) / 2.0,
@@ -950,9 +1169,15 @@ def localize(reference: np.ndarray, search: np.ndarray, cfg: LocalizationConfig 
         lattice_offset=lattice_offset,
         ambiguity_evidence=_ambiguity_evidence(
             decision,
-            float(channel_scores.get("residual", chosen.score)),
+            residual_evidence,
             float(spectral_confidence),
         ),
+        decision_support=_decision_support(
+            confidence, decision, residual_evidence, float(spectral_confidence)
+        ),
+        hypothesis_count=decision.tied_count,
+        hypotheses_truncated=bool(decision.hypotheses_truncated),
+        hypotheses=hypotheses,
         pipeline_stages=_pipeline_stages(cfg),
         channel_scores=channel_scores,
         runtime_ms=(time.perf_counter() - start) * 1000.0,

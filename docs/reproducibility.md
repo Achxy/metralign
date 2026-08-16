@@ -2,6 +2,8 @@
 
 This document separates three activities that should not be conflated: a one-pair smoke test, development studies, and the frozen reporting protocol.
 
+The installable package is Metralign `0.2.0`. The sealed synthetic benchmark remains an archived Metralign `0.1.0` algorithm result at the commit and implementation digest recorded below; the release bump does not relabel or replace that evidence.
+
 ## Reference environment
 
 Supported CPython versions are 3.10–3.14. Install the constrained contributor environment with:

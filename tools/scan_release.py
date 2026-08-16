@@ -43,6 +43,7 @@ SKIP_DIRECTORIES = {
     "__pycache__",
     "build",
     "dist",
+    "tmp",
     "venv",
 }
 SELF = Path("tools/scan_release.py")

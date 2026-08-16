@@ -3,9 +3,9 @@ requires = ["setuptools==80.9.0", "wheel==0.45.1"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "drift-sense"
-version = "0.1.0"
-description = "Deterministic periodic-structure localization for wafer inspection images"
+name = "metralign"
+version = "0.2.0"
+description = "Deterministic localization under periodic ambiguity"
 readme = "README.md"
 requires-python = ">=3.10,<3.15"
 dependencies = [
@@ -17,6 +17,19 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10"]
+comparison = [
+  "scikit-image==0.25.2; python_version < '3.11'",
+  "scikit-image==0.26.0; python_version >= '3.11'",
+]
+
+[project.scripts]
+metralign = "metralign.cli:main"
+
+[project.urls]
+Homepage = "https://achxy.github.io/metralign/"
+Repository = "https://github.com/Achxy/metralign"
+Documentation = "https://github.com/Achxy/metralign#readme"
+Issues = "https://github.com/Achxy/metralign/issues"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

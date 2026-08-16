@@ -1,0 +1,9 @@
+# Optional, isolated environment for compare_xfeat.py only.  Do not install
+# these packages into the core Metralign inference environment.  The measured
+# report also records every resolved transitive distribution.
+
+torch==2.8.0
+opencv-contrib-python-headless==4.10.0.84
+numpy==2.2.6
+Pillow==11.3.0
+tqdm==4.67.1

@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "dataset": {
+    "id": "carinthia_production_wafer_sem_v1",
+    "title": "Carinthia dataset",
+    "doi": "10.5281/zenodo.10715190",
+    "landing_url": "https://doi.org/10.5281/zenodo.10715190",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "authors": [
+      "Corinna Kofler",
+      "Sabrina Strauß",
+      "Anja Zernig",
+      "Ernesto Lazaro Garcia",
+      "Michael Boxleitner",
+      "Beatrix Mayr",
+      "Isabell Dicillia-Kovatsch",
+      "Claudia Anna Dohr"
+    ],
+    "description": "Scanning electron microscope images of defects on one production layer of unstructured semiconductor wafers.",
+    "record_image_count": 4591,
+    "class_labels": ["1", "2", "3", "4", "5", "6"]
+  },
+  "archive": {
+    "name": "data.zip",
+    "url": "https://zenodo.org/api/records/10715190/files/data.zip/content",
+    "bytes": 133840870,
+    "md5": "457011cf9063e5a49751f33ea468309d",
+    "sha256": "02436de8c2d6b0c7eabdcdcf133ab5f17e59a0e3de56ebffc4cb6b2acb771490"
+  },
+  "index": {
+    "member": "data/carinthia.csv",
+    "bytes": 408627,
+    "sha256": "040ea33ca45fc9dcd74fde2e811b1b576879d00afd1ba4383dc9dc01b0328905",
+    "delimiter": ";",
+    "columns": ["image_path", "file_name", "label"]
+  },
+  "selection": {
+    "images_per_class": 4,
+    "positions": [[0.3, 0.3], [0.7, 0.3], [0.3, 0.7], [0.7, 0.7]],
+    "rule": "For each of the six numeric publisher labels, rank all CSV-listed image member paths by SHA-256 of the domain tag metralign-carinthia-balanced-v1 followed by a NUL byte and the normalized UTF-8 member path. Select the first four paths, with member path as the tie break. Assign the four fixed crop positions in rank order. Selection uses no image pixels, prediction, score, coordinate, or result threshold."
+  },
+  "claim_boundary": "Coordinates are exact only for deterministic crop-and-resize transformations within one already acquired SEM image. This is same-acquisition digital self-consistency, not independent reacquisition, native cross-magnification localization, or microscope-stage ground truth. Numeric defect labels are used only for balanced source selection, not as localization targets."
+}

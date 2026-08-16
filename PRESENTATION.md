@@ -1,8 +1,8 @@
-# Drift-Sense presentation evidence map
+# Metralign presentation evidence map
 
 The editable final deck is `DriftSense_LatticeLock_Frozen.pptx`; its rendered counterpart is `DriftSense_LatticeLock_Frozen.pdf`. Slide 5 uses only the explicitly labeled development study in `results/frozen/development/pipeline-study.json`. Slide 6 uses only the sealed reporting-split artifacts in `results/frozen/`. Every slide contains a `[Sources]` speaker-note block.
 
-## Slide 1 — Drift-Sense
+## Slide 1 — Metralign
 
 - Navigation-error recovery for repeated wafer structures.
 - Input: one high-resolution reference image and one search image covering approximately 10× the physical width.
@@ -91,7 +91,7 @@ Source all cells from the immutable aggregate created by a reporting-split bench
 
 ## Slide 7 — Exact execution environment
 
-- Drift-Sense version: `0.1.0`.
+- Metralign version: `0.1.0`.
 - Python: obtain with `python --version`.
 - NumPy, SciPy, OpenCV, and Pillow: obtain with `python -m pip freeze`.
 - Operating system and CPU: macOS 26.5.2, arm64.
@@ -99,7 +99,7 @@ Source all cells from the immutable aggregate created by a reporting-split bench
 - Learned weights: none.
 - Method arguments, suite manifests and SHA-256 values, seed sets, commit identifier, report schema, and wall-clock policy: copy from the frozen experiment record.
 
-Frozen record: Drift-Sense 0.1.0; CPython 3.14.6; NumPy 2.5.2; SciPy 1.18.0; OpenCV 4.14.0; Pillow 12.3.0; CPU only. Algorithm commit `c9363bfce535a812eb541417f3297602e97f619a`; implementation SHA-256 `7819d767b5ab3aeadd40bb99addefcf28948bca9c07bb7a84b5fb20345f39881`; all reports clean and schema version 2.
+Frozen record: Metralign 0.1.0; CPython 3.14.6; NumPy 2.5.2; SciPy 1.18.0; OpenCV 4.14.0; Pillow 12.3.0; CPU only. Algorithm commit `c9363bfce535a812eb541417f3297602e97f619a`; implementation SHA-256 `7819d767b5ab3aeadd40bb99addefcf28948bca9c07bb7a84b5fb20345f39881`; all reports clean and schema version 2.
 
 ## Slide 8 — Reproduction and demo
 

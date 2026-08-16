@@ -24,6 +24,40 @@ class AmbiguityDecision:
     lattice_grouped: bool
     lattice_group_count: int
     lattice_group_coverage: float
+    hypotheses: tuple[Candidate, ...]
+    hypotheses_truncated: bool
+    selection_prior_center: tuple[float, float]
+    selection_prior_source: str
+
+
+def _diagnostic_hypotheses(
+    tied: list[Candidate],
+    best: Candidate,
+    chosen: Candidate,
+    center_x: float,
+    center_y: float,
+    limit: int,
+) -> tuple[Candidate, ...]:
+    """Select a compact, deterministic view of a potentially huge tie family."""
+    if limit < 1:
+        return ()
+    ordered_by_score = sorted(tied, key=lambda item: (-item.score, item.y, item.x))
+    ordered_by_center = sorted(
+        tied,
+        key=lambda item: (
+            (item.x - center_x) ** 2 + (item.y - center_y) ** 2,
+            -item.score,
+            item.y,
+            item.x,
+        ),
+    )
+    result: list[Candidate] = []
+    for candidate in (chosen, best, *ordered_by_center, *ordered_by_score):
+        if candidate not in result:
+            result.append(candidate)
+        if len(result) >= limit:
+            break
+    return tuple(result)
 
 
 def _group_by_lattice_offset(
@@ -66,6 +100,8 @@ def choose_candidate(
     residual_floor: float = 0.25,
     transform_stability: float | None = None,
     apply_center_rule: bool = True,
+    max_hypotheses: int = 8,
+    prior_center: tuple[float, float] | None = None,
 ) -> AmbiguityDecision:
     if not candidates:
         raise ValueError("no candidates")
@@ -119,8 +155,32 @@ def choose_candidate(
     perturbation_support = margin <= perturbation_threshold + 1e-12
     transform_support = transform_stability is not None and transform_stability < 0.35
     residual_support = residual_evidence is not None and residual_evidence < residual_floor
-    secondary_evidence = bool(perturbation_support or transform_support or residual_support)
+    # Peak-neighborhood roughness is derived from the same score map as the tie
+    # itself, so it is not independent evidence that absolute-site information
+    # is absent.  It remains diagnostic, but center fallback requires weak
+    # residual evidence or an unstable transform estimate.
+    secondary_evidence = bool(transform_support or residual_support)
+    half_x = (template_shape[1] - 1.0) / 2.0
+    half_y = (template_shape[0] - 1.0) / 2.0
+    if prior_center is None:
+        output_prior_x = (search_shape[1] - 1.0) / 2.0
+        output_prior_y = (search_shape[0] - 1.0) / 2.0
+        prior_source = "image_center_default"
+    else:
+        output_prior_x, output_prior_y = map(float, prior_center)
+        if not np.isfinite(output_prior_x) or not np.isfinite(output_prior_y):
+            raise ValueError("prior center must be finite")
+        if not (0.0 <= output_prior_x <= search_shape[1] - 1.0):
+            raise ValueError("prior center x is outside the search image")
+        if not (0.0 <= output_prior_y <= search_shape[0] - 1.0):
+            raise ValueError("prior center y is outside the search image")
+        prior_source = "user_supplied"
+    center_x = output_prior_x - half_x
+    center_y = output_prior_y - half_y
     if not apply_center_rule or not score_tied or not secondary_evidence:
+        hypotheses = _diagnostic_hypotheses(
+            raw_tied, best, best, center_x, center_y, max_hypotheses
+        )
         return AmbiguityDecision(
             best,
             False,
@@ -136,9 +196,11 @@ def choose_candidate(
             lattice_grouped,
             lattice_group_count,
             lattice_group_coverage,
+            hypotheses,
+            len(raw_tied) > len(hypotheses),
+            (output_prior_x, output_prior_y),
+            prior_source,
         )
-    center_x = (search_shape[1] - template_shape[1]) / 2.0
-    center_y = (search_shape[0] - template_shape[0]) / 2.0
     chosen = min(
         raw_tied,
         key=lambda item: (
@@ -147,6 +209,9 @@ def choose_candidate(
             item.y,
             item.x,
         ),
+    )
+    hypotheses = _diagnostic_hypotheses(
+        raw_tied, best, chosen, center_x, center_y, max_hypotheses
     )
     return AmbiguityDecision(
         chosen,
@@ -163,4 +228,8 @@ def choose_candidate(
         lattice_grouped,
         lattice_group_count,
         lattice_group_coverage,
+        hypotheses,
+        len(raw_tied) > len(hypotheses),
+        (output_prior_x, output_prior_y),
+        prior_source,
     )

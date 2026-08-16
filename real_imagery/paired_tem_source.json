@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "dataset": {
+    "id": "wieslander_minitem_registered_test_v1",
+    "title": "Transmission Electron Microscopy Dataset for Image Deblurring",
+    "doi": "10.5281/zenodo.4113244",
+    "landing_url": "https://doi.org/10.5281/zenodo.4113244",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "authors": [
+      "Håkan Wieslander",
+      "Carolina Wählby",
+      "Ida-Maria Sintorn"
+    ],
+    "primary_paper": {
+      "title": "TEM image restoration from fast image streams",
+      "doi": "10.1371/journal.pone.0246336",
+      "url": "https://doi.org/10.1371/journal.pone.0246336"
+    },
+    "publisher_split": "Test",
+    "acquisition": {
+      "instrument": "MiniTEM",
+      "samples": ["calibration grid", "kidney"],
+      "low_quality_size_px": [1024, 1024],
+      "high_quality_size_px": [2048, 2048],
+      "field_of_view_um": [32, 32],
+      "exposure_ms": 15,
+      "source_bit_depth": 16,
+      "registration_note": "The publisher manually selected low-quality images and registered them to high-quality images with ECC after manual translation initialization. The prepared archive retains single-channel uint16 TIFF arrays."
+    }
+  },
+  "archive": {
+    "name": "TrainTestVal.zip",
+    "url": "https://zenodo.org/api/records/4113244/files/TrainTestVal.zip/content",
+    "bytes": 629335440,
+    "md5": "2128033df6437e5d9bcdc0d4796a7b94"
+  },
+  "selection_rule": "Use only image pairs under the publisher's Test split. After validating the archive layout, sort eligible registered Low/GT pairs by normalized member path and use every eligible pair. For each sharp GT, evaluate a fixed 9x9 interior grid using mean absolute residual after Gaussian blur (sigma 3 pixels), greedily retain the five highest-scoring non-overlapping crops with deterministic row/column tie breaks, and assign the same-rank crop to the corresponding sorted Low frame. Selection uses no Low frame, prediction, localization score, or result threshold.",
+  "claim_boundary": "Coordinates are exact with respect to the publisher-registered image pair and the evaluator's digital crop construction. They are not microscope-stage ground truth, native nested fields of view, or a test of unregistered cross-magnification relocalization."
+}

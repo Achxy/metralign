@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" role="img" aria-labelledby="title desc">
+  <title id="title">Metralign symbol</title>
+  <desc id="desc">Two interlocking coordinate frames around one measured site.</desc>
+  <path d="M3 3h18v6H9v12H3zM37 37H19v-6h12V19h6z" fill="#070a0e"/>
+  <path d="M37 3v18h-6V9H19V3zM3 37V19h6v12h12v6z" fill="#66727d"/>
+  <rect x="15" y="15" width="10" height="10" rx="2" fill="#d85b3f"/>
+</svg>
