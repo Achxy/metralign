@@ -1,0 +1,23 @@
+# Universal dependency constraints for CPython 3.10-3.14.
+# Resolved from pyproject.toml on 2026-08-16 with:
+# uv pip compile pyproject.toml --all-extras --universal --python-version 3.10 \
+#   --exclude-newer 2026-08-16 --no-annotate --no-strip-markers
+#
+# Regenerate only as an intentional dependency update, then test every CI Python.
+colorama==0.4.6 ; sys_platform == "win32"
+exceptiongroup==1.3.1 ; python_full_version < "3.11"
+iniconfig==2.3.0
+numpy==2.2.6 ; python_full_version < "3.11"
+numpy==2.4.6 ; python_full_version == "3.11.*"
+numpy==2.5.2 ; python_full_version >= "3.12"
+opencv-python-headless==4.14.0.94
+packaging==26.3
+pillow==12.3.0
+pluggy==1.6.0
+pygments==2.20.0
+pytest==9.1.1
+scipy==1.15.3 ; python_full_version < "3.11"
+scipy==1.17.1 ; python_full_version == "3.11.*"
+scipy==1.18.0 ; python_full_version >= "3.12"
+tomli==2.4.1 ; python_full_version < "3.11"
+typing-extensions==4.16.0 ; python_full_version < "3.11"

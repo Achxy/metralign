@@ -1,0 +1,35 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": 1},
+    "experiment_id": {"minLength": 1, "type": "string"},
+    "recorded_at_utc": {"format": "date-time", "type": "string"},
+    "hypothesis": {"minLength": 1, "type": "string"},
+    "commit": {"type": ["string", "null"]},
+    "working_tree_dirty": {"type": "boolean"},
+    "configuration": {"type": "object"},
+    "seed_set": {"type": "object"},
+    "accuracy": {"type": "object"},
+    "runtime": {"type": "object"},
+    "failure_counts": {"type": "object"},
+    "decision": {"minLength": 1, "type": "string"},
+    "artifacts": {"type": "object"}
+  },
+  "required": [
+    "schema_version",
+    "experiment_id",
+    "recorded_at_utc",
+    "hypothesis",
+    "commit",
+    "working_tree_dirty",
+    "configuration",
+    "seed_set",
+    "accuracy",
+    "runtime",
+    "failure_counts",
+    "decision",
+    "artifacts"
+  ],
+  "title": "Drift-Sense experiment ledger entry",
+  "type": "object"
+}

@@ -1,0 +1,7 @@
+# Direct runtime requirements. constraints.txt supplies the reproducible pins.
+-c constraints.txt
+
+numpy>=1.26,<3
+scipy>=1.11,<2
+opencv-python-headless>=4.9,<5
+Pillow>=10,<13

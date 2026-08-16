@@ -1,0 +1,8 @@
+{
+  "image_size": 1000,
+  "nominal_scale": 0.1,
+  "supersample": 2,
+  "suite": "iid",
+  "difficulty": "medium",
+  "resampler": "area"
+}

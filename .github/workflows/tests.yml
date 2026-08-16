@@ -1,0 +1,86 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  credential-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Scan Git history with TruffleHog OSS
+        uses: trufflesecurity/trufflehog@bcfcf73aaf4759d4dadc2783177c245a02792318 # v3.97.0
+        with:
+          extra_args: --results=verified,unknown
+          version: 3.97.0
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Scan release residue
+        run: python tools/scan_release.py . --history
+
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12", "3.14"]
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: |
+            pyproject.toml
+            requirements-dev.txt
+            constraints.txt
+
+      - name: Install pinned package and test dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-dev.txt
+
+      - name: Verify dependency consistency
+        run: python -m pip check
+
+      - name: Run tests
+        run: python -m pytest
+
+      - name: Generate a deterministic smoke pair
+        run: >-
+          python generate_dataset.py
+          --architecture dram
+          --num-pairs 1
+          --output-dir "${RUNNER_TEMP}/drift-sense-smoke"
+          --seed 2026
+          --image-size 1000
+          --supersample 1
+
+      - name: Validate inference stdout contract
+        run: |
+          python infer.py \
+            --reference "${RUNNER_TEMP}/drift-sense-smoke/000000_dram_reference.png" \
+            --search "${RUNNER_TEMP}/drift-sense-smoke/000000_dram_search.png" \
+            --method full > "${RUNNER_TEMP}/coordinate.txt"
+          python -c 'import os, pathlib; fields = (pathlib.Path(os.environ["RUNNER_TEMP"]) / "coordinate.txt").read_text().split(); assert len(fields) == 2; tuple(map(float, fields))'
+
+      - name: Evaluate the smoke pair
+        run: >-
+          python evaluate.py
+          --data-dir "${RUNNER_TEMP}/drift-sense-smoke"
+          --method full
+          --output "${RUNNER_TEMP}/smoke-result.json"

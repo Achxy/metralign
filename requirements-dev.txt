@@ -1,0 +1,3 @@
+# Install the project and its test extra under the universal pinned constraints.
+-c constraints.txt
+.[dev]
