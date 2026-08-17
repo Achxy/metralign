@@ -50,7 +50,7 @@ python generate_independent_suite.py \
   --image-size 1000 \
   --supersample 2 \
   --difficulty medium \
-  --seed 2026081701 \
+  --seed 4201709601 \
   --output-dir data/independent-renderer
 ```
 
@@ -79,3 +79,31 @@ Report this suite separately from the frozen benchmark. Record the generator
 commit, suite seed, dataset digest, sample count, and complete error
 distribution. Do not tune the localizer on this suite and then call the result
 held out.
+
+## Final predeclared development result
+
+The 100-pair seed above was declared before generation and evaluated once after a clean source freeze. The generator source and complete dataset are cryptographically bound; the evaluator dataset SHA-256 is `2a1fb5ed8ddff3f0684c6f0fb04e9975f9fdc3b132c45765179d4e34c35448f8`.
+
+| Measure | Observation |
+|---|---:|
+| Pairs within 0.5 / 1 / 5 px | 97 / 100 |
+| Median error | 0.043676 px |
+| P95 error | 0.238355 px |
+| FinFET within 1 px | 50 / 50 |
+| DRAM within 1 px | 47 / 50 |
+| Mean localizer runtime | 238.35 ms |
+
+The three DRAM misses were not used for tuning and all carried `decision_support.status=review`. The complete report is `results/comparisons/independent-renderer-final-100.json`. Six fixed classic adapters on the same 100 pairs are in `independent-renderer-final-100-external-baselines.json`; their best all-sample ≤1 px rate was 73%. The separately pinned official XFeat* study resolved 78 pairs but localized 0/100 within 5 px, a task-mismatch result rather than a claim about its intended general-matching benchmark performance.
+
+The public success plate is generated mechanically from successful-subset medians and P95 cases:
+
+```bash
+python make_independent_renderer_plate.py \
+  --data-dir data/independent-renderer \
+  --report results/comparisons/independent-renderer-final-100.json \
+  --mode success \
+  --output assets/evidence/independent-renderer-final-100-success.png \
+  --sidecar assets/evidence/independent-renderer-final-100-success.json
+```
+
+The supplemental audit plate remains checked in but is not used as the README hero; it includes architecture medians and the largest-error case for distribution inspection.

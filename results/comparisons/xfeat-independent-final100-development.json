@@ -1,0 +1,4134 @@
+{
+  "claim_boundary": "This is a retrospective external benchmark on the predeclared separate-renderer final-100 dataset. It is development evidence and is not added to the original frozen claim or presented as a state-of-the-art comparison.",
+  "configuration": {
+    "minimum_inliers": 4,
+    "minimum_matches": 4,
+    "nominal_scale": 0.1,
+    "opencv_rng_seed": 0,
+    "ransac_confidence": 0.999,
+    "ransac_max_iterations": 1000,
+    "ransac_reprojection_threshold_px": 3.5,
+    "top_k": 8000
+  },
+  "datasets": {
+    "metralign-independent-final-100-v2": {
+      "architecture_counts": {
+        "dram": 50,
+        "finfet": 50
+      },
+      "artifact_binding": {
+        "adapter_sha256": "316c835b969ac356af67504e372e3c908421e5fed6369feebd29630e9b765986",
+        "dataset_sha256": "2a1fb5ed8ddff3f0684c6f0fb04e9975f9fdc3b132c45765179d4e34c35448f8",
+        "git_commit": "615806cfd5c4243ecca49cbf169324b33180f160",
+        "input_images_sha256": {
+          "000000_dram_reference.png": "2fac28094249e23a58f2038465bbd71d320418c3432f71f0947d23e64e7c49df",
+          "000000_dram_search.png": "6d64952262539464298e5379e46754767ed0046057856f07a0393ca67bc24ecf",
+          "000001_finfet_reference.png": "c4898111e084365b9265eef70c6425f5f2b2ac75e64faa8fdc5fb08df796639c",
+          "000001_finfet_search.png": "29ed4bb129ebbe462cb5ec7403faf5e1a261f4229a496371335ab8b3baf73aa6",
+          "000002_dram_reference.png": "68d643c92fb9cae548006d92169c38427c7c75bcb526c910e5c3b51e6cfbd340",
+          "000002_dram_search.png": "e9aa491ea82b6023a85ab4cb398ac01817692422c0216b502b1995866de98f53",
+          "000003_finfet_reference.png": "7fcf30b5cb7784c432251a761887e003f94196e0dd56442c782caed59de3ae83",
+          "000003_finfet_search.png": "b5ba4b05bacf4aa9434ef753560d1b7e2f26b1156732994efb459581a5a97cbf",
+          "000004_dram_reference.png": "0810d4bfd66cc78d80634345807475fb9680b981d62972114bf2a31693e7cded",
+          "000004_dram_search.png": "5467a0ae967e6ce0c7f3c333c7f318b241bc66c6adb051bf4a16cf6b0b69ed07",
+          "000005_finfet_reference.png": "04dfa15d70bb1bd3362a41e46f4a82879c2dc15bcbf36beabc2ec1da78a40a44",
+          "000005_finfet_search.png": "7c3503b6170ca8f2a0bbdfb53d8dfd85f1fc8187def558a494c496fbd617feca",
+          "000006_dram_reference.png": "c8dcdb7c9a7a693f88d6ffa0e14470089791ca84e8402add7e63ec9555ec2935",
+          "000006_dram_search.png": "44e37a699e1c3a9dbb840e2e54b2b221cda40a2cf0d610602db68b70461face7",
+          "000007_finfet_reference.png": "6b95011ba2fdcb2a1bc664810f99599e76068f0c05a5fef2340a911ffdaa52de",
+          "000007_finfet_search.png": "adcb9baa644d229dd8c5ed64ab68795b72a3673d3c5788b7d244f283e2b47c5e",
+          "000008_dram_reference.png": "0fd4dd04e1db4a614dc6cdaeddda9a64c0b484dd4deaabb2bb4ef448100e91aa",
+          "000008_dram_search.png": "7cdba092e089b14fa4348d66a1567019104220936bbe61a06f3a654fec650724",
+          "000009_finfet_reference.png": "af7fa6f559f67984f934700bbbf1b6dc78cf995905568d94939980d2b4df8603",
+          "000009_finfet_search.png": "d4191355a3054641adad2468d52b3cb8337e30a1e599c0bb063d1d6bba110ad9",
+          "000010_dram_reference.png": "3c7a71b3012917bcbbefd7afd9a470ce34ca6f4fda7524c9d84a4b286ebead95",
+          "000010_dram_search.png": "725abef5e44cfbe4149f14b3cdd330c277e7a3d625a9f1ed858625088e1c71cd",
+          "000011_finfet_reference.png": "beccd25cd0949cd5f39c6e724c77999052f419a95674bc0ca930f81a3d7a6b75",
+          "000011_finfet_search.png": "9e6b143436094f5f5399cf84b455c0933c7f345790edd058bc32bc6255d82d10",
+          "000012_dram_reference.png": "b6fabd8fd90d59c509fec222a1a7bb6104ac4d3c43e9dbb9cefa027f2b1f6e45",
+          "000012_dram_search.png": "2d2245b5163596c791350b2c8903462a37a262f97977a706134ed538deb88a5a",
+          "000013_finfet_reference.png": "6b591400e06dc420941cb03e1bd102d35857e6396ffbb514deb06edf20f29150",
+          "000013_finfet_search.png": "f698a145191fa1f4107d607aad0f9251e3d780f58e1e8a1c01581fc46cc086fb",
+          "000014_dram_reference.png": "6c9b6c8a4772e0093d2d3de6097fc9253fd468687a9eede4926ccebf9003782d",
+          "000014_dram_search.png": "7e1af525a85e513514efdf9250bdaf529d38c2ab9851f39c392dad0e2f914c8a",
+          "000015_finfet_reference.png": "7eb1df2c404508a9d5aa0df2a7daf9ba29dd6b2887cd810f3c66926792488ceb",
+          "000015_finfet_search.png": "e3f8651b6d23b7697891cd056a9489da98ebdf4ddd9cd4aa289c32ab615919be",
+          "000016_dram_reference.png": "3ab9d4c57fa378b7134ee2ff7f73d7ad1a913c645b69e4c5a38646d4ffa430f1",
+          "000016_dram_search.png": "01765afa610d7924c34a72bdf235e4a61b5aada6131144717c1a0d4824c21f65",
+          "000017_finfet_reference.png": "0fc8f637a77929a845c357c228941909607656a24fc30880f8948c4e878b1141",
+          "000017_finfet_search.png": "e8fc00e121c2aa7e78b0898a05f9f107f350a447ab0635ffb3ccab1ba6e54890",
+          "000018_dram_reference.png": "b55a7f61cbf0d4e2deda6dabde42efbaad420674f93ddca1c337536b7bdc2801",
+          "000018_dram_search.png": "d791f223220e0bc033b3411df87ba20fdb6a55370c20d399ec5ceb03e04c0cee",
+          "000019_finfet_reference.png": "208b73d299bdfd40da43c048d6bb770c9b4f0eaf5ba483c2042063f01b4a69df",
+          "000019_finfet_search.png": "339e454086d0019565680839796037075b29cc105562ed7c63ba315e14748c0a",
+          "000020_dram_reference.png": "661c7d0b85a06f0303767228d40b2f46965b279afad39f4a74c4667a1475c21e",
+          "000020_dram_search.png": "235d1ea74a391ca784476569e9c60debb40a3a0fd277e62145e9bd997cfa5f56",
+          "000021_finfet_reference.png": "eedb493168e461ecb0f2bd7fec724a306a5f53bfaa4828d3cf3d21fb60faa3c4",
+          "000021_finfet_search.png": "a69a1f6e390ea5e51ed39771d1b7be8d583d4afd5d46e99dc744662ce94f5643",
+          "000022_dram_reference.png": "bc575cc14ac6b8bc8b52c4261e836c5924cbc8bc53b85bd07c8a0e02d2c620aa",
+          "000022_dram_search.png": "88ae902380070b5801635415d9e62dd916af6a879905892062bce11580a22b3c",
+          "000023_finfet_reference.png": "0d8548d98b4ab55aa4f91457a18eba80fd814cdc8fdf06e346c42850c8f3561c",
+          "000023_finfet_search.png": "88f55e0c9708befcc14456079b85c7c8ff784bc693aec5b521aedfd36efd71bb",
+          "000024_dram_reference.png": "3670373f10b89239a34140f441dbb6a2cae2e442ca78ae828ab29bb9a97570ef",
+          "000024_dram_search.png": "cacd04ef83dd3377d6976e2ef7d40112b144b48e5e6ab2942e9cb18651b9c293",
+          "000025_finfet_reference.png": "37918d14b52ea22252f137c8446fee0595c4554d4b2f47384ef5ef1a136dc48b",
+          "000025_finfet_search.png": "96fea0a07054bc82cae17c3d11f631e754df53aa20893506420f86e57cf5ba41",
+          "000026_dram_reference.png": "e3ef000d189f46fbfe124d83437508b36d2ac9e0c5d26d0ace696d26d142a373",
+          "000026_dram_search.png": "b592a4d560834231bf540faad5a331625cb45cdcb37dde753f7ba10c1cd4d924",
+          "000027_finfet_reference.png": "cb3317130e81b00f999229a6911551cdfa283a0f40c91fb1c1e9eef4469bee30",
+          "000027_finfet_search.png": "a16b2265515b58d5b3d8cd92bbcafb497f94a698b03b82626dde54ee1a753ad8",
+          "000028_dram_reference.png": "e483c35303243fe679ecec629d5829802e737a8974e4fd6f602b8611160c2ff3",
+          "000028_dram_search.png": "bca352542e3567b4e0997aef93a0769a7a2f73cdf78a90d79da6990eb5823ca0",
+          "000029_finfet_reference.png": "7e5ef0ebac4f94fbfbcfbb3caccdff145d44d0511893219bd4c4d18abe38865d",
+          "000029_finfet_search.png": "73e63ace3bcd726eb41cff0bac6f5630fa3996e66286178caeb77685a95355f3",
+          "000030_dram_reference.png": "26836dd2310ddbf24b8bb3c5a7158d79c23ec009015ee39949afd360107515d6",
+          "000030_dram_search.png": "a7b00c4636ef3aa8d32bd94d4c8a7a96d0b6ebd2f3a3d53561fd8ef3425eac3c",
+          "000031_finfet_reference.png": "9529de60d17b4adbc13877d989964d2882f737d992defca894c494554e752377",
+          "000031_finfet_search.png": "b0ff1565fcb8eaf2c7d1b4785feff1276f4fe3749f019b86c85d522165639653",
+          "000032_dram_reference.png": "00defa61d081ead3430d078f33bf33dca75243724e0686c82e3d37c2f1a65000",
+          "000032_dram_search.png": "57eed8114b0c9cb822c69a9c3724f849b3111a3ffda1aafcea0cb20ccd2a03ee",
+          "000033_finfet_reference.png": "a9897117a33ab6d5899e47d148f2a7a75e7e2b61bf5d6df33979984966065e4a",
+          "000033_finfet_search.png": "4d7db3503bc8c224e7860cbb7706be4fce9d7e13374fff3b47922ff8d8ecb33c",
+          "000034_dram_reference.png": "8f3e30281b372c1f798227a18745e59019aa622b174d025fe3a9691e90864607",
+          "000034_dram_search.png": "bd3e3d324faefb3e9a0b8d455be9a53c77427f7db750f6afbc9aa663fa83c105",
+          "000035_finfet_reference.png": "17ab523990fc8163f275563fed554fad27fdc6f82362661f28732b4e746524f1",
+          "000035_finfet_search.png": "58e9107535f3cda8e1b62c0a12612aa386ca1e83ceaf605ef1ec1f68ecd6e16e",
+          "000036_dram_reference.png": "21a9b280deddf48063a0d06e59bf3b58eb387d4dcf58c0f9734ce3c1bbe2a5d3",
+          "000036_dram_search.png": "af9a9ef74a4b7c772808c20058836d82ba1ea97cc660aa12348df925cc5af8e6",
+          "000037_finfet_reference.png": "8885485f6ae2ed55cb7a84bbca86722d46f8000edb4908263c86316bd036cbaf",
+          "000037_finfet_search.png": "f4e058efee8554f1e983b27ce2186b2d62e2ea8550cc5f96679b5d786ce998f2",
+          "000038_dram_reference.png": "0ee74a1ada6bc61f7b6a508279d8f8bace21dcedf132806753eadee78b3557d4",
+          "000038_dram_search.png": "8a82e464b9f4f522cde90f2cd6c1caa29f543ebc8e717072d53024634a1dde03",
+          "000039_finfet_reference.png": "75a2cbe987f64dec7fe451bd7b19fc6f8b9da5f747b3b70b6e28e2e8003a391a",
+          "000039_finfet_search.png": "e6c98a679cc59bfe2efe9e544d0d968af0f84f275dbf7ced3e0bdc5bf366d097",
+          "000040_dram_reference.png": "08e8a1c8eac43100a89052352f26b762738477cea92251b85c380b3058672a2c",
+          "000040_dram_search.png": "52f750e1214c7cc32488254edcd507b0ff9f9303e67ea09f851a4a8e1e0cf132",
+          "000041_finfet_reference.png": "eb382382ba63a1881207b03e315f1127ee46cddd591a8d96a09930dab88eee16",
+          "000041_finfet_search.png": "9eef9f2629845e5aea0a4779284f5084621aa9311d92efd5b6cdf9a30ec8ed66",
+          "000042_dram_reference.png": "3bbbe12da41cb9a51f7e319c1f3097db4088c58dd0f468f56582f05c25471f10",
+          "000042_dram_search.png": "c9976c877194e63cdd9c326f86b9dbdc6e050eeb54ba0a4eb15a7f00f4922572",
+          "000043_finfet_reference.png": "f22afdd9932d27e54245d3b73996ac3f02499cb1d29d8ece938489640be00f32",
+          "000043_finfet_search.png": "94aaf234a7e9de7bbbe2af307cf98fa8331a8605c361888a072bb10c5dac7e0e",
+          "000044_dram_reference.png": "f319b138be3fe4fc9c67c8adac741d9db902fe3ceb420d4d10cc8591680f42d8",
+          "000044_dram_search.png": "fb7cf0137cb8cfb0aaa1208a9f00a4ef2c3940e60298cc2d5a9355162412371e",
+          "000045_finfet_reference.png": "7fb42c06c2c9355de835fd25706471f4ef88a059cef817d3e8b422204ee37921",
+          "000045_finfet_search.png": "9ff7f0c6abab3ae3716a28d3fe0820e2cb86114e55397610d2d2fb9382c28c54",
+          "000046_dram_reference.png": "1fc18a00e310656f7568566861c5f62ab60051328d90e138b43021e63321560b",
+          "000046_dram_search.png": "0746232741835e0658eed066bd03fe5ab4953e812289ab1d7cab1b0f6bcb2c13",
+          "000047_finfet_reference.png": "487b6ac1a0ba75c9eb004357a944ccc8de6ba4196f3ba19cf6acfebb26d4ae03",
+          "000047_finfet_search.png": "02c5fd3bb2052160d1b3eab7e87bb01bf6fce257f72f3d0346885ab2a2812f7f",
+          "000048_dram_reference.png": "bbbe30bc69cfdf5f0cc476980e2103a72b5ebf917c8ff088581d23663253657d",
+          "000048_dram_search.png": "000bc3762aac293b84c1dca852242a64a54d7999d0110e3e52242f4b659b6e45",
+          "000049_finfet_reference.png": "dbe9407f62c358fd76e0d191326ed77f5670913bed1a5ec9339fa1904c5dbd61",
+          "000049_finfet_search.png": "c32320021fd03cb4853545448d7d76345f0dad083c76d56c932b66453826838d",
+          "000050_dram_reference.png": "65c9a9c3c0082e0f357a596c3f2511b1dbd67933de9a14b6ebc7166bc686adc1",
+          "000050_dram_search.png": "3bd63d05a3c5999339ac2bc27b795af93f3081b92838d25cf8224070fd9488f8",
+          "000051_finfet_reference.png": "67879367ce7dd14bf283cb683dc0f9b8030202d253974fa79e75a69a6289e996",
+          "000051_finfet_search.png": "a2ced1419eb838e93c0de1e1e40676ad94a550b5c43db3cf797e2ca292c52741",
+          "000052_dram_reference.png": "dfa09d7d14a4b6e0db3640c073e06f6fdb29e35e624775f20bd2e6ad65399eb0",
+          "000052_dram_search.png": "528e4c5ae56b4a80cd726620df8434e89395e95ebc801703da013b1131b6641a",
+          "000053_finfet_reference.png": "4f9a51bc2c417a15f4b83fb33628b04305c63e9020d912b0ed5b2d92523aafcf",
+          "000053_finfet_search.png": "4be001389b64d6e09974d0133b4fec9187cef12a1e16bc95c37a5a46095f841e",
+          "000054_dram_reference.png": "ca3e65cfd9abc37376fdc2b641cf28f115d8e8deee29ea7fc5ebf04b941ce496",
+          "000054_dram_search.png": "27e56f43cb65de0d64e18f96ed051225c65e1bb1430f504faefbf0934545d769",
+          "000055_finfet_reference.png": "72f365e2583a2ca889c5e598fa9ce801a3c2bd88f3ab819f6997cba80b55c5b1",
+          "000055_finfet_search.png": "39c39fef83ecd6fd5381d0f45b53ba17e98d22283daa1d939898920b63e1e0ba",
+          "000056_dram_reference.png": "687348bdf679a57a3c3c45024b2867c610926e599d2dd612c1e48409276a3f69",
+          "000056_dram_search.png": "6838fa8cff0d8e51e88742a9cecbdb13d9b489d0a16f1b53204358ec7a6d1f23",
+          "000057_finfet_reference.png": "afa79740380bd4e76680d0abc8b873dee2e5accb1ffd3918b87f670d3e3edd86",
+          "000057_finfet_search.png": "b7ec53d8dc19dd84d74b08fe4aa24a6861f3d8d9fda420cd99b4a387cf70efa8",
+          "000058_dram_reference.png": "9e0e4ed44177e260688ee5f2a41ecd4fe82f43dcc8030e0e12f3dfb5c6688564",
+          "000058_dram_search.png": "8100547ff8a5c6790e04ea41ec8057b2a31f8e8efcb734c1e228de18a53ba3f1",
+          "000059_finfet_reference.png": "02cdacd0fedad7b6b6932a01925a057fdd8dfd1a5d066e9b32b30ec96af06ddf",
+          "000059_finfet_search.png": "15c1e201e2f4d0aa5248577058c7d73327e116cab1d494ffcebc8df7062657c3",
+          "000060_dram_reference.png": "7ad7dcf1d17fee27047d731229f00f4498d2902783e7fc39009b572154a87d6d",
+          "000060_dram_search.png": "38d7092183f780d1af3137c5a56453f4d9cfb3d4d1ce633f38ecfa47bca65cfa",
+          "000061_finfet_reference.png": "55ad1f667e9f627099077d4235c90b8699ca4903ecd2bf4cde063da635e702f4",
+          "000061_finfet_search.png": "566931ca7aeb61dadac8a2cceaacc2a81db416d6155d89cdfaea25f2c187db47",
+          "000062_dram_reference.png": "52e875b7ffbe70ce585f2c5122ad0ed912676550fd9552ec07283806799d9435",
+          "000062_dram_search.png": "0a56403e94cdf6bcc8c17a377224cbd5e163050532fd2660b684948603280a22",
+          "000063_finfet_reference.png": "bd78ff2979cd8cbb12456c1cb831cc5f24f31e57f73ad7e24337bbaefeec924d",
+          "000063_finfet_search.png": "6da302d751da548edf58562fbbf630d3e1ab1e5b324d8cfde1dcc6a1e02b785d",
+          "000064_dram_reference.png": "348354292d4ffe4a900b3b2acc4bbc6f0fd2e21d69a7583977ed576da6aeb46b",
+          "000064_dram_search.png": "6360b5642249dc1ae0a0e1904d3843b9e574c7751874dbfa43b0ba105dc0675d",
+          "000065_finfet_reference.png": "57f4698ab7bfcee68fc6ec8adf5026eae12ab0e36a30cbf0c926692a7999d9a2",
+          "000065_finfet_search.png": "e17686c26e39a66f2226bd6d5575b6a3e8c98cde5dfe8183ef9eaec508246c62",
+          "000066_dram_reference.png": "a2e66078125707ff6e7085b832cd11ca24be0be4bc02bfd3e36bc2adb2b563d2",
+          "000066_dram_search.png": "8dfb22aba00bc08023fd5fd3664e96c35e623b51a3f6aa6d3ee8408b5e30dd94",
+          "000067_finfet_reference.png": "f0740e2b52bc624e715d037fbccedb901af711f4eaafcf70d91b4c7f0a0bebf9",
+          "000067_finfet_search.png": "3640ff533482c7efea8f92ecc8f4ce8b2ac3ed145eb55a42b156fa6c08052a5f",
+          "000068_dram_reference.png": "74b31f747c613576e5f83bfe46d499e5983fd20b121d053369985e2b5b3b8455",
+          "000068_dram_search.png": "89bc4095b3a0d2f5195f3e1353bf1a4f5a1123c3bbbcd6742162dc894b521798",
+          "000069_finfet_reference.png": "5290b5348070441d39b4b580c67035103f2f3065e17ce3d75cc0c100142ef025",
+          "000069_finfet_search.png": "41ebe73d157668f21873ad1a445bcf295e91189098fe3beb8f898c67a5d9109a",
+          "000070_dram_reference.png": "27456945f68827c35eec4e9f7b243153a0d68331ad956fbb8f36595f2d4a622f",
+          "000070_dram_search.png": "e8d9d9f8fc47cc08f9c7096af7d94de25ee5281986f3634966d24f6f38fe24bb",
+          "000071_finfet_reference.png": "f691a88af7cd4beef9d6acd63b76bf752fb6c277c82419e1e66fd3e3ef96d786",
+          "000071_finfet_search.png": "f29ff5f0434300b832b4cdfb684807c44ade2f07943722126c43e005ad8b1b8a",
+          "000072_dram_reference.png": "ddf2acb5bc2a291fc802531b48d67517890e0e730c0126c3b06cc5ed7e8c363b",
+          "000072_dram_search.png": "c62c32af4022e75bda96db7f527fe703063a7fe1f39da22a03f39e81056f79f8",
+          "000073_finfet_reference.png": "5f21bb15072898bf04f1c2a52ce8519a2b76f1265cb92e3766ccf65a6d8e122b",
+          "000073_finfet_search.png": "867f718fad94546caa738385bd96f0a5467fdece770a6ba2c26dab9fb4b0d4ed",
+          "000074_dram_reference.png": "293657aed4e67833c28ebbceba4c8cf99c178081bbc2fbd9637f6e78dd4ad162",
+          "000074_dram_search.png": "40020b28049b2393a4601e7716b38915bb21a28ba39eaf950f0dc4e6ebd7f46e",
+          "000075_finfet_reference.png": "e77df46050ca1696f5b067f2d641983bbcd236aedb2b3989c19a028dcfbd874c",
+          "000075_finfet_search.png": "2b940cc37146d41c4513ec8e7e5694b099fa2a38ca85ac09429356739a8fc29d",
+          "000076_dram_reference.png": "3f06640302b5f507c545813138696b724d5305ef8531d0189a535f02eb68a533",
+          "000076_dram_search.png": "48125b7f9bacc1353a15321fdfe74d5086f7120f0cda35f5659f62668a669455",
+          "000077_finfet_reference.png": "ae57784b2a03820a645cd614b4a6fcb9fdf33e97af1b21907d242c6b533293c8",
+          "000077_finfet_search.png": "0dd3af42701159901f72256a2c0e2ce3d9d32b8dda70c5a6f6022cf80dc848ed",
+          "000078_dram_reference.png": "cba2d5ef3aef1c8999bf3f8b3c74fc8737b5355af8c90c1ef6e9e2fae493cd2b",
+          "000078_dram_search.png": "e9008c5496e19e4eaaeb0939d6f19121a16ac00ad29d0f0f54ef6e18a3944296",
+          "000079_finfet_reference.png": "ab9fc8d72757c98aacc47bcd5c23d3cd0a41702ed624fc7a4375b9ccb818f384",
+          "000079_finfet_search.png": "96d48b36335efb7495cf0512a2d0775713b71c99a4febab8e1a7b00a57602cf5",
+          "000080_dram_reference.png": "1ce33c08f5b5975eb30574ee718b71f0b71d7d5c51d8d93b70492eaa116e4002",
+          "000080_dram_search.png": "0e9cdc07dac87c7bc7ce58877a3d884531aefe5038d9f030abed5de2b21ae761",
+          "000081_finfet_reference.png": "e6ff3012a837e4eb7e49bfe19c978991922c98874ea2aebb324735f789138bcd",
+          "000081_finfet_search.png": "63fce2e433d942c63a9e7848696e78a5e7378ce5f6e492d848924b209c021213",
+          "000082_dram_reference.png": "0065992ac6dba40446ef44bda070647d8b4b12773a3e9650d855bf54a2cf7eaf",
+          "000082_dram_search.png": "28b2c3c9cfa509f7e7724c92c18e7a5c6aaee88f83ac70aeb58d45851dad2fb4",
+          "000083_finfet_reference.png": "47342e651f6863ec852cb93e33caa6bc53b5c4adb282937c9a810efae49ca2c4",
+          "000083_finfet_search.png": "fa38ae2e5d5345a5c80d2c03cc366a66a0c79748a13e9e0629007123cbd7cb58",
+          "000084_dram_reference.png": "5ffe2448cdd75beea55c9ed75e287c967224cf485f2c892ba436436fc437cdd6",
+          "000084_dram_search.png": "32509752013475409bc49c5838c78f0bfab97dc8d66ca78c78a052fd3d56f0c0",
+          "000085_finfet_reference.png": "9fa70f5ccd814ab062ee415e55752ff41ac6d7743e9f395d71bb6ce587505e5b",
+          "000085_finfet_search.png": "209020017389871a070b3e70d59c0f50f32855b8c0c9b2297c52b5e7105cf6a0",
+          "000086_dram_reference.png": "88728f8141c19d8b3d8b37b0e539b3097665bd118d2007a6c49ded2b448f1a18",
+          "000086_dram_search.png": "e01bf9846c1bdad44bedd921a183e5302d414593f7351b380cc7927d3d0ffb72",
+          "000087_finfet_reference.png": "eaa83dc87ffc1f023d2560ebb2bcaeb823b6794a0ec381bbba8a576ae5e0e611",
+          "000087_finfet_search.png": "1bab96c9daa1ebd3ffcad5ebcda0fd2ae40f6956bdd0ceab946cf31c793afbf4",
+          "000088_dram_reference.png": "53ff2ea9c2acfe3aa692696c8673ec018f63ace2e26fb8b85c02140302668619",
+          "000088_dram_search.png": "251e9d3585a20819921922b1c073b2e002bca97c3f943428d499c713705a7a5c",
+          "000089_finfet_reference.png": "946d35a03bdf06adb79bf12353015b952572f822a76991b3fa5f01ce60a62f6c",
+          "000089_finfet_search.png": "ed15db9dbc27e7b36a00d769eb5064535967c5aeb9749c686a6a6949ad618d8d",
+          "000090_dram_reference.png": "2fa24684ac92468d9dc46b227eb49b68bf66ec8c795dc0a58ab1a61ad261ceb4",
+          "000090_dram_search.png": "a7c0790a56b5dc0d5bf5d61bc6fad2d5011ee162a771d3bf23e91faa4836a6e2",
+          "000091_finfet_reference.png": "9ecae90c4ec615c1b245656689327330ffe9fde9685e9fa49918cabf81e8e311",
+          "000091_finfet_search.png": "4788f0451e46aacbc3e7e193a19d3764dd7f35e6d666297f8860ac04389fa216",
+          "000092_dram_reference.png": "c2d516963d6cd10f66af47f6df84f6fefe7ad357cfc2d12308a3ae1a63c78c33",
+          "000092_dram_search.png": "75041292deaf12c8614c6be63676f0c2e1dd78ef4065ae6a0e6761530b71bd8b",
+          "000093_finfet_reference.png": "9de12a29bdc48f3962e20bcec05159efa43e6ba939d2467cc7d88440986adae8",
+          "000093_finfet_search.png": "fcd7bc4d8178d67b55063652062139e96d7e421b4b54136cf680e05993a00d9d",
+          "000094_dram_reference.png": "d4de217940895f6465add19a035771ea809cc97d12e5938e1eb91bddedff3b7d",
+          "000094_dram_search.png": "7a2597925b8db4c151d19e9abe3d365c5ac9b3d375a0edcc8666c32a7e51cfbd",
+          "000095_finfet_reference.png": "c66b0b69fddecdb64bd9e69a19665f012475bc27e79682a542b00a1acc82c013",
+          "000095_finfet_search.png": "771a7a150d81372a1e61b308f0388d7b0b83cdeb83f2916027ace7165e2f6175",
+          "000096_dram_reference.png": "f9401960e4d680050391b70de92d3203a6807462c1c9c47021889aa082227359",
+          "000096_dram_search.png": "8f85dc7424eb3f0f0962a1e5037e2346c4aa9e0e426f307a406721ad915566e1",
+          "000097_finfet_reference.png": "cf45a1b31bc376cdc708d88dab0d242a1033f462f5336528705da634057b93dc",
+          "000097_finfet_search.png": "d64653f76214dacf2d98919c47abe9c220685f658b0af8aab0e40123baa66165",
+          "000098_dram_reference.png": "cb68c374baef9a6a8470d5d21c52457645f44a2f58610919d124e07820c2adf3",
+          "000098_dram_search.png": "002e62a262a65cc48f3240e2a65fe088060644428b7a09c9a27e2ad7e41c7cbf",
+          "000099_finfet_reference.png": "7495383a872947cf9cbb278f06c330b4c242c7a2f5d7f5665b3ec0e2daf2de01",
+          "000099_finfet_search.png": "667053f56de7f8e0c926f6387bac91480ac73c52b28b39d6b77123969e58f14f"
+        },
+        "manifest_sha256": "4a0bacc04be5c22e5dae4e89d84357e05954b9befd655ef3d6a10d1ced6e0d34",
+        "working_tree_dirty": false
+      },
+      "dataset_record_count": 100,
+      "evaluated_record_count": 100,
+      "manifest": "metralign-independent-final-100-v2/manifest.jsonl",
+      "result": {
+        "metrics": {
+          "count": 100,
+          "coverage": 0.78,
+          "max_error_px_resolved": 2805.512906818112,
+          "mean_error_px_resolved": 708.9255883417917,
+          "mean_runtime_ms": 149.31847792,
+          "median_error_px_resolved": 690.4649054617241,
+          "median_runtime_ms": 147.3378335,
+          "p95_error_px_resolved": 1098.1030913734176,
+          "p95_runtime_ms": 173.00199374999994,
+          "resolved_count": 78,
+          "resolved_success_le_0.5px": 0.0,
+          "resolved_success_le_1px": 0.0,
+          "resolved_success_le_2px": 0.0,
+          "resolved_success_le_3px": 0.0,
+          "resolved_success_le_5px": 0.0,
+          "success_le_0.5px": 0.0,
+          "success_le_1px": 0.0,
+          "success_le_2px": 0.0,
+          "success_le_3px": 0.0,
+          "success_le_5px": 0.0,
+          "unresolved_count": 22
+        },
+        "samples": [
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  -1.0781783697640261,
+                  -0.2096679452446602,
+                  13.25995699698443
+                ],
+                [
+                  -7.778111333647867,
+                  -2.048440824082018,
+                  112.35235594947571
+                ],
+                [
+                  -0.08156261102236162,
+                  -0.01653497875593069,
+                  1.0
+                ]
+              ],
+              "inlier_count": 5,
+              "inlier_fraction": 1.0,
+              "match_count": 5,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 689.9535989844732,
+            "ground_truth": [
+              514.8082285702023,
+              570.6351414940522
+            ],
+            "id": "000000_dram",
+            "prediction": [
+              13.094048500061035,
+              97.01203155517578
+            ],
+            "runtime_ms": 162.333375,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  -3.343374485042976,
+                  -2.89622600532684,
+                  921.6386828745943
+                ],
+                [
+                  -0.9368783668867896,
+                  -0.216172393658596,
+                  195.744766858912
+                ],
+                [
+                  -0.004013115686460348,
+                  -0.00304319367522765,
+                  0.9999999999999999
+                ]
+              ],
+              "inlier_count": 14,
+              "inlier_fraction": 0.17073170731707318,
+              "match_count": 82,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 811.5128809248904,
+            "ground_truth": [
+              207.07941814245106,
+              557.8934605056183
+            ],
+            "id": "000001_finfet",
+            "prediction": [
+              941.7035522460938,
+              213.10289001464844
+            ],
+            "runtime_ms": 132.687917,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  -0.08504473864791615,
+                  -0.539939558202595,
+                  14.655709292882268
+                ],
+                [
+                  45.291614406347556,
+                  -48.830421630002874,
+                  1044.691879743292
+                ],
+                [
+                  0.05639539075858838,
+                  -0.05464809781070507,
+                  1.0
+                ]
+              ],
+              "inlier_count": 5,
+              "inlier_fraction": 0.45454545454545453,
+              "match_count": 11,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 849.9825183342688,
+            "ground_truth": [
+              678.5794724615942,
+              308.9379075400641
+            ],
+            "id": "000002_dram",
+            "prediction": [
+              -14.984950065612793,
+              800.302001953125
+            ],
+            "runtime_ms": 129.850833,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  2.2249984203042987,
+                  0.4349559333719917,
+                  891.4786840599365
+                ],
+                [
+                  0.14459911448211607,
+                  1.1516697991134655,
+                  57.52629446700581
+                ],
+                [
+                  0.001127719292199059,
+                  0.0004434229860510302,
+                  1.0
+                ]
+              ],
+              "inlier_count": 18,
+              "inlier_fraction": 0.2857142857142857,
+              "match_count": 63,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 721.7296193459966,
+            "ground_truth": [
+              264.1389470522111,
+              339.68173559155
+            ],
+            "id": "000003_finfet",
+            "prediction": [
+              949.3165893554688,
+              112.91039276123047
+            ],
+            "runtime_ms": 129.925459,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  -0.14830120470629232,
+                  -0.17334566802443457,
+                  12.442289810901794
+                ],
+                [
+                  -0.20686862471101158,
+                  -0.13759674958148427,
+                  16.165632594256238
+                ],
+                [
+                  -0.012412011163384445,
+                  -0.013851326174402797,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 0.5714285714285714,
+              "match_count": 7,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 1083.0594895724764,
+            "ground_truth": [
+              782.6525802303422,
+              763.536116932969
+            ],
+            "id": "000004_dram",
+            "prediction": [
+              11.596074104309082,
+              2.950998544692993
+            ],
+            "runtime_ms": 130.04675,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  -47.00468238823509,
+                  46.75748166922813,
+                  817.2793687967917
+                ],
+                [
+                  -52.87897845267585,
+                  53.109555403148065,
+                  775.4370424587972
+                ],
+                [
+                  -0.0535740485383,
+                  0.051328160278936406,
+                  1.0
+                ]
+              ],
+              "inlier_count": 8,
+              "inlier_fraction": 0.08163265306122448,
+              "match_count": 98,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 436.14468453207496,
+            "ground_truth": [
+              502.82855556473265,
+              718.2678005746843
+            ],
+            "id": "000005_finfet",
+            "prediction": [
+              905.7348022460938,
+              885.2670288085938
+            ],
+            "runtime_ms": 131.192542,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  3.811815780781937,
+                  -23.860434252531064,
+                  980.342053337329
+                ],
+                [
+                  0.39323179324474117,
+                  0.05452092449008353,
+                  -24.420509248424196
+                ],
+                [
+                  0.0037527878679532107,
+                  -0.02412028308071257,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 1.0,
+              "match_count": 4,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 860.3884524467503,
+            "ground_truth": [
+              627.866529254897,
+              437.3268691897109
+            ],
+            "id": "000006_dram",
+            "prediction": [
+              1472.9022216796875,
+              275.5153503417969
+            ],
+            "runtime_ms": 133.583792,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  -4.054303839207174,
+                  0.315676826432523,
+                  905.8210943993496
+                ],
+                [
+                  -0.21058113598633368,
+                  0.6073956055814107,
+                  25.285893699441353
+                ],
+                [
+                  -0.005047259698437996,
+                  0.0002898416556640934,
+                  1.0
+                ]
+              ],
+              "inlier_count": 17,
+              "inlier_fraction": 0.16666666666666666,
+              "match_count": 102,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 862.9851638285411,
+            "ground_truth": [
+              485.7520832403831,
+              790.801104535444
+            ],
+            "id": "000007_finfet",
+            "prediction": [
+              942.7752685546875,
+              58.76749801635742
+            ],
+            "runtime_ms": 131.49,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 4,
+              "reason": "homography_failure"
+            },
+            "error": null,
+            "ground_truth": [
+              133.2588512351817,
+              249.06760660579437
+            ],
+            "id": "000008_dram",
+            "prediction": null,
+            "runtime_ms": 129.409666,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  -70.50555418540429,
+                  12.04568742305162,
+                  1343.1212522854617
+                ],
+                [
+                  -14.098062648957123,
+                  -1.8298992095895736,
+                  355.7880804588698
+                ],
+                [
+                  -0.0670629673232847,
+                  0.012010011481368994,
+                  1.0
+                ]
+              ],
+              "inlier_count": 9,
+              "inlier_fraction": 0.1232876712328767,
+              "match_count": 73,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 360.2127525099862,
+            "ground_truth": [
+              623.2550369838596,
+              482.7296663924093
+            ],
+            "id": "000009_finfet",
+            "prediction": [
+              898.8598022460938,
+              250.79165649414062
+            ],
+            "runtime_ms": 130.772667,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  -0.5345766474651471,
+                  -2.876328123212236,
+                  125.5497720079902
+                ],
+                [
+                  0.21324164529138775,
+                  -2.090110177938631,
+                  68.27399900047361
+                ],
+                [
+                  -0.003413931189826369,
+                  -0.02437519048642154,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 0.6666666666666666,
+              "match_count": 6,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 663.3541019902514,
+            "ground_truth": [
+              557.3293507577292,
+              560.1751068735226
+            ],
+            "id": "000010_dram",
+            "prediction": [
+              115.2674331665039,
+              65.58444213867188
+            ],
+            "runtime_ms": 129.903125,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  0.27527122709729795,
+                  0.0017276654328034547,
+                  904.1616444284075
+                ],
+                [
+                  -0.07257840092980987,
+                  0.9315752859516544,
+                  30.889721200877123
+                ],
+                [
+                  -0.0006933008028714155,
+                  6.982832491033397e-06,
+                  1.0
+                ]
+              ],
+              "inlier_count": 15,
+              "inlier_fraction": 0.22058823529411764,
+              "match_count": 68,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 939.8043047836768,
+            "ground_truth": [
+              158.0830458312415,
+              581.8161490241662
+            ],
+            "id": "000011_finfet",
+            "prediction": [
+              950.15234375,
+              75.99171447753906
+            ],
+            "runtime_ms": 129.960667,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 0,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              575.2099640969856,
+              707.6791291801686
+            ],
+            "id": "000012_dram",
+            "prediction": null,
+            "runtime_ms": 129.120417,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  1069.5147892548368,
+                  140.80481629369874,
+                  -4714.843214876621
+                ],
+                [
+                  87.32965387034243,
+                  93.84791285970356,
+                  -3716.59694422418
+                ],
+                [
+                  1.0220127929171183,
+                  0.1481591199159576,
+                  1.0
+                ]
+              ],
+              "inlier_count": 13,
+              "inlier_fraction": 0.18571428571428572,
+              "match_count": 70,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 777.6858792008029,
+            "ground_truth": [
+              259.01959762477514,
+              470.560298290501
+            ],
+            "id": "000013_finfet",
+            "prediction": [
+              936.7394409179688,
+              89.12728881835938
+            ],
+            "runtime_ms": 130.466,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  0.26426497727350656,
+                  0.02581327287745092,
+                  -0.7460244607065764
+                ],
+                [
+                  -3.6815037281722756,
+                  -3.1426292761057932,
+                  497.60351136986407
+                ],
+                [
+                  -0.005083306764370447,
+                  -0.009118802446409375,
+                  1.0
+                ]
+              ],
+              "inlier_count": 5,
+              "inlier_fraction": 0.5,
+              "match_count": 10,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 601.6191753178998,
+            "ground_truth": [
+              613.6303596746134,
+              736.9677764593462
+            ],
+            "id": "000014_dram",
+            "prediction": [
+              45.83518981933594,
+              538.085205078125
+            ],
+            "runtime_ms": 146.558542,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  -25.37010062500566,
+                  -5.729816805252873,
+                  1106.951534159331
+                ],
+                [
+                  -21.553180957670772,
+                  -6.480308687692269,
+                  961.3468016408677
+                ],
+                [
+                  -0.024298003037049414,
+                  -0.0057895654338722,
+                  1.0
+                ]
+              ],
+              "inlier_count": 12,
+              "inlier_fraction": 0.1935483870967742,
+              "match_count": 62,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 347.75626241542204,
+            "ground_truth": [
+              536.2722618621099,
+              859.8088838752651
+            ],
+            "id": "000015_finfet",
+            "prediction": [
+              883.8417358398438,
+              871.205322265625
+            ],
+            "runtime_ms": 154.37125,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  0.11019574582474971,
+                  -0.16261509565041937,
+                  10.974091538211004
+                ],
+                [
+                  -1.1913498277435026,
+                  -12.568467670953343,
+                  960.910195284525
+                ],
+                [
+                  -0.001236856514464065,
+                  -0.013082730874851045,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 1.0,
+              "match_count": 4,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 406.73670963757354,
+            "ground_truth": [
+              369.47404250979565,
+              738.7416654146351
+            ],
+            "id": "000016_dram",
+            "prediction": [
+              28.777118682861328,
+              960.91357421875
+            ],
+            "runtime_ms": 154.045,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  -1201.1323888290895,
+                  460.32425870212467,
+                  8339.12185736715
+                ],
+                [
+                  -1007.1407027653927,
+                  312.77061163935736,
+                  7052.234086744195
+                ],
+                [
+                  -1.1289293444037134,
+                  0.46477580239331523,
+                  1.0
+                ]
+              ],
+              "inlier_count": 9,
+              "inlier_fraction": 0.18,
+              "match_count": 50,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 593.8179121167885,
+            "ground_truth": [
+              297.0768511407777,
+              807.1625786318455
+            ],
+            "id": "000017_finfet",
+            "prediction": [
+              888.7952270507812,
+              857.05322265625
+            ],
+            "runtime_ms": 137.13175,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  -73.78392193252459,
+                  -17.230987290977613,
+                  1953.2046565993496
+                ],
+                [
+                  -25.191929197171408,
+                  -128.1234857476811,
+                  7639.023520060525
+                ],
+                [
+                  -0.05968285258516901,
+                  -0.024103545424697698,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 0.5,
+              "match_count": 8,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 1013.4935150259562,
+            "ground_truth": [
+              177.68730168015674,
+              775.531886602465
+            ],
+            "id": "000018_dram",
+            "prediction": [
+              810.8317260742188,
+              -15.857551574707031
+            ],
+            "runtime_ms": 133.4405,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  1.1888283314232588,
+                  0.2312643709133224,
+                  899.705823851002
+                ],
+                [
+                  0.01360208392137641,
+                  1.0346530956694724,
+                  12.25273277959156
+                ],
+                [
+                  0.000172145958550835,
+                  0.00023673347070943826,
+                  1.0
+                ]
+              ],
+              "inlier_count": 37,
+              "inlier_fraction": 0.34579439252336447,
+              "match_count": 107,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 579.9051409177091,
+            "ground_truth": [
+              472.43884412487546,
+              390.74272726354957
+            ],
+            "id": "000019_finfet",
+            "prediction": [
+              950.7575073242188,
+              62.868927001953125
+            ],
+            "runtime_ms": 132.073084,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 3,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              309.37151145717604,
+              399.30004234756416
+            ],
+            "id": "000020_dram",
+            "prediction": null,
+            "runtime_ms": 133.110417,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  1.0657372757816472,
+                  -12.226373540206763,
+                  977.5190274554931
+                ],
+                [
+                  2.7342819577223048,
+                  0.8045288360838546,
+                  -234.16357786523665
+                ],
+                [
+                  0.0009590384128090924,
+                  -0.012378091057534691,
+                  1.0
+                ]
+              ],
+              "inlier_count": 7,
+              "inlier_fraction": 0.12727272727272726,
+              "match_count": 55,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 814.2892109715918,
+            "ground_truth": [
+              471.52779262810566,
+              502.1520634047218
+            ],
+            "id": "000021_finfet",
+            "prediction": [
+              977.713134765625,
+              -135.69064331054688
+            ],
+            "runtime_ms": 135.189416,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  0.7455026814926139,
+                  -0.05593966383288429,
+                  7.165962188973827
+                ],
+                [
+                  -11.428025886432483,
+                  1.8259092419104728,
+                  902.0948941409147
+                ],
+                [
+                  -0.011575141835498995,
+                  0.0008420193729107629,
+                  1.0
+                ]
+              ],
+              "inlier_count": 8,
+              "inlier_fraction": 0.4444444444444444,
+              "match_count": 18,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 748.3393800410519,
+            "ground_truth": [
+              829.0323408796137,
+              805.4440216406289
+            ],
+            "id": "000022_dram",
+            "prediction": [
+              88.11267852783203,
+              910.5624389648438
+            ],
+            "runtime_ms": 131.214916,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  17.75798584738857,
+                  -17.16184239080095,
+                  858.6973501357235
+                ],
+                [
+                  0.6379337150398292,
+                  0.8603645273750185,
+                  -29.784755454739855
+                ],
+                [
+                  0.017112631070268686,
+                  -0.01808220649774042,
+                  1.0
+                ]
+              ],
+              "inlier_count": 10,
+              "inlier_fraction": 0.136986301369863,
+              "match_count": 73,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 919.0649172566501,
+            "ground_truth": [
+              222.47178621066698,
+              629.587207894779
+            ],
+            "id": "000023_finfet",
+            "prediction": [
+              932.9840698242188,
+              46.618412017822266
+            ],
+            "runtime_ms": 132.724375,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  0.3743487400256756,
+                  -0.19405644335017294,
+                  11.164175516249323
+                ],
+                [
+                  -4.1478904628916355,
+                  -3.2655207689107195,
+                  316.0105938222145
+                ],
+                [
+                  -0.0118939800787286,
+                  -0.010951423487849185,
+                  1.0
+                ]
+              ],
+              "inlier_count": 5,
+              "inlier_fraction": 0.45454545454545453,
+              "match_count": 11,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 983.3839812919348,
+            "ground_truth": [
+              828.5316675287759,
+              338.3754437361121
+            ],
+            "id": "000024_dram",
+            "prediction": [
+              -153.5271759033203,
+              389.4095764160156
+            ],
+            "runtime_ms": 132.606584,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  16.394617757950055,
+                  -1.5100004976622703,
+                  -154.51496113577258
+                ],
+                [
+                  0.5553974981242783,
+                  4.906845896456191,
+                  -25.7097674239233
+                ],
+                [
+                  0.07233268331313099,
+                  -0.008752484573186345,
+                  0.9999999999999999
+                ]
+              ],
+              "inlier_count": 13,
+              "inlier_fraction": 0.18055555555555555,
+              "match_count": 72,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 757.8833123607493,
+            "ground_truth": [
+              199.64610537482014,
+              814.5605669453627
+            ],
+            "id": "000025_finfet",
+            "prediction": [
+              140.40093994140625,
+              58.996456146240234
+            ],
+            "runtime_ms": 134.764583,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 1,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              195.83433752089618,
+              687.3822998737013
+            ],
+            "id": "000026_dram",
+            "prediction": null,
+            "runtime_ms": 130.74175,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  14.229916513895862,
+                  -1.7095688103721771,
+                  827.3026353424775
+                ],
+                [
+                  0.5640183741172872,
+                  1.821768279398365,
+                  -13.94682796290515
+                ],
+                [
+                  0.012719140555086326,
+                  -0.001757516085502228,
+                  1.0
+                ]
+              ],
+              "inlier_count": 11,
+              "inlier_fraction": 0.16176470588235295,
+              "match_count": 68,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 936.4701438398539,
+            "ground_truth": [
+              377.06959187185254,
+              817.3557298333106
+            ],
+            "id": "000027_finfet",
+            "prediction": [
+              938.0652465820312,
+              67.51560974121094
+            ],
+            "runtime_ms": 132.238333,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  -0.3362417771229545,
+                  0.4114996472082908,
+                  9.570437699945492
+                ],
+                [
+                  -15.034997185870239,
+                  21.997412946197493,
+                  -367.02484094919555
+                ],
+                [
+                  -0.07433751093650046,
+                  0.042310492238744016,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 0.8,
+              "match_count": 5,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 687.5500022721433,
+            "ground_truth": [
+              644.9133787206308,
+              202.5537076514778
+            ],
+            "id": "000028_dram",
+            "prediction": [
+              -22.7145938873291,
+              38.243343353271484
+            ],
+            "runtime_ms": 131.433292,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  0.8644560911369458,
+                  0.011724644328981475,
+                  15.134769860165402
+                ],
+                [
+                  -0.06577597111172226,
+                  1.0077027307813222,
+                  2.352234166599943
+                ],
+                [
+                  -0.0023525195460270213,
+                  0.0013564602085341952,
+                  1.0
+                ]
+              ],
+              "inlier_count": 11,
+              "inlier_fraction": 0.1774193548387097,
+              "match_count": 62,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 476.6671635697596,
+            "ground_truth": [
+              508.2419858394968,
+              217.85729826290796
+            ],
+            "id": "000029_finfet",
+            "prediction": [
+              61.539939880371094,
+              51.51768493652344
+            ],
+            "runtime_ms": 135.896416,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  -13.151088511082465,
+                  -9.042735506401907,
+                  484.5225714631824
+                ],
+                [
+                  -9.619729641292611,
+                  -50.07341049809394,
+                  1864.1479367875688
+                ],
+                [
+                  -0.011693438288914722,
+                  -0.03592103147973487,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 0.6666666666666666,
+              "match_count": 6,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 458.0201819480492,
+            "ground_truth": [
+              690.0936072445007,
+              412.1742603904352
+            ],
+            "id": "000030_dram",
+            "prediction": [
+              452.5494689941406,
+              803.7802734375
+            ],
+            "runtime_ms": 144.38825,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  2.0970791533250597,
+                  0.14395638633219746,
+                  -3.718881378363617
+                ],
+                [
+                  -0.5519149879163965,
+                  1.1765016969550954,
+                  26.624978323123386
+                ],
+                [
+                  -0.010776036888163278,
+                  0.003923643774130129,
+                  1.0
+                ]
+              ],
+              "inlier_count": 9,
+              "inlier_fraction": 0.1836734693877551,
+              "match_count": 49,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 982.5624751340821,
+            "ground_truth": [
+              820.5830378672174,
+              816.4752721713868
+            ],
+            "id": "000031_finfet",
+            "prediction": [
+              162.24473571777344,
+              87.0784683227539
+            ],
+            "runtime_ms": 167.394209,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  -7.241972112462743,
+                  -10.373292025101673,
+                  993.9434620813868
+                ],
+                [
+                  -6.875945429124287,
+                  -11.04317418906884,
+                  1009.3391043502784
+                ],
+                [
+                  -0.007088111342545545,
+                  -0.010739302795410247,
+                  1.0
+                ]
+              ],
+              "inlier_count": 6,
+              "inlier_fraction": 0.46153846153846156,
+              "match_count": 13,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 530.0091579767827,
+            "ground_truth": [
+              663.2765700448264,
+              665.8257528779593
+            ],
+            "id": "000032_dram",
+            "prediction": [
+              1037.81494140625,
+              1040.8333740234375
+            ],
+            "runtime_ms": 241.098334,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  5.811285000409266,
+                  -14.383769263766792,
+                  875.0411743652822
+                ],
+                [
+                  0.07033859191999846,
+                  1.0481859742412938,
+                  -4.434099587901108
+                ],
+                [
+                  0.0045685586535462695,
+                  -0.014563364876589045,
+                  1.0
+                ]
+              ],
+              "inlier_count": 14,
+              "inlier_fraction": 0.17721518987341772,
+              "match_count": 79,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 494.7896755745445,
+            "ground_truth": [
+              810.1878282695818,
+              588.7803232779681
+            ],
+            "id": "000033_finfet",
+            "prediction": [
+              892.0274658203125,
+              100.80583953857422
+            ],
+            "runtime_ms": 233.375917,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 3,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              705.6158315398835,
+              719.3001499954171
+            ],
+            "id": "000034_dram",
+            "prediction": null,
+            "runtime_ms": 201.1955,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  12.568846283506561,
+                  -19.32739586833908,
+                  937.7143931940761
+                ],
+                [
+                  10.259529923977292,
+                  -14.770715110175178,
+                  720.2977191817854
+                ],
+                [
+                  0.01244096460053341,
+                  -0.019871415954207345,
+                  1.0
+                ]
+              ],
+              "inlier_count": 6,
+              "inlier_fraction": 0.14634146341463414,
+              "match_count": 41,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 681.9483416779119,
+            "ground_truth": [
+              276.4466816417813,
+              862.6836498535885
+            ],
+            "id": "000035_finfet",
+            "prediction": [
+              954.0860595703125,
+              786.1433715820312
+            ],
+            "runtime_ms": 165.782292,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 3,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              188.75596733653182,
+              748.9477812160069
+            ],
+            "id": "000036_dram",
+            "prediction": null,
+            "runtime_ms": 151.875417,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  -7.9971927025371645,
+                  70.80979274527957,
+                  546.4337981745119
+                ],
+                [
+                  -11.007092100244398,
+                  64.98516893079064,
+                  588.052902274649
+                ],
+                [
+                  -0.013209725323689652,
+                  0.07165422632469459,
+                  1.0
+                ]
+              ],
+              "inlier_count": 8,
+              "inlier_fraction": 0.10256410256410256,
+              "match_count": 78,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 409.77928520935814,
+            "ground_truth": [
+              543.7289268853976,
+              729.4383965122587
+            ],
+            "id": "000037_finfet",
+            "prediction": [
+              939.0328369140625,
+              837.3915405273438
+            ],
+            "runtime_ms": 165.20725,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 1,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              858.1107500834851,
+              675.5235346295613
+            ],
+            "id": "000038_dram",
+            "prediction": null,
+            "runtime_ms": 142.474708,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  7.321954862721156,
+                  1.236395944009758,
+                  855.46868986248
+                ],
+                [
+                  0.15267360082616063,
+                  1.5637899004184341,
+                  -12.351902446001215
+                ],
+                [
+                  0.005882618622271791,
+                  0.0012716175054613232,
+                  1.0
+                ]
+              ],
+              "inlier_count": 26,
+              "inlier_fraction": 0.3333333333333333,
+              "match_count": 78,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 523.5236356995166,
+            "ground_truth": [
+              665.355922201201,
+              496.45868824790233
+            ],
+            "id": "000039_finfet",
+            "prediction": [
+              944.5936889648438,
+              53.62320327758789
+            ],
+            "runtime_ms": 150.24125,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 1,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              241.5706600697882,
+              433.60049497838685
+            ],
+            "id": "000040_dram",
+            "prediction": null,
+            "runtime_ms": 147.432667,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  -0.05131125707963408,
+                  -1.4166499332874303,
+                  899.027548680615
+                ],
+                [
+                  -0.8979849352735643,
+                  -0.6131262200999569,
+                  903.2909389900999
+                ],
+                [
+                  -0.0009315266975577743,
+                  -0.0014744434340314833,
+                  1.0
+                ]
+              ],
+              "inlier_count": 12,
+              "inlier_fraction": 0.13793103448275862,
+              "match_count": 87,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 773.8555007189581,
+            "ground_truth": [
+              225.35734464090618,
+              639.0515815931899
+            ],
+            "id": "000041_finfet",
+            "prediction": [
+              938.085205078125,
+              940.5003051757812
+            ],
+            "runtime_ms": 146.643291,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 5,
+              "reason": "homography_failure"
+            },
+            "error": null,
+            "ground_truth": [
+              818.169944030158,
+              546.6273404753522
+            ],
+            "id": "000042_dram",
+            "prediction": null,
+            "runtime_ms": 142.686667,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  0.8782746607671161,
+                  -0.4095877751610682,
+                  20.96297754577932
+                ],
+                [
+                  0.2792379731331491,
+                  0.47897081362039473,
+                  -3.920376818151412
+                ],
+                [
+                  0.00026064566554979425,
+                  -0.010972425677821002,
+                  1.0
+                ]
+              ],
+              "inlier_count": 7,
+              "inlier_fraction": 0.08860759493670886,
+              "match_count": 79,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 760.5379576692491,
+            "ground_truth": [
+              752.1749004615408,
+              452.648536945743
+            ],
+            "id": "000043_finfet",
+            "prediction": [
+              94.01041412353516,
+              71.54816436767578
+            ],
+            "runtime_ms": 153.34775,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 4,
+              "reason": "homography_failure"
+            },
+            "error": null,
+            "ground_truth": [
+              145.28191375367362,
+              468.75585056718904
+            ],
+            "id": "000044_dram",
+            "prediction": null,
+            "runtime_ms": 171.903375,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  0.8664283579791106,
+                  -0.04213786455982462,
+                  3.366419022686652
+                ],
+                [
+                  -0.030438652442500012,
+                  0.859153082873941,
+                  1.2341633456468957
+                ],
+                [
+                  -0.001661911392154212,
+                  -0.002252754816857127,
+                  1.0
+                ]
+              ],
+              "inlier_count": 14,
+              "inlier_fraction": 0.2,
+              "match_count": 70,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 726.3998840661638,
+            "ground_truth": [
+              570.7153250473809,
+              563.7554177155913
+            ],
+            "id": "000045_finfet",
+            "prediction": [
+              54.78477096557617,
+              52.411643981933594
+            ],
+            "runtime_ms": 162.863208,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 3,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              595.1190775554892,
+              191.42429162347236
+            ],
+            "id": "000046_dram",
+            "prediction": null,
+            "runtime_ms": 157.525917,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  31.640483627868658,
+                  -14.3034035200247,
+                  797.600829814258
+                ],
+                [
+                  9.552398295618486,
+                  -2.224683155034582,
+                  185.38408748062923
+                ],
+                [
+                  0.03030192202789296,
+                  -0.014826936986230433,
+                  1.0
+                ]
+              ],
+              "inlier_count": 11,
+              "inlier_fraction": 0.13924050632911392,
+              "match_count": 79,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 730.0017924976503,
+            "ground_truth": [
+              367.2969872413288,
+              766.0764828302349
+            ],
+            "id": "000047_finfet",
+            "prediction": [
+              937.5850830078125,
+              310.3637390136719
+            ],
+            "runtime_ms": 163.978916,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 1,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              520.8257838204726,
+              412.9453078547507
+            ],
+            "id": "000048_dram",
+            "prediction": null,
+            "runtime_ms": 163.552209,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  1.7692421744767814,
+                  -4.049496233154197,
+                  879.8202434738307
+                ],
+                [
+                  -0.023385625254640843,
+                  0.865672924447785,
+                  3.4749076660970077
+                ],
+                [
+                  0.0005203709891606111,
+                  -0.004040458365043467,
+                  1.0
+                ]
+              ],
+              "inlier_count": 17,
+              "inlier_fraction": 0.2,
+              "match_count": 85,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 891.9399771788436,
+            "ground_truth": [
+              424.7228001046831,
+              790.5527075941212
+            ],
+            "id": "000049_finfet",
+            "prediction": [
+              928.7827758789062,
+              54.69914627075195
+            ],
+            "runtime_ms": 149.794167,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  -2.211218789966465,
+                  -0.15232366900690986,
+                  23.61517738425948
+                ],
+                [
+                  -11.389909206757995,
+                  -43.98322028704811,
+                  1138.0672413366253
+                ],
+                [
+                  -0.011655456333870062,
+                  -0.042626336202963154,
+                  1.0
+                ]
+              ],
+              "inlier_count": 6,
+              "inlier_fraction": 0.5,
+              "match_count": 12,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 830.9515613494066,
+            "ground_truth": [
+              612.0994625315246,
+              333.3192438701477
+            ],
+            "id": "000050_dram",
+            "prediction": [
+              55.35448455810547,
+              950.1786499023438
+            ],
+            "runtime_ms": 149.532792,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  -196.25391378514342,
+                  22.81594487087368,
+                  2330.289388565977
+                ],
+                [
+                  -150.36218944231604,
+                  6.6917063748251895,
+                  1802.960302828395
+                ],
+                [
+                  -0.18409477923492729,
+                  0.023741430850400765,
+                  1.0
+                ]
+              ],
+              "inlier_count": 7,
+              "inlier_fraction": 0.1346153846153846,
+              "match_count": 52,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 677.8428861667089,
+            "ground_truth": [
+              382.4614605945755,
+              329.38040589835333
+            ],
+            "id": "000051_finfet",
+            "prediction": [
+              901.6069946289062,
+              765.22314453125
+            ],
+            "runtime_ms": 149.067583,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  46.524045506956384,
+                  -70.25072672441804,
+                  761.9873653883014
+                ],
+                [
+                  0.762107443708355,
+                  2.2452582715101004,
+                  -40.282061641565534
+                ],
+                [
+                  0.044200970828276155,
+                  -0.07097938836037561,
+                  1.0
+                ]
+              ],
+              "inlier_count": 5,
+              "inlier_fraction": 0.7142857142857143,
+              "match_count": 7,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 1183.3501682454223,
+            "ground_truth": [
+              845.9395057467135,
+              772.3098143859778
+            ],
+            "id": "000052_dram",
+            "prediction": [
+              1267.106689453125,
+              -333.5544738769531
+            ],
+            "runtime_ms": 147.494875,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  -113.8710987722769,
+                  -25.227983260528482,
+                  1657.5502772592765
+                ],
+                [
+                  -40.14580983883213,
+                  -18.704017515313367,
+                  876.9592482289106
+                ],
+                [
+                  -0.10860611682852801,
+                  -0.02616146223516095,
+                  0.9999999999999999
+                ]
+              ],
+              "inlier_count": 12,
+              "inlier_fraction": 0.10344827586206896,
+              "match_count": 116,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 561.1239758900111,
+            "ground_truth": [
+              391.5097418605777,
+              175.7617201942319
+            ],
+            "id": "000053_finfet",
+            "prediction": [
+              921.8583374023438,
+              359.0387878417969
+            ],
+            "runtime_ms": 150.053917,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  -21.396921952348364,
+                  -3.3751199156558642,
+                  1079.5263401010686
+                ],
+                [
+                  -2.0186058437999064,
+                  -19.161599581440214,
+                  481.7696258072566
+                ],
+                [
+                  -0.0206025844399627,
+                  -0.003396717124106226,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 0.8,
+              "match_count": 5,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 2805.512906818112,
+            "ground_truth": [
+              784.3408293845631,
+              209.14292589019948
+            ],
+            "id": "000054_dram",
+            "prediction": [
+              780.4080200195312,
+              3014.653076171875
+            ],
+            "runtime_ms": 159.676417,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  4.389947379295291,
+                  0.1456129404192811,
+                  879.6877433255476
+                ],
+                [
+                  0.03945747325182203,
+                  1.2991888941288985,
+                  -4.490281694028933
+                ],
+                [
+                  0.0031801715049361804,
+                  0.00013414878178798816,
+                  1.0
+                ]
+              ],
+              "inlier_count": 15,
+              "inlier_fraction": 0.1485148514851485,
+              "match_count": 101,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 834.224857696203,
+            "ground_truth": [
+              139.84055718083897,
+              257.70905289847457
+            ],
+            "id": "000055_finfet",
+            "prediction": [
+              948.5757446289062,
+              53.06665802001953
+            ],
+            "runtime_ms": 151.234584,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 2,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              419.1280364965937,
+              249.49058890253892
+            ],
+            "id": "000056_dram",
+            "prediction": null,
+            "runtime_ms": 147.243,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  1598.3904441555792,
+                  -401.4815746224075,
+                  -7825.610656338538
+                ],
+                [
+                  32.53830834032587,
+                  111.60698353140755,
+                  -3014.542343686117
+                ],
+                [
+                  1.538978534015439,
+                  -0.4218325906818846,
+                  1.0
+                ]
+              ],
+              "inlier_count": 10,
+              "inlier_fraction": 0.22727272727272727,
+              "match_count": 44,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 859.4352852444878,
+            "ground_truth": [
+              133.22942804828588,
+              433.7683133855041
+            ],
+            "id": "000057_finfet",
+            "prediction": [
+              913.36669921875,
+              73.19259643554688
+            ],
+            "runtime_ms": 151.655,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  10.420297799397588,
+                  -6.612556900971378,
+                  368.71053268012264
+                ],
+                [
+                  -8.454888634875417,
+                  8.199905929714346,
+                  212.52929068845845
+                ],
+                [
+                  -0.008419010958266767,
+                  0.007241166640462588,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 0.6666666666666666,
+              "match_count": 6,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 592.959142309522,
+            "ground_truth": [
+              306.3488830366829,
+              732.0731978481483
+            ],
+            "id": "000058_dram",
+            "prediction": [
+              591.6912841796875,
+              212.28453063964844
+            ],
+            "runtime_ms": 159.339833,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  84.10693055795402,
+                  -76.98748964003379,
+                  530.6466275718407
+                ],
+                [
+                  0.9124075369377479,
+                  5.802405112314396,
+                  -70.14936382527706
+                ],
+                [
+                  0.07997550568232364,
+                  -0.07886681805803798,
+                  1.0
+                ]
+              ],
+              "inlier_count": 14,
+              "inlier_fraction": 0.18666666666666668,
+              "match_count": 75,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 424.6043663252554,
+            "ground_truth": [
+              709.9755266738094,
+              653.7129797884872
+            ],
+            "id": "000059_finfet",
+            "prediction": [
+              837.117919921875,
+              248.59117126464844
+            ],
+            "runtime_ms": 150.986,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  0.8681943640354964,
+                  -0.08447102864979168,
+                  4.6006670786521
+                ],
+                [
+                  0.14842250487307243,
+                  0.6239666869904255,
+                  27.77514809815847
+                ],
+                [
+                  0.0016244277327061975,
+                  -0.0029016187646112917,
+                  1.0
+                ]
+              ],
+              "inlier_count": 6,
+              "inlier_fraction": 1.0,
+              "match_count": 6,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 552.4686291210427,
+            "ground_truth": [
+              279.4010579576855,
+              571.3588445986479
+            ],
+            "id": "000060_dram",
+            "prediction": [
+              46.32359313964844,
+              70.46316528320312
+            ],
+            "runtime_ms": 156.3805,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  1.503406575309433,
+                  0.08506953597013757,
+                  897.3214564213638
+                ],
+                [
+                  0.0042737936635523594,
+                  1.0346546849035418,
+                  1.1377188777396736
+                ],
+                [
+                  0.00046511939963328214,
+                  9.24222682522118e-05,
+                  1.0
+                ]
+              ],
+              "inlier_count": 41,
+              "inlier_fraction": 0.41836734693877553,
+              "match_count": 98,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 794.9651497043247,
+            "ground_truth": [
+              390.73015782580853,
+              616.3766162862804
+            ],
+            "id": "000061_finfet",
+            "prediction": [
+              949.7398071289062,
+              51.1529426574707
+            ],
+            "runtime_ms": 211.685125,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 1,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              570.786181719311,
+              537.6617067236422
+            ],
+            "id": "000062_dram",
+            "prediction": null,
+            "runtime_ms": 153.678083,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  -10.72990784236041,
+                  -9.092743978749281,
+                  1060.585016121584
+                ],
+                [
+                  -9.693223584112056,
+                  -9.209503887544212,
+                  996.3458377745793
+                ],
+                [
+                  -0.010204049430457551,
+                  -0.009032424430413688,
+                  1.0
+                ]
+              ],
+              "inlier_count": 7,
+              "inlier_fraction": 0.11864406779661017,
+              "match_count": 59,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 1472.0286881477325,
+            "ground_truth": [
+              719.2853528917706,
+              137.4102729587226
+            ],
+            "id": "000063_finfet",
+            "prediction": [
+              1660.51904296875,
+              1269.1998291015625
+            ],
+            "runtime_ms": 152.701458,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 1,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              382.168554021332,
+              812.3936391770254
+            ],
+            "id": "000064_dram",
+            "prediction": null,
+            "runtime_ms": 148.297042,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  0.534965634751182,
+                  -0.0422716838335499,
+                  5.0280806919230185
+                ],
+                [
+                  -6.515043843059647,
+                  -3.307100927544322,
+                  933.8632981449231
+                ],
+                [
+                  -0.006628767225416684,
+                  -0.003973754319778728,
+                  1.0
+                ]
+              ],
+              "inlier_count": 9,
+              "inlier_fraction": 0.0967741935483871,
+              "match_count": 93,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 387.9969052796385,
+            "ground_truth": [
+              441.71138217744914,
+              862.8011155210507
+            ],
+            "id": "000065_finfet",
+            "prediction": [
+              61.906497955322266,
+              942.1096801757812
+            ],
+            "runtime_ms": 142.387458,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  6.439156183208388,
+                  -4.186530953252353,
+                  47.54955527669063
+                ],
+                [
+                  4.822149748773828,
+                  -2.0823147367224095,
+                  33.33426966243938
+                ],
+                [
+                  0.010425535439817914,
+                  -0.021628961938925908,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 0.5714285714285714,
+              "match_count": 7,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 655.0085006653277,
+            "ground_truth": [
+              833.7858272098728,
+              828.518167733564
+            ],
+            "id": "000066_dram",
+            "prediction": [
+              357.08050537109375,
+              379.3097839355469
+            ],
+            "runtime_ms": 154.661708,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  0.9203661636944109,
+                  0.015186105414077687,
+                  0.5125708526929178
+                ],
+                [
+                  -0.16312635383292162,
+                  0.9558862317785178,
+                  1.416420331855254
+                ],
+                [
+                  -0.010639023925139712,
+                  -0.0005392873702907799,
+                  1.0
+                ]
+              ],
+              "inlier_count": 16,
+              "inlier_fraction": 0.25,
+              "match_count": 64,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 856.6913450942003,
+            "ground_truth": [
+              827.5364942038924,
+              551.0323741410145
+            ],
+            "id": "000067_finfet",
+            "prediction": [
+              104.82466125488281,
+              91.02404022216797
+            ],
+            "runtime_ms": 161.095333,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 3,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              800.371408503434,
+              595.9251645499113
+            ],
+            "id": "000068_dram",
+            "prediction": null,
+            "runtime_ms": 193.87575,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  39.865371117243996,
+                  -28.343796272308413,
+                  670.2548953912186
+                ],
+                [
+                  31.442450889924082,
+                  -18.787306176301676,
+                  458.30547841274324
+                ],
+                [
+                  0.036541182849933136,
+                  -0.02815294263492313,
+                  1.0
+                ]
+              ],
+              "inlier_count": 5,
+              "inlier_fraction": 0.1,
+              "match_count": 50,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 638.8101137350158,
+            "ground_truth": [
+              610.081181920606,
+              185.92024002191064
+            ],
+            "id": "000069_finfet",
+            "prediction": [
+              876.594970703125,
+              766.479248046875
+            ],
+            "runtime_ms": 159.549375,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  0.4529092930766249,
+                  -0.43964839789497334,
+                  13.710355375347069
+                ],
+                [
+                  -0.1151317626359917,
+                  0.018187506387703337,
+                  8.439329561438385
+                ],
+                [
+                  0.002011603336465463,
+                  -0.02470247704848011,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 1.0,
+              "match_count": 4,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 1249.9354116298593,
+            "ground_truth": [
+              763.9933917726481,
+              857.5047562577194
+            ],
+            "id": "000070_dram",
+            "prediction": [
+              -116.61505126953125,
+              -29.550655364990234
+            ],
+            "runtime_ms": 148.000542,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  4.9585970402028385,
+                  1.5868555468826457,
+                  -110.65627595744725
+                ],
+                [
+                  -22.485063140223502,
+                  65.86732669147906,
+                  662.7063567450094
+                ],
+                [
+                  -0.02316177769416553,
+                  0.06358731726464244,
+                  1.0
+                ]
+              ],
+              "inlier_count": 8,
+              "inlier_fraction": 0.16,
+              "match_count": 50,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 862.0227647569925,
+            "ground_truth": [
+              747.9012387881588,
+              402.5150896852493
+            ],
+            "id": "000071_finfet",
+            "prediction": [
+              71.08932495117188,
+              936.3773193359375
+            ],
+            "runtime_ms": 152.276667,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 0,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              775.4766135303768,
+              732.2181426654962
+            ],
+            "id": "000072_dram",
+            "prediction": null,
+            "runtime_ms": 146.543167,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  -2.6889085806134387,
+                  -0.525827283489396,
+                  909.3632357161944
+                ],
+                [
+                  -3.4645724281804933,
+                  0.16561224456141066,
+                  916.3211775147315
+                ],
+                [
+                  -0.0035991956698722006,
+                  -0.0005428873817131788,
+                  1.0
+                ]
+              ],
+              "inlier_count": 16,
+              "inlier_fraction": 0.21052631578947367,
+              "match_count": 76,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 868.9726204144365,
+            "ground_truth": [
+              220.06655633747803,
+              466.1710072151582
+            ],
+            "id": "000073_finfet",
+            "prediction": [
+              943.7296142578125,
+              947.2377319335938
+            ],
+            "runtime_ms": 156.073791,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  14.617023739648854,
+                  -23.262751196928203,
+                  922.7509517713586
+                ],
+                [
+                  8.33229307741958,
+                  3.6939961285547773,
+                  -490.9168567898896
+                ],
+                [
+                  0.014220719254590543,
+                  -0.02383411415997842,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 0.36363636363636365,
+              "match_count": 11,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 550.749331295219,
+            "ground_truth": [
+              395.55389834285774,
+              249.42567427019077
+            ],
+            "id": "000074_dram",
+            "prediction": [
+              944.004150390625,
+              199.15493774414062
+            ],
+            "runtime_ms": 153.150292,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  3.73160862051335,
+                  10.659917540950419,
+                  863.029733888361
+                ],
+                [
+                  0.20082742313443194,
+                  2.075827377101145,
+                  8.14275956900661
+                ],
+                [
+                  0.002381157494526557,
+                  0.01099755793452198,
+                  1.0
+                ]
+              ],
+              "inlier_count": 9,
+              "inlier_fraction": 0.16071428571428573,
+              "match_count": 56,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 287.17002119931504,
+            "ground_truth": [
+              745.1721725770146,
+              276.2261486424347
+            ],
+            "id": "000075_finfet",
+            "prediction": [
+              947.759765625,
+              72.69509887695312
+            ],
+            "runtime_ms": 159.406625,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  -12.678750241947114,
+                  -57.89969158055345,
+                  1152.427326184602
+                ],
+                [
+                  -5.171261528379578,
+                  -67.90136707059698,
+                  1236.603478079261
+                ],
+                [
+                  -0.011135227080935657,
+                  -0.0578210114664708,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 0.6666666666666666,
+              "match_count": 6,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 375.3282637580388,
+            "ground_truth": [
+              635.6127253203375,
+              816.1528987341235
+            ],
+            "id": "000076_dram",
+            "prediction": [
+              970.1126098632812,
+              986.391357421875
+            ],
+            "runtime_ms": 149.848042,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  -4.373668199970658,
+                  -2.480024176115185,
+                  182.5226085782066
+                ],
+                [
+                  34.39040267630966,
+                  -78.40324412352516,
+                  1349.9804393018699
+                ],
+                [
+                  0.03487137456122511,
+                  -0.07512306640763346,
+                  1.0
+                ]
+              ],
+              "inlier_count": 9,
+              "inlier_fraction": 0.13846153846153847,
+              "match_count": 65,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 610.1678525713118,
+            "ground_truth": [
+              209.10830924733915,
+              226.93435396944355
+            ],
+            "id": "000077_finfet",
+            "prediction": [
+              157.92613220214844,
+              834.9517822265625
+            ],
+            "runtime_ms": 157.107375,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 0,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              627.4496156234015,
+              141.56206661431736
+            ],
+            "id": "000078_dram",
+            "prediction": null,
+            "runtime_ms": 154.550416,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  0.1891960189495224,
+                  -0.4576626317184796,
+                  900.0595992888582
+                ],
+                [
+                  -0.46076645867069516,
+                  0.6068132542504827,
+                  568.8066786180312
+                ],
+                [
+                  -0.0007474978071159033,
+                  -0.0004825660698421479,
+                  1.0
+                ]
+              ],
+              "inlier_count": 12,
+              "inlier_fraction": 0.13793103448275862,
+              "match_count": 87,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 664.7918651642016,
+            "ground_truth": [
+              290.06939090362164,
+              495.16268263999484
+            ],
+            "id": "000079_finfet",
+            "prediction": [
+              944.2650756835938,
+              613.3837890625
+            ],
+            "runtime_ms": 164.69975,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 0,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              306.6094298019063,
+              152.31095039073205
+            ],
+            "id": "000080_dram",
+            "prediction": null,
+            "runtime_ms": 150.998292,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  1.0055862556866306,
+                  0.004711391457116495,
+                  0.44729954533754884
+                ],
+                [
+                  -0.015292659298397954,
+                  1.068927112088111,
+                  -0.03318413447179372
+                ],
+                [
+                  -0.00016118029922129897,
+                  0.0006612071423273833,
+                  0.9999999999999999
+                ]
+              ],
+              "inlier_count": 21,
+              "inlier_fraction": 0.2413793103448276,
+              "match_count": 87,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 708.9251363778047,
+            "ground_truth": [
+              742.4270639035288,
+              199.4030762061878
+            ],
+            "id": "000081_finfet",
+            "prediction": [
+              49.238319396972656,
+              50.86280059814453
+            ],
+            "runtime_ms": 140.9715,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  -4.370787215361031,
+                  -2.355870493608366,
+                  179.44046490335248
+                ],
+                [
+                  -0.6274405857127842,
+                  -2.2048998478193558,
+                  83.8779153931227
+                ],
+                [
+                  -0.03155337280504363,
+                  -0.012339564664016008,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 0.5714285714285714,
+              "match_count": 7,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 690.9762119389751,
+            "ground_truth": [
+              717.2397615042659,
+              413.64627195094346
+            ],
+            "id": "000082_dram",
+            "prediction": [
+              130.91928100585938,
+              48.028411865234375
+            ],
+            "runtime_ms": 139.481791,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  1.0801118202871396,
+                  -0.12644127667100685,
+                  1.5066748585997052
+                ],
+                [
+                  -0.01138987651726592,
+                  1.1242807837801017,
+                  1.320327230392348
+                ],
+                [
+                  0.0058085110864432915,
+                  -0.011545453914854478,
+                  0.9999999999999999
+                ]
+              ],
+              "inlier_count": 14,
+              "inlier_fraction": 0.15384615384615385,
+              "match_count": 91,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 546.2490689947972,
+            "ground_truth": [
+              482.9121859901307,
+              434.11632569609566
+            ],
+            "id": "000083_finfet",
+            "prediction": [
+              68.03340148925781,
+              78.7803726196289
+            ],
+            "runtime_ms": 151.299375,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  -0.2896997616075158,
+                  -0.05496033680103606,
+                  3.3846695232185224
+                ],
+                [
+                  -2.706555140028299,
+                  -18.135773757631053,
+                  981.320096575353
+                ],
+                [
+                  -0.002917632785811672,
+                  -0.018621084537500294,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 0.8,
+              "match_count": 5,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 591.8045769244159,
+            "ground_truth": [
+              308.0789691963133,
+              178.2846396770885
+            ],
+            "id": "000084_dram",
+            "prediction": [
+              206.6907501220703,
+              761.339599609375
+            ],
+            "runtime_ms": 141.089042,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  9.574657540591831,
+                  -11.145679627054053,
+                  870.3108605478451
+                ],
+                [
+                  0.10605488472927703,
+                  1.0676677643326593,
+                  -8.815474743897148
+                ],
+                [
+                  0.00851044560929519,
+                  -0.011491524286985138,
+                  1.0
+                ]
+              ],
+              "inlier_count": 11,
+              "inlier_fraction": 0.14666666666666667,
+              "match_count": 75,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 769.0523468439675,
+            "ground_truth": [
+              320.16851351087195,
+              526.7105681828453
+            ],
+            "id": "000085_finfet",
+            "prediction": [
+              929.7410278320312,
+              57.81520462036133
+            ],
+            "runtime_ms": 143.000166,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  -0.12452993875254563,
+                  -0.3057057444072584,
+                  12.113792442670151
+                ],
+                [
+                  -0.16173034116067267,
+                  0.09160471309773416,
+                  11.541277851105118
+                ],
+                [
+                  -0.012447580083557733,
+                  -0.024672347588270107,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 0.8,
+              "match_count": 5,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 481.26564984819464,
+            "ground_truth": [
+              464.40898455771924,
+              151.62587650739712
+            ],
+            "id": "000086_dram",
+            "prediction": [
+              10.965457916259766,
+              -9.63662338256836
+            ],
+            "runtime_ms": 143.416333,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  0.9437341051414789,
+                  0.0024285735937212643,
+                  0.7594275505999489
+                ],
+                [
+                  -0.45823270401369204,
+                  0.8478557362976278,
+                  15.796239307845873
+                ],
+                [
+                  -0.012139515801952928,
+                  -0.0016837407813347493,
+                  0.9999999999999999
+                ]
+              ],
+              "inlier_count": 11,
+              "inlier_fraction": 0.13924050632911392,
+              "match_count": 79,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 777.5424566969504,
+            "ground_truth": [
+              537.9471670969831,
+              785.378545388944
+            ],
+            "id": "000087_finfet",
+            "prediction": [
+              150.7352752685547,
+              111.10914611816406
+            ],
+            "runtime_ms": 155.452167,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 4,
+              "reason": "homography_failure"
+            },
+            "error": null,
+            "ground_truth": [
+              730.2942499643664,
+              213.8811641078426
+            ],
+            "id": "000088_dram",
+            "prediction": null,
+            "runtime_ms": 154.117042,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  -6.566385501496947,
+                  3.1179750358356846,
+                  917.0455365371968
+                ],
+                [
+                  -0.6208044712257903,
+                  0.9281985597211349,
+                  46.13388328130918
+                ],
+                [
+                  -0.007464092461266943,
+                  0.003241628617793408,
+                  1.0
+                ]
+              ],
+              "inlier_count": 20,
+              "inlier_fraction": 0.2,
+              "match_count": 100,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 719.7306709103523,
+            "ground_truth": [
+              492.95327216577357,
+              638.7746371429
+            ],
+            "id": "000089_finfet",
+            "prediction": [
+              943.5657348632812,
+              77.56108856201172
+            ],
+            "runtime_ms": 140.05825,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  -44.99577402934387,
+                  -8.985255390668792,
+                  1139.1979949588442
+                ],
+                [
+                  -42.3836904568439,
+                  -12.373027243666137,
+                  1212.983699843179
+                ],
+                [
+                  -0.04366439088143455,
+                  -0.009087761364561282,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 0.8,
+              "match_count": 5,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 752.8202686585208,
+            "ground_truth": [
+              227.62072342246526,
+              722.1815724033924
+            ],
+            "id": "000090_dram",
+            "prediction": [
+              951.361083984375,
+              929.3970336914062
+            ],
+            "runtime_ms": 138.4735,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  -5.26249249327799,
+                  -6.6403162621542595,
+                  917.0350607162549
+                ],
+                [
+                  -0.04210873979301864,
+                  0.47170028366142,
+                  3.2273124804654034
+                ],
+                [
+                  -0.00603900014866672,
+                  -0.007014032806334726,
+                  1.0
+                ]
+              ],
+              "inlier_count": 13,
+              "inlier_fraction": 0.2826086956521739,
+              "match_count": 46,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 327.37088402261395,
+            "ground_truth": [
+              774.3653956273191,
+              359.11308177015394
+            ],
+            "id": "000091_finfet",
+            "prediction": [
+              926.4462280273438,
+              69.21117401123047
+            ],
+            "runtime_ms": 140.815541,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  0.6586617282526196,
+                  -0.03280916207804155,
+                  3.9873224745092943
+                ],
+                [
+                  -0.13321898561981457,
+                  0.7120408839898137,
+                  4.1889839869582195
+                ],
+                [
+                  -0.009916975967956194,
+                  -0.004073338709647263,
+                  1.0
+                ]
+              ],
+              "inlier_count": 7,
+              "inlier_fraction": 0.28,
+              "match_count": 25,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 657.1021781601063,
+            "ground_truth": [
+              299.56344449101914,
+              737.0806503381606
+            ],
+            "id": "000092_dram",
+            "prediction": [
+              113.72151184082031,
+              106.80606842041016
+            ],
+            "runtime_ms": 142.431875,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  -20.493159819545127,
+                  -71.29938719529966,
+                  1496.9243112393303
+                ],
+                [
+                  -13.96582579303879,
+                  -73.77839568880407,
+                  1418.355591353947
+                ],
+                [
+                  -0.014883929517673257,
+                  -0.07221179771515225,
+                  1.0
+                ]
+              ],
+              "inlier_count": 7,
+              "inlier_fraction": 0.09722222222222222,
+              "match_count": 72,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 398.96832515170377,
+            "ground_truth": [
+              635.6752218190311,
+              603.6095417390288
+            ],
+            "id": "000093_finfet",
+            "prediction": [
+              920.14111328125,
+              883.3502807617188
+            ],
+            "runtime_ms": 146.156791,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 4,
+              "reason": "homography_failure"
+            },
+            "error": null,
+            "ground_truth": [
+              178.4560247060733,
+              303.35654134009087
+            ],
+            "id": "000094_dram",
+            "prediction": null,
+            "runtime_ms": 139.94075,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  0.9469812946386844,
+                  -0.0021587944351408395,
+                  0.9782621398074394
+                ],
+                [
+                  -6.28380591514349,
+                  1.5219160688674003,
+                  370.4485175457806
+                ],
+                [
+                  -0.014806645224227982,
+                  0.0012528558856852116,
+                  1.0
+                ]
+              ],
+              "inlier_count": 9,
+              "inlier_fraction": 0.1125,
+              "match_count": 80,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 698.6992454967591,
+            "ground_truth": [
+              799.4156443924952,
+              164.3948332960996
+            ],
+            "id": "000095_finfet",
+            "prediction": [
+              145.0890350341797,
+              409.41998291015625
+            ],
+            "runtime_ms": 141.558541,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "match_count": 2,
+              "reason": "insufficient_matches"
+            },
+            "error": null,
+            "ground_truth": [
+              503.6704760280224,
+              347.34208578704715
+            ],
+            "id": "000096_dram",
+            "prediction": null,
+            "runtime_ms": 139.745125,
+            "status": "unresolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  355.3863688757342,
+                  -23.45301398373375,
+                  -1882.5917495191818
+                ],
+                [
+                  1.8790110446158828,
+                  29.42240897760488,
+                  -103.51408758065836
+                ],
+                [
+                  0.33019440028052677,
+                  -0.029032766303011447,
+                  1.0
+                ]
+              ],
+              "inlier_count": 6,
+              "inlier_fraction": 0.1875,
+              "match_count": 32,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 378.16297741330146,
+            "ground_truth": [
+              632.9975288911099,
+              343.3600950273262
+            ],
+            "id": "000097_finfet",
+            "prediction": [
+              914.5440063476562,
+              90.89461517333984
+            ],
+            "runtime_ms": 139.460125,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "dram",
+            "diagnostics": {
+              "homography": [
+                [
+                  11.306907483378101,
+                  -4.94685795414003,
+                  82.94112462526324
+                ],
+                [
+                  0.9220071066478415,
+                  15.304391062801871,
+                  -573.2718797002025
+                ],
+                [
+                  -0.00021571204531828836,
+                  -0.0074977977394665605,
+                  1.0
+                ]
+              ],
+              "inlier_count": 4,
+              "inlier_fraction": 0.6666666666666666,
+              "match_count": 6,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 175.97227547514595,
+            "ground_truth": [
+              691.7148590809343,
+              541.1753032991575
+            ],
+            "id": "000098_dram",
+            "prediction": [
+              643.441650390625,
+              371.9537353515625
+            ],
+            "runtime_ms": 139.560333,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          },
+          {
+            "architecture": "finfet",
+            "diagnostics": {
+              "homography": [
+                [
+                  4.078351268765386,
+                  1.3906764826931872,
+                  -66.5776422034227
+                ],
+                [
+                  -88.80780705237524,
+                  89.71522491689296,
+                  557.2507670191991
+                ],
+                [
+                  -0.09034474797484109,
+                  0.08587394330198354,
+                  1.0
+                ]
+              ],
+              "inlier_count": 10,
+              "inlier_fraction": 0.14492753623188406,
+              "match_count": 69,
+              "reference_nominal_shape": [
+                100,
+                100
+              ]
+            },
+            "error": 137.2828663239555,
+            "ground_truth": [
+              386.6295397076625,
+              831.2072284265307
+            ],
+            "id": "000099_finfet",
+            "prediction": [
+              262.155517578125,
+              773.3038330078125
+            ],
+            "runtime_ms": 140.524041,
+            "status": "resolved",
+            "suite": "independent_renderer"
+          }
+        ]
+      },
+      "selected_id_sha256": "f5b144b3f3935a82ee81c25f2f9256587c7a271ff9b4412df4d39f9e508eefb1"
+    }
+  },
+  "environment": {
+    "deterministic_algorithms": true,
+    "device": "cpu",
+    "hardware_label": "Apple M3 CPU (arm64)",
+    "installed_distributions": {
+      "Jinja2": "3.1.6",
+      "MarkupSafe": "3.0.3",
+      "drift-sense": "0.1.0",
+      "filelock": "3.32.3",
+      "fsspec": "2026.7.0",
+      "mpmath": "1.3.0",
+      "networkx": "3.6.1",
+      "numpy": "2.2.6",
+      "opencv-contrib-python-headless": "4.10.0.84",
+      "pillow": "11.3.0",
+      "setuptools": "84.0.0",
+      "sympy": "1.14.0",
+      "torch": "2.8.0",
+      "tqdm": "4.67.1",
+      "typing_extensions": "4.16.0"
+    },
+    "machine": "arm64",
+    "numpy": "2.2.6",
+    "opencv": "4.10.0",
+    "opencv_threads": 8,
+    "pillow": "11.3.0",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "python": "3.12.13",
+    "torch": "2.8.0",
+    "torch_interop_threads": 1,
+    "torch_threads": 4,
+    "tqdm": "4.67.1"
+  },
+  "external_software": {
+    "opencv": {
+      "license": "Apache License 2.0",
+      "version": "4.10.0"
+    },
+    "torch": {
+      "version": "2.8.0"
+    },
+    "xfeat": {
+      "checkpoint_license_note": "checkpoint distributed in the same repository; no separate checkpoint license was found in the pinned tree",
+      "commit": "e92685f57f8318b18725c5c8c0bd28c7fe188d9a",
+      "license": "Apache License 2.0",
+      "license_source": "https://github.com/verlab/accelerated_features/blob/e92685f57f8318b18725c5c8c0bd28c7fe188d9a/LICENSE"
+    }
+  },
+  "method": "xfeat_official_star_homography",
+  "method_reference": "https://github.com/verlab/accelerated_features",
+  "metric_definition": {
+    "coordinate_error": "Euclidean distance in search-image pixels",
+    "model_load_reported_separately": true,
+    "runtime_scope": "reference resampling, official matching, MAGSAC, and center projection; excludes image decoding, manifest hashing, and one-time model loading",
+    "success_denominator": "all evaluated records, including unresolved"
+  },
+  "paper_reference": "https://doi.org/10.1109/CVPR52733.2024.00259",
+  "pooled": {
+    "metrics": {
+      "count": 100,
+      "coverage": 0.78,
+      "max_error_px_resolved": 2805.512906818112,
+      "mean_error_px_resolved": 708.9255883417917,
+      "mean_runtime_ms": 149.31847792,
+      "median_error_px_resolved": 690.4649054617241,
+      "median_runtime_ms": 147.3378335,
+      "p95_error_px_resolved": 1098.1030913734176,
+      "p95_runtime_ms": 173.00199374999994,
+      "resolved_count": 78,
+      "resolved_success_le_0.5px": 0.0,
+      "resolved_success_le_1px": 0.0,
+      "resolved_success_le_2px": 0.0,
+      "resolved_success_le_3px": 0.0,
+      "resolved_success_le_5px": 0.0,
+      "success_le_0.5px": 0.0,
+      "success_le_1px": 0.0,
+      "success_le_2px": 0.0,
+      "success_le_3px": 0.0,
+      "success_le_5px": 0.0,
+      "unresolved_count": 22
+    }
+  },
+  "protocol": {
+    "locator": "evidence/external/xfeat-predeclared-protocol.json",
+    "locked_snapshot": {
+      "claim_boundary": "This is a retrospective, post-freeze external benchmark on frozen image bytes. It is development evidence and is not added to the original frozen claim or presented as a state-of-the-art comparison.",
+      "determinism": {
+        "device": "cpu",
+        "method_order": [
+          "xfeat_official_star_homography"
+        ],
+        "opencv_rng_seed": 0,
+        "opencv_threads": 1,
+        "runtime_scope": "reference resampling, official matching, MAGSAC, and center projection; excludes image decoding, manifest hashing, and one-time model loading",
+        "sample_order": "manifest order",
+        "torch_manual_seed": 0,
+        "torch_threads": 4,
+        "warmup": "none; the first selected record is included in runtime summaries"
+      },
+      "fixed_adapter": {
+        "coordinate": "project the pixel-center coordinate ((w-1)/2, (h-1)/2) of the nominally downsampled reference through the estimated homography",
+        "geometric_estimator": "cv2.findHomography with cv2.USAC_MAGSAC",
+        "geometric_settings": {
+          "confidence": 0.999,
+          "max_iterations": 1000,
+          "minimum_inliers": 4,
+          "minimum_matches": 4,
+          "reprojection_threshold_px": 3.5
+        },
+        "matcher": "official XFeat.match_xfeat_star",
+        "matcher_defaults": {
+          "dual_scale_factors": [
+            0.6,
+            1.3
+          ],
+          "fine_confidence": 0.25
+        },
+        "matcher_top_k": 8000,
+        "method_id": "xfeat_official_star_homography",
+        "origin_of_settings": "XFeat* top_k=8000 and USAC_MAGSAC(3.5 px, 1000 iterations, 0.999 confidence) are copied from the pinned official matching-and-registration notebook; only the known 0.1 sampling-ratio adaptation is task-specific",
+        "out_of_bounds_policy": "finite projections are retained and scored even when outside the search frame",
+        "reference_resampling": "resize to round(native_dimension * 0.1) with cv2.INTER_AREA, then repeat grayscale into three identical uint8 channels",
+        "search_preprocessing": "repeat grayscale into three identical uint8 channels; no intensity normalization beyond the official implementation's division by 255",
+        "unresolved_conditions": [
+          "fewer than four official XFeat* matches",
+          "homography estimation failure",
+          "fewer than four MAGSAC inliers",
+          "non-finite projected center"
+        ]
+      },
+      "forbidden_after_lock": [
+        "change XFeat mode or top_k after inspecting outcomes",
+        "change homography thresholds after inspecting outcomes",
+        "select or omit records based on predictions or errors",
+        "initialize from Metralign coordinates",
+        "describe the result as a state-of-the-art benchmark"
+      ],
+      "independent_renderer_population": {
+        "claim_boundary": "development transfer check; renderer source overlaps repository development and is not a held-out claim",
+        "label": "independent-renderer-final100-development",
+        "manifest_sha256": "4a0bacc04be5c22e5dae4e89d84357e05954b9befd655ef3d6a10d1ced6e0d34",
+        "record_count": 100,
+        "selection": "all records in the bound final-100 manifest, evaluated only after the frozen-population decision"
+      },
+      "locked_at": "2026-08-17T04:45:31+05:30",
+      "predeclared_runtime_fallback": {
+        "label": "retrospective-frozen-report-hash-stratified-280",
+        "rationale": "equal 20-record cells preserve suite and architecture coverage without outcome-dependent selection",
+        "record_count": 280,
+        "selection": "within each (suite, architecture), take the 20 records with the smallest SHA-256 of manifest_sha256 + NUL + record_id"
+      },
+      "primary_population": {
+        "label": "retrospective-frozen-report-all1400",
+        "manifest_sha256": {
+          "cross_generator": "5d63b4c002fe4557b6058a0a0ac71dadb7c79d6c4bfdfc28809081bb1e2641e3",
+          "geometry_ood": "18e582fe6019448dc240242779877346d7a6ff40d47fca1706cbe78c09f38421",
+          "high_noise": "94731fe604ba2975ddb5f04b46a2611ff5f6d21552ef8720dbc36b09a19289e2",
+          "iid": "2838cbca5cdf69ce32aa2706bc10a76bb49d0668c87bc7b62de9ee47c9f67310",
+          "periodic_ambiguity": "fac14a21bb427b4e6b9bba18254f9a78984ff2d3ec8ed6a553fd568ab5568ccd",
+          "scan_distortion": "11b36f416f063fc156907c9c38a1752269e234c732c54d0e1b8015e2b1de1067",
+          "transform_ood": "4c778a682fd76bdf5e0ca766d1729a76c8a9da2e8fa6b8570fde66bfa204153f"
+        },
+        "record_count": 1400,
+        "selection": "all records in all seven frozen reporting manifests"
+      },
+      "protocol_status": "locked_before_outcome_inspection",
+      "runtime_gate": {
+        "full_population_condition": "projected adapter runtime for 1400 records is at most 4500 seconds",
+        "inspection_rule": "do not print or inspect prediction, status, match, inlier, or error fields until the population decision is recorded",
+        "projection": "median timing-probe runtime multiplied by 1400",
+        "purpose": "choose full-population versus predeclared subset using runtime only, never accuracy, coverage, matches, or errors",
+        "timing_probe": "within each (suite, architecture), the record with the smallest SHA-256 of manifest_sha256 + NUL + record_id; 14 records total"
+      },
+      "schema_version": 1,
+      "software_lock": {
+        "numpy": "2.2.6",
+        "opencv_contrib_python_headless": "4.10.0.84",
+        "pillow": "11.3.0",
+        "python": "3.12",
+        "torch": "2.8.0",
+        "tqdm": "4.67.1"
+      },
+      "study": "xfeat-official-fixed-external-development-benchmark",
+      "task": {
+        "error": "Euclidean center error in search-image pixels",
+        "input": "one 1000x1000 finer-sampling reference and one 1000x1000 wider-field search image",
+        "known_prior": "nominal reference/search sampling ratio 0.1",
+        "output": "reference field-of-view center (x, y) in search-image pixels",
+        "success_denominator": "all selected records; unresolved estimates count as failures"
+      },
+      "upstream": {
+        "inference_code_bundle_files": [
+          "modules/xfeat.py",
+          "modules/model.py",
+          "modules/interpolator.py"
+        ],
+        "inference_code_bundle_sha256": "3ea50cd28a4f753efe7d296fabbdf067bf060c1bd79d7f2fb38a545abd4596ca",
+        "license_note": "The checkpoint is distributed inside the Apache-2.0 repository; no separate checkpoint license was found in the pinned tree.",
+        "official_commit": "e92685f57f8318b18725c5c8c0bd28c7fe188d9a",
+        "official_repository": "https://github.com/verlab/accelerated_features",
+        "paper_doi": "10.1109/CVPR52733.2024.00259",
+        "project": "XFeat: Accelerated Features for Lightweight Image Matching",
+        "repository_license": "Apache-2.0",
+        "repository_license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+        "source_archive_sha256": "2a567feda3bf4ed2a919f96a8bb07013b778bad207bb2693d0a65b121b074a36",
+        "weights_file": "weights/xfeat.pt",
+        "weights_sha256": "0f5187fd7bedd26c7fe6acc9685444493a165a35ecc087b33c2db3627f3ea10b"
+      }
+    },
+    "sha256": "002bd25e5788b30c6f67ac0c3e2b06fe0d9e09ba3bfc6dfac4979816c6cde8ef"
+  },
+  "schema_version": 1,
+  "selection": "independent100",
+  "study": "xfeat-official-fixed-external-development-benchmark",
+  "upstream_identity": {
+    "code_bundle_sha256": "3ea50cd28a4f753efe7d296fabbdf067bf060c1bd79d7f2fb38a545abd4596ca",
+    "commit": "e92685f57f8318b18725c5c8c0bd28c7fe188d9a",
+    "model_load_ms": 16.581333,
+    "source_root": "metralign-xfeat-official",
+    "upstream_stdout": "loading weights from: /private/tmp/metralign-xfeat-official/weights/xfeat.pt",
+    "weights_file": "metralign-xfeat-official/weights/xfeat.pt",
+    "weights_sha256": "0f5187fd7bedd26c7fe6acc9685444493a165a35ecc087b33c2db3627f3ea10b"
+  }
+}

@@ -12,10 +12,12 @@ Associated article: Wieslander, H.; Wählby, C.; Sintorn, I.-M. *TEM image resto
 
 ## SEM material
 
+Kofler, Corinna; Strauß, Sabrina; Zernig, Anja; Garcia, Ernesto Lazaro; Boxleitner, Michael; Mayr, Beatrix; Dicillia-Kovatsch, Isabell; Dohr, Claudia Anna. *Carinthia dataset*. Zenodo (2024). [DOI 10.5281/zenodo.10715190](https://doi.org/10.5281/zenodo.10715190). Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
 Boiko, Daniil; Pentsak, Evgeniy; Cherepanova, Vera; Ananikov, Valentine. *Electron microscopy dataset for the recognition of nanoscale ordering effects and location of nanoparticles — Dataset 1 (ordered)*. Figshare (2020). [DOI 10.6084/m9.figshare.11783661.v1](https://doi.org/10.6084/m9.figshare.11783661.v1). Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 Boiko, Daniil; Pentsak, Evgeniy; Cherepanova, Vera; Ananikov, Valentine. *Electron microscopy dataset for the recognition of nanoscale ordering effects and location of nanoparticles — Dataset 2 (disordered)*. Figshare (2020). [DOI 10.6084/m9.figshare.11783667.v1](https://doi.org/10.6084/m9.figshare.11783667.v1). Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 Associated article: Boiko, D. A.; Pentsak, E. O.; Cherepanova, V. A.; Ananikov, V. P. *Electron microscopy dataset for the recognition of nanoscale ordering effects and location of nanoparticles*. Scientific Data (2020). [DOI 10.1038/s41597-020-0439-1](https://doi.org/10.1038/s41597-020-0439-1).
 
-`results/real-sem-measured-plate.png` contains resized/cropped pixels from the exact source TIFFs pinned in `sources.json` plus measured coordinate overlays. Its JSON sidecar binds the four shown cases and evaluation report.
+`results/real-microscopy-success-plate.png` contains resized/cropped pixels from the exact Carinthia archive members, Boiko TIFFs, and MiniTEM archive members plus measured coordinate overlays. Its JSON sidecar binds all six shown cases, both evaluation reports, and raw source hashes. The displayed crops, resizing, contrast windows, labels, and coordinate overlays are modifications made for this evaluation; the underlying microscopy remains under CC BY 4.0.

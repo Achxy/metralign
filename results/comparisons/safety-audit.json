@@ -1,0 +1,195 @@
+{
+  "development": {
+    "conservative": {
+      "accepted_count": 600,
+      "accepted_coverage": 0.8571428571428571,
+      "accepted_max_error_px": 0.617645291744022,
+      "accepted_success_le_1px": 1.0,
+      "accepted_success_le_5px": 1.0,
+      "confusion": {
+        "false_negative": 0,
+        "false_positive": 100,
+        "true_negative": 600,
+        "true_positive": 0
+      },
+      "count": 700,
+      "large_error_count": 0,
+      "large_error_definition": "error > 5 px",
+      "large_error_recall": null,
+      "review_precision": 0.0,
+      "reviewed_count": 100
+    },
+    "selective": {
+      "accepted_count": 700,
+      "accepted_coverage": 1.0,
+      "accepted_max_error_px": 0.617645291744022,
+      "accepted_success_le_1px": 1.0,
+      "accepted_success_le_5px": 1.0,
+      "confusion": {
+        "false_negative": 0,
+        "false_positive": 0,
+        "true_negative": 700,
+        "true_positive": 0
+      },
+      "count": 700,
+      "large_error_count": 0,
+      "large_error_definition": "error > 5 px",
+      "large_error_recall": null,
+      "review_precision": null,
+      "reviewed_count": 0
+    },
+    "source_report_sha256": {
+      "cross_generator.json": "4090ced464d893359433d089d5d171cd6255c0bf05d7ff51cb77d2716cf0e170",
+      "geometry_ood.json": "15d28ec4dfeab14149adeeb5dc5c31ec434201a60bb667d9947f4a431adee4fa",
+      "high_noise.json": "cc719361854efd066159e2a7d9487a7551e78234622d53cb1fc8aaed87aa8917",
+      "iid.json": "4c6c522187829b544c4ac57c1d600c40841c52e0314c0032d80f0f9854638293",
+      "periodic_ambiguity.json": "d239c20f169c8ce36ba8b11f191f51e71fbd2ddd74c31ebc789b11855c661f04",
+      "scan_distortion.json": "25c3c510bb60ab063c9ffaec58d85e7e3e656b4da3522d9501b5355005327445",
+      "transform_ood.json": "a12b4752096db12aab166a55c0557a332e78832dfc1dbe0c0498ae8f47a140b2"
+    }
+  },
+  "environment": {
+    "numpy": "2.5.2",
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+    "python": "3.14.6"
+  },
+  "external_prior_demonstration": {
+    "cases": [
+      {
+        "ambiguity_flag": true,
+        "case": "failure_high_noise_000081_finfet",
+        "error_px": 0.11397269368584459,
+        "external_prior": [
+          264.51623550495214,
+          423.0759969234569
+        ],
+        "external_prior_offset": [
+          3.0,
+          -4.0
+        ],
+        "ground_truth": [
+          261.51623550495214,
+          427.0759969234569
+        ],
+        "hypothesis_count": 4606,
+        "prediction": [
+          261.63008856773376,
+          427.0707762911916
+        ],
+        "review_recommended": true
+      },
+      {
+        "ambiguity_flag": true,
+        "case": "failure_scan_distortion_000185_finfet",
+        "error_px": 0.022275266285260057,
+        "external_prior": [
+          799.9490788663055,
+          404.9684906287427
+        ],
+        "external_prior_offset": [
+          3.0,
+          -4.0
+        ],
+        "ground_truth": [
+          796.9490788663055,
+          408.9684906287427
+        ],
+        "hypothesis_count": 4428,
+        "prediction": [
+          796.9707528948784,
+          408.973631054163
+        ],
+        "review_recommended": true
+      }
+    ],
+    "scope": "Oracle-anchored sensitivity check with a fixed (+3, -4) px prior offset; not an evaluation of a real stage-position sensor."
+  },
+  "frozen_evaluation": {
+    "conservative": {
+      "accepted_count": 1198,
+      "accepted_coverage": 0.8557142857142858,
+      "accepted_max_error_px": 0.5425066965181146,
+      "accepted_success_le_1px": 1.0,
+      "accepted_success_le_5px": 1.0,
+      "confusion": {
+        "false_negative": 0,
+        "false_positive": 200,
+        "true_negative": 1198,
+        "true_positive": 2
+      },
+      "count": 1400,
+      "large_error_count": 2,
+      "large_error_definition": "error > 5 px",
+      "large_error_recall": 1.0,
+      "review_precision": 0.009900990099009901,
+      "reviewed_count": 202
+    },
+    "selective": {
+      "accepted_count": 1398,
+      "accepted_coverage": 0.9985714285714286,
+      "accepted_max_error_px": 0.5425066965181146,
+      "accepted_success_le_1px": 1.0,
+      "accepted_success_le_5px": 1.0,
+      "confusion": {
+        "false_negative": 0,
+        "false_positive": 0,
+        "true_negative": 1398,
+        "true_positive": 2
+      },
+      "count": 1400,
+      "large_error_count": 2,
+      "large_error_definition": "error > 5 px",
+      "large_error_recall": 1.0,
+      "review_precision": 1.0,
+      "reviewed_count": 2
+    },
+    "source_report_sha256": {
+      "cross_generator.json": "679299d0f9d93cded4ab95322e0998aa521cb8288b652112fd2a2a70addbf44e",
+      "geometry_ood.json": "6214da001335d81ee5ce6b7e90f6de504f41566c2a7fdf54ab3cf4b1bd59f4a0",
+      "high_noise.json": "bd29b1494f4593a281c486f78d2c2265e5f0905abac7fafae2f5f200ea9eb931",
+      "iid.json": "5c889688c37d7c4554f57359883dd47e82d530fdc8186e3d906af06959d67eb6",
+      "periodic_ambiguity.json": "e22bc9178e9beb81cadc3b0e033b1d87a757b11ad566b91d3a13cab565d4fcb7",
+      "scan_distortion.json": "7558336a2f2639687c9dabc7d576e0fa229627ff86b10c896c0754e481db56e3",
+      "transform_ood.json": "77e6c369fcf5aebfc59cf472caa11b48767c2cb7ed78e0e7fcc2d6f77bcc60ef"
+    }
+  },
+  "input_binding": {
+    "development": {
+      "kind": "checked_in_compact_diagnostics",
+      "path": "evidence/safety/development-diagnostics.json",
+      "sha256": "9f27d011f2ea4dd852daa50a46f8cebe978b3cd9f38e27e24faea63cb500308c",
+      "source_report_sha256": {
+        "cross_generator.json": "4090ced464d893359433d089d5d171cd6255c0bf05d7ff51cb77d2716cf0e170",
+        "geometry_ood.json": "15d28ec4dfeab14149adeeb5dc5c31ec434201a60bb667d9947f4a431adee4fa",
+        "high_noise.json": "cc719361854efd066159e2a7d9487a7551e78234622d53cb1fc8aaed87aa8917",
+        "iid.json": "4c6c522187829b544c4ac57c1d600c40841c52e0314c0032d80f0f9854638293",
+        "periodic_ambiguity.json": "d239c20f169c8ce36ba8b11f191f51e71fbd2ddd74c31ebc789b11855c661f04",
+        "scan_distortion.json": "25c3c510bb60ab063c9ffaec58d85e7e3e656b4da3522d9501b5355005327445",
+        "transform_ood.json": "a12b4752096db12aab166a55c0557a332e78832dfc1dbe0c0498ae8f47a140b2"
+      }
+    },
+    "frozen_evaluation_source_report_sha256": {
+      "cross_generator.json": "679299d0f9d93cded4ab95322e0998aa521cb8288b652112fd2a2a70addbf44e",
+      "geometry_ood.json": "6214da001335d81ee5ce6b7e90f6de504f41566c2a7fdf54ab3cf4b1bd59f4a0",
+      "high_noise.json": "bd29b1494f4593a281c486f78d2c2265e5f0905abac7fafae2f5f200ea9eb931",
+      "iid.json": "5c889688c37d7c4554f57359883dd47e82d530fdc8186e3d906af06959d67eb6",
+      "periodic_ambiguity.json": "e22bc9178e9beb81cadc3b0e033b1d87a757b11ad566b91d3a13cab565d4fcb7",
+      "scan_distortion.json": "7558336a2f2639687c9dabc7d576e0fa229627ff86b10c896c0754e481db56e3",
+      "transform_ood.json": "77e6c369fcf5aebfc59cf472caa11b48767c2cb7ed78e0e7fcc2d6f77bcc60ef"
+    }
+  },
+  "interpretation": "This retrospective audit does not alter the frozen coordinates or their reported metrics. The selective rule is derived mechanically from archived development diagnostics, but the choice to study this signal followed inspection of the released failures.",
+  "policy": {
+    "ambiguous_residual_review_threshold": 0.15,
+    "conservative_rule": "review every score_tied=true prediction",
+    "development_ambiguous_residual_max": 0.1382027417421341,
+    "development_transform_stability_min": 0.9544444166429555,
+    "id": "metralign-absolute-site-review-v1",
+    "rounding_rule": "ceil(maximum / 0.05) * 0.05",
+    "selective_rule": "review an ambiguous prediction when residual evidence >= 0.15 or transform stability < 0.95",
+    "transform_rounding_rule": "floor(minimum / 0.05) * 0.05",
+    "transform_stability_review_threshold": 0.95
+  },
+  "schema_version": 1,
+  "study": "post-release-ambiguity-safety-audit"
+}

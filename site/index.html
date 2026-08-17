@@ -5,56 +5,190 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta
       name="description"
-      content="Watch the project explanation for Metralign, a deterministic approach to localization in repeated wafer structures."
+      content="Metralign is a deterministic, training-free localizer for absolute sites in periodic inspection images."
     />
-    <meta name="theme-color" content="#000000" />
-    <title>Metralign — Project Video</title>
+    <meta name="theme-color" content="#f3f0e8" />
+    <meta property="og:title" content="Metralign" />
+    <meta
+      property="og:description"
+      content="Absolute-site localization for periodic inspection images, with frozen synthetic evidence and separate real SEM/TEM checks."
+    />
+    <meta property="og:image" content="https://achxy.github.io/metralign/assets/real-microscopy-success-plate.png" />
+    <meta property="og:image:alt" content="Six measured Metralign localization cases from acquired SEM and TEM data" />
+    <meta property="og:image:width" content="1800" />
+    <meta property="og:image:height" content="1780" />
+    <link rel="canonical" href="https://achxy.github.io/metralign/" />
+    <title>Metralign — Absolute-site localization</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&amp;family=Newsreader:opsz,wght@6..72,500&amp;display=swap"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main>
-      <header class="intro">
-        <div class="identity">
-          <img class="brand-mark" src="favicon.svg" width="64" height="64" alt="" />
-          <h1>Metralign</h1>
-        </div>
-        <p class="subtitle">Navigation-error recovery for repeated wafer structures.</p>
-      </header>
+    <a class="skip-link" href="#content">Skip to content</a>
 
-      <div class="video-frame" data-video-id="i7V0aO1jFd4">
-        <a
-          class="video-link"
-          href="https://youtu.be/i7V0aO1jFd4"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Watch the Metralign project explanation on YouTube"
-        >
-          <img
-            src="https://i.ytimg.com/vi/i7V0aO1jFd4/maxresdefault.jpg"
-            alt=""
-            referrerpolicy="no-referrer"
-          />
-          <span class="play-mark" aria-hidden="true">
-            <svg viewBox="0 0 68 48" role="img">
-              <path d="M66.5 7.5A8.5 8.5 0 0 0 60.5 1.5C55.2 0 34 0 34 0S12.8 0 7.5 1.5A8.5 8.5 0 0 0 1.5 7.5C0 12.8 0 24 0 24s0 11.2 1.5 16.5a8.5 8.5 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.5a8.5 8.5 0 0 0 6-6C68 35.2 68 24 68 24s0-11.2-1.5-16.5Z" />
-              <path class="play-mark__triangle" d="m27 34 18-10-18-10Z" />
-            </svg>
-          </span>
+    <header class="masthead">
+      <a class="identity" href="#top" aria-label="Metralign home">
+        <img src="favicon.svg" width="42" height="42" alt="" />
+        <span>Metralign</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="#evidence">Evidence</a>
+        <a href="#method">Method</a>
+        <a href="https://github.com/Achxy/metralign">Source</a>
+        <a href="https://github.com/Achxy/metralign/blob/main/Metralign_Submission_Deck.pdf">Deck</a>
+      </nav>
+    </header>
+
+    <main id="content">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div>
+          <p class="kicker">Periodic inspection / absolute position</p>
+          <h1 id="hero-title">The right pattern is not always the right site.</h1>
+          <p class="lede">
+            Metralign locates a finer-sampled reference inside a wider-field search and returns one
+            subpixel coordinate. It is deterministic, training-free, and CPU-only.
+          </p>
+          <p class="actions">
+            <a class="primary-link" href="https://github.com/Achxy/metralign#run-it">Install and run</a>
+            <a href="https://github.com/Achxy/metralign/tree/main/results/frozen">Inspect the evidence</a>
+          </p>
+        </div>
+        <dl class="hero-facts" aria-label="Frozen reporting result">
+          <div><dt>Frozen synthetic pairs</dt><dd>1,400</dd></div>
+          <div><dt>Within 1 px</dt><dd>99.8571%</dd></div>
+          <div><dt>Median error</dt><dd>0.083 px</dd></div>
+          <div><dt>Mean localize wall</dt><dd>239 ms</dd></div>
+        </dl>
+      </section>
+
+      <figure class="primary-evidence">
+        <a class="plate-link" href="assets/real-microscopy-success-plate.png" aria-label="Open the full-resolution real-microscopy evidence plate">
+          <picture>
+            <source srcset="assets/real-microscopy-success-plate-1200.webp" type="image/webp" />
+            <img
+              src="assets/real-microscopy-success-plate.png"
+              width="1800"
+              height="1780"
+              alt="Six measured localization cases from acquired SEM and TEM data"
+            />
+          </picture>
         </a>
-      </div>
+        <figcaption>
+          Licensed acquired microscopy, mechanically selected from bound reports. Blue is registered
+          or digital truth; orange is the prediction. The protocols do not claim microscope-stage truth.
+        </figcaption>
+      </figure>
+
+      <section id="evidence" class="section ruled" aria-labelledby="evidence-title">
+        <header class="section-heading">
+          <p class="kicker">Measured record</p>
+          <h2 id="evidence-title">Separate claims, separate denominators.</h2>
+          <p>
+            The sealed synthetic result is the release claim. Acquired microscopy and the standalone
+            renderer are development checks and are never pooled into it.
+          </p>
+        </header>
+
+        <div class="table-wrap" role="region" aria-labelledby="evidence-title" tabindex="0">
+          <table>
+            <caption>Measured evidence, with each denominator and fallback count kept separate</caption>
+            <thead>
+              <tr><th>Evidence</th><th>Scope</th><th>Observed</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Frozen synthetic</td><td>1,400 / seven suites</td><td>1,398 ≤1 px · median 0.083 px</td></tr>
+              <tr><td>Standalone renderer</td><td>100 predeclared development pairs</td><td>97 / 100 within 1 px · median 0.044 px</td></tr>
+              <tr><td>Carinthia wafer SEM</td><td>24 same-acquisition crops</td><td>23 ≤1 px · 13 / 24 fallback</td></tr>
+              <tr><td>Boiko FE-SEM</td><td>30 same-acquisition crops</td><td>29 ≤1 px · 0 / 30 fallback</td></tr>
+              <tr><td>Registered MiniTEM</td><td>70 publisher-registered pairs</td><td>43 ≤1 px · 70 / 70 fallback</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="method" class="section process" aria-labelledby="method-title">
+        <header class="section-heading">
+          <p class="kicker">Method</p>
+          <h2 id="method-title">Use the lattice twice.</h2>
+        </header>
+        <ol>
+          <li><span>01</span><div><h3>Measure it</h3><p>Estimate scale, rotation, and pitch from reciprocal and phase structure.</p></div></li>
+          <li><span>02</span><div><h3>Cancel it</h3><p>Apply matched one-period differences to suppress the repeated backbone.</p></div></li>
+          <li><span>03</span><div><h3>Resolve one site</h3><p>Rank residual evidence, retain bounded alternatives, and expose absolute-site ambiguity.</p></div></li>
+        </ol>
+      </section>
+
+      <section class="section ruled" aria-labelledby="comparison-title">
+        <header class="section-heading">
+          <p class="kicker">External comparison</p>
+          <h2 id="comparison-title">Generic registration often finds the wrong period.</h2>
+          <p>All-sample success on the same frozen image bytes; unresolved estimates count as failures.</p>
+        </header>
+        <div class="table-wrap" role="region" aria-labelledby="comparison-title" tabindex="0">
+          <table>
+            <caption>All-sample absolute-site success on the 1,400 frozen synthetic pairs</caption>
+            <thead><tr><th>Method</th><th>Coverage</th><th>Within 1 px</th></tr></thead>
+            <tbody>
+              <tr><td>Metralign</td><td>100.00%</td><td>99.86%</td></tr>
+              <tr><td>Official XFeat* + USAC_MAGSAC</td><td>77.07%</td><td>0.00%</td></tr>
+              <tr><td>OpenCV scale/rotation grid</td><td>100.00%</td><td>35.57%</td></tr>
+              <tr><td>OpenCV template + phase</td><td>100.00%</td><td>32.57%</td></tr>
+              <tr><td>scikit-image template + phase</td><td>100.00%</td><td>32.14%</td></tr>
+              <tr><td>OpenCV ECC affine</td><td>80.71%</td><td>30.36%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fine-print">
+          Fixed adapters; not a claim of optimal tuning for each library. The XFeat row is a retrospective
+          development task-mismatch control, not a verdict on its intended correspondence benchmarks.
+          Timings and complete per-sample records live in the repository.
+        </p>
+      </section>
+
+      <figure class="secondary-evidence">
+        <a class="plate-link" href="assets/independent-renderer-success.png" aria-label="Open the full-resolution independent-renderer success plate">
+          <picture>
+            <source srcset="assets/independent-renderer-success-1200.webp" type="image/webp" />
+            <img
+              src="assets/independent-renderer-success.png"
+              width="2480"
+              height="1840"
+              loading="lazy"
+              alt="Successful localization cases from the separately implemented renderer"
+            />
+          </picture>
+        </a>
+        <figcaption>
+          Standalone geometry and capture code, with a predeclared 100-pair development seed and no
+          post-result tuning. Synthetic, but no primary renderer imports.
+        </figcaption>
+      </figure>
+
+      <section class="section handoff" aria-labelledby="handoff-title">
+        <p class="kicker">Open record</p>
+        <h2 id="handoff-title">Run the coordinate. Inspect the reasons.</h2>
+        <pre><code>metralign --reference reference.png --search search.png --diagnostics</code></pre>
+        <p>
+          The default stdout contract is exactly two numbers. Diagnostics report transform evidence,
+          candidate hypotheses, decision support, fallbacks, and review recommendations on stderr.
+        </p>
+        <p class="actions">
+          <a class="primary-link" href="https://github.com/Achxy/metralign">github.com/Achxy/metralign</a>
+          <a href="https://github.com/Achxy/metralign/blob/main/docs/reproducibility.md">Reproduction protocol</a>
+        </p>
+      </section>
     </main>
 
     <footer>
-      <p>Created by <span>Achyuth Jayadevan</span> and <span>Pramit Karmakar</span></p>
+      <p>Metralign 0.2.0 · Achyuth Jayadevan and Pramit Karmakar · MIT License</p>
+      <p>
+        Microscopy records:
+        <a href="https://doi.org/10.5281/zenodo.10715190">Carinthia</a>,
+        <a href="https://doi.org/10.6084/m9.figshare.11783661.v1">ordered Boiko</a>,
+        <a href="https://doi.org/10.6084/m9.figshare.11783667.v1">disordered Boiko</a>,
+        <a href="https://doi.org/10.5281/zenodo.4113244">MiniTEM</a> ·
+        creators credited in the <a href="https://github.com/Achxy/metralign/blob/main/real_imagery/ATTRIBUTION.md">attribution record</a> ·
+        <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · resized/cropped overlays added
+      </p>
     </footer>
-
-    <script src="player.js"></script>
   </body>
 </html>

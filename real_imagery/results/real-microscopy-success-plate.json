@@ -1,0 +1,238 @@
+{
+  "claim_boundary": "Carinthia and other SEM coordinates are digital-crop truth within one acquisition. TEM coordinates are digital-crop truth in publisher-registered Low/GT pairs; all shown TEM full requests used the declared baseline0 fallback because the periodic residual was unsupported at the transformed query size.",
+  "plate": "real-microscopy-success-plate.png",
+  "plate_sha256": "a28d54b5ddae798f6dc3bff5444832c57ed6d8c61f9765f116c1d0d6c01c6859",
+  "reports": {
+    "sem": {
+      "path": "real-sem-report.json",
+      "sha256": "4d511212ed1c73f661cbec4eb01d6364a41a9b23d30cee986130e41eb798f6b8"
+    },
+    "tem": {
+      "path": "registered-tem-report.json",
+      "sha256": "f117454250f9deeaa31cb2961cd7d256f8eb42f1023626ce7534f8bbb6c3f669"
+    }
+  },
+  "schema_version": 1,
+  "selected_records": [
+    {
+      "case_id": "carinthia/label-3/7b0d58dfaec840b89535e7280c3e4e13",
+      "class_label": "3",
+      "crop_box_xywh": [
+        312,
+        120,
+        48,
+        48
+      ],
+      "dataset": "carinthia_production_wafer_sem_v1",
+      "error_px": 0.024095964658453345,
+      "ground_truth_xy": [
+        335.5,
+        143.5
+      ],
+      "group": null,
+      "member": "data/images/7b0d58dfaec840b89535e7280c3e4e13.jpg",
+      "member_sha256": "db4da32467d2e79116e8849ecf14a803943ae5c06484b55b799cd33ba0b6b88b",
+      "method": "full",
+      "pipeline_stages": {
+        "ambiguity_rule": true,
+        "evidence_channel": "structural",
+        "fallback": "baseline0_small_periodic_template",
+        "lattice_family_candidates": true,
+        "phase_calibration": true,
+        "spatial_residual": true,
+        "subpixel_refinement": "parabolic"
+      },
+      "prediction_xy": [
+        335.4995028661215,
+        143.5240908358246
+      ],
+      "selection": "nearest_median_among_completed_error_le_5px",
+      "selection_target_px": 0.024854832262248487,
+      "track": "carinthia"
+    },
+    {
+      "case_id": "carinthia/label-3/fd12f44a06a9459ca05b2e8a3975e634",
+      "class_label": "3",
+      "crop_box_xywh": [
+        120,
+        120,
+        48,
+        48
+      ],
+      "dataset": "carinthia_production_wafer_sem_v1",
+      "error_px": 0.2798079990331509,
+      "ground_truth_xy": [
+        143.5,
+        143.5
+      ],
+      "group": null,
+      "member": "data/images/fd12f44a06a9459ca05b2e8a3975e634.jpg",
+      "member_sha256": "e0e29143ff40d9da1a64f4415fa45383dd672aac55ca295fc3ec8e0484857c31",
+      "method": "full",
+      "pipeline_stages": {
+        "ambiguity_rule": true,
+        "evidence_channel": "structural",
+        "lattice_family_candidates": true,
+        "phase_calibration": true,
+        "spatial_residual": true,
+        "subpixel_refinement": "parabolic"
+      },
+      "prediction_xy": [
+        143.72909903526306,
+        143.3393570780754
+      ],
+      "selection": "nearest_p95_among_completed_error_le_5px",
+      "selection_target_px": 0.27438776237459217,
+      "track": "carinthia"
+    },
+    {
+      "area": "A7",
+      "case_id": "boiko_ordered_v1/A7/digital-1",
+      "crop_box_xywh": [
+        934,
+        152,
+        128,
+        89
+      ],
+      "dataset": "boiko_ordered_v1",
+      "error_px": 0.013699442422282668,
+      "ground_truth_xy": [
+        997.5,
+        196.0
+      ],
+      "group": "ordered",
+      "method": "full",
+      "pipeline_stages": {
+        "ambiguity_rule": true,
+        "evidence_channel": "structural",
+        "lattice_family_candidates": true,
+        "phase_calibration": true,
+        "spatial_residual": true,
+        "subpixel_refinement": "parabolic"
+      },
+      "prediction_xy": [
+        997.511557361111,
+        196.00735541479662
+      ],
+      "selection": "nearest_median_among_completed_error_le_5px",
+      "selection_target_px": 0.013699442422282668,
+      "source_sha256": "181a01657ddc70f1ba384e66200d6f2efc7714ee9dfdfa84add9f62062395081",
+      "track": "sem"
+    },
+    {
+      "area": "A4",
+      "case_id": "boiko_disordered_v1/A4/digital-3",
+      "crop_box_xywh": [
+        218,
+        649,
+        128,
+        89
+      ],
+      "dataset": "boiko_disordered_v1",
+      "error_px": 0.46949914572178897,
+      "ground_truth_xy": [
+        281.5,
+        693.0
+      ],
+      "group": "disordered",
+      "method": "full",
+      "pipeline_stages": {
+        "ambiguity_rule": true,
+        "evidence_channel": "structural",
+        "lattice_family_candidates": true,
+        "phase_calibration": true,
+        "spatial_residual": true,
+        "subpixel_refinement": "parabolic"
+      },
+      "prediction_xy": [
+        281.1658684015274,
+        693.3298265039921
+      ],
+      "selection": "nearest_p95_among_completed_error_le_5px",
+      "selection_target_px": 0.4721583797670349,
+      "source_sha256": "fc77113aa0329361de6bd28aebbfa04a0f0e59c338acc6e9dc33e71c04e3899f",
+      "track": "sem"
+    },
+    {
+      "case_id": "TrainTestVal/CalibrationGrid/Test/GT/sess2_im10.tif::TrainTestVal/CalibrationGrid/Test/Low/sess2_im10/sess2_im10_4.tif",
+      "crop_box_xywh": [
+        449,
+        64,
+        100,
+        25
+      ],
+      "error_px": 0.7739835865102115,
+      "ground_truth_xy": [
+        498.5,
+        76.0
+      ],
+      "group": "calibration_grid",
+      "gt_member": "TrainTestVal/CalibrationGrid/Test/GT/sess2_im10.tif",
+      "gt_sha256": "7502d44a9929f12fe766ac89316d2a768252b8874ff2cdb8fcf316188d4b502d",
+      "low_member": "TrainTestVal/CalibrationGrid/Test/Low/sess2_im10/sess2_im10_4.tif",
+      "low_sha256": "3604079aff415e4b4867494a29fed43e82e49e5906e47d20dcf76947bf4f034e",
+      "method": "full",
+      "pipeline_stages": {
+        "ambiguity_rule": true,
+        "evidence_channel": "structural",
+        "fallback": "baseline0_small_periodic_template",
+        "lattice_family_candidates": true,
+        "phase_calibration": true,
+        "spatial_residual": true,
+        "subpixel_refinement": "parabolic"
+      },
+      "prediction_xy": [
+        498.4641779027879,
+        75.22684583067894
+      ],
+      "selection": "nearest_median_among_completed_error_le_5px",
+      "selection_target_px": 0.7944610486986223,
+      "track": "tem"
+    },
+    {
+      "case_id": "TrainTestVal/Kidney/Test/GT/sess3_im0.tif::TrainTestVal/Kidney/Test/Low/sess3_im0/sess3_im0_2.tif",
+      "crop_box_xywh": [
+        66,
+        186,
+        94,
+        25
+      ],
+      "error_px": 1.3664615422699793,
+      "ground_truth_xy": [
+        112.5,
+        198.0
+      ],
+      "group": "kidney",
+      "gt_member": "TrainTestVal/Kidney/Test/GT/sess3_im0.tif",
+      "gt_sha256": "1d81671ccafe0c832cf3cb3a180fecda67919f1e12e20090cbd0ca93c142f6a8",
+      "low_member": "TrainTestVal/Kidney/Test/Low/sess3_im0/sess3_im0_2.tif",
+      "low_sha256": "dab716e142636f72a87a20cd78108688ef80e84b7b5ffd16a2f498f84e40ffeb",
+      "method": "full",
+      "pipeline_stages": {
+        "ambiguity_rule": true,
+        "evidence_channel": "structural",
+        "fallback": "baseline0_small_periodic_template",
+        "lattice_family_candidates": true,
+        "phase_calibration": true,
+        "spatial_residual": true,
+        "subpixel_refinement": "parabolic"
+      },
+      "prediction_xy": [
+        111.50297498260625,
+        198.93442937731743
+      ],
+      "selection": "nearest_p95_among_completed_error_le_5px",
+      "selection_target_px": 1.3412841951288044,
+      "track": "tem"
+    }
+  ],
+  "selection_policy": "Prespecified group/statistic mapping; select the completed full-method row with error <=5 px nearest the group's median or NumPy-linear P95, with lexicographic case_id tie-breaking.",
+  "sources": {
+    "carinthia_doi": "10.5281/zenodo.10715190",
+    "license": "CC BY 4.0",
+    "sem_disordered_doi": "10.6084/m9.figshare.11783667.v1",
+    "sem_ordered_doi": "10.6084/m9.figshare.11783661.v1",
+    "tem_doi": "10.5281/zenodo.4113244"
+  },
+  "success_threshold_px": 5.0
+}

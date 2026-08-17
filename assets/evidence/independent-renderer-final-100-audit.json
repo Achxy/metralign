@@ -1,0 +1,124 @@
+{
+  "cases": [
+    {
+      "architecture": "dram",
+      "decision_status": "review",
+      "error_px": 0.020233442756062675,
+      "ground_truth": [
+        782.6525802303422,
+        763.536116932969
+      ],
+      "id": "000004_dram",
+      "panel": "a",
+      "prediction": [
+        782.6444279849529,
+        763.5175984799862
+      ],
+      "reference": "000004_dram_reference.png",
+      "reference_sha256": "0810d4bfd66cc78d80634345807475fb9680b981d62972114bf2a31693e7cded",
+      "search": "000004_dram_search.png",
+      "search_sha256": "5467a0ae967e6ce0c7f3c333c7f318b241bc66c6adb051bf4a16cf6b0b69ed07",
+      "seed": 4202231053,
+      "selection": "median",
+      "selection_population": "all architecture samples",
+      "selection_statistic_error_px": 0.020242559140946692
+    },
+    {
+      "architecture": "finfet",
+      "decision_status": "resolved",
+      "error_px": 0.0871304570079572,
+      "ground_truth": [
+        610.081181920606,
+        185.92024002191064
+      ],
+      "id": "000069_finfet",
+      "panel": "b",
+      "prediction": [
+        610.1333885192871,
+        185.8504819571972
+      ],
+      "reference": "000069_finfet_reference.png",
+      "reference_sha256": "5290b5348070441d39b4b580c67035103f2f3065e17ce3d75cc0c100142ef025",
+      "search": "000069_finfet_search.png",
+      "search_sha256": "41ebe73d157668f21873ad1a445bcf295e91189098fe3beb8f898c67a5d9109a",
+      "seed": 4210704648,
+      "selection": "median",
+      "selection_population": "all architecture samples",
+      "selection_statistic_error_px": 0.08703239720852031
+    },
+    {
+      "architecture": "dram",
+      "decision_status": "review",
+      "error_px": 617.5182944388673,
+      "ground_truth": [
+        627.4496156234015,
+        141.56206661431736
+      ],
+      "id": "000078_dram",
+      "panel": "c",
+      "prediction": [
+        335.97289286367595,
+        685.9609682075679
+      ],
+      "reference": "000078_dram_reference.png",
+      "reference_sha256": "cba2d5ef3aef1c8999bf3f8b3c74fc8737b5355af8c90c1ef6e9e2fae493cd2b",
+      "search": "000078_dram_search.png",
+      "search_sha256": "e9008c5496e19e4eaaeb0939d6f19121a16ac00ad29d0f0f54ef6e18a3944296",
+      "seed": 4211877915,
+      "selection": "largest error",
+      "selection_population": "all architecture samples",
+      "selection_statistic_error_px": 617.5182944388673
+    },
+    {
+      "architecture": "finfet",
+      "decision_status": "resolved",
+      "error_px": 0.3214982434245761,
+      "ground_truth": [
+        222.47178621066698,
+        629.587207894779
+      ],
+      "id": "000023_finfet",
+      "panel": "d",
+      "prediction": [
+        222.4836946129799,
+        629.9084855169058
+      ],
+      "reference": "000023_finfet_reference.png",
+      "reference_sha256": "0d8548d98b4ab55aa4f91457a18eba80fd814cdc8fdf06e346c42850c8f3561c",
+      "search": "000023_finfet_search.png",
+      "search_sha256": "88f55e0c9708befcc14456079b85c7c8ff784bc693aec5b521aedfd36efd71bb",
+      "seed": 4204707950,
+      "selection": "largest error",
+      "selection_population": "all architecture samples",
+      "selection_statistic_error_px": 0.3214982434245761
+    }
+  ],
+  "configuration": {
+    "difficulty": "medium",
+    "image_size": 1000,
+    "nominal_scale": 0.1,
+    "supersample": 2
+  },
+  "evaluator_dataset_sha256": "2a1fb5ed8ddff3f0684c6f0fb04e9975f9fdc3b132c45765179d4e34c35448f8",
+  "evaluator_manifest_sha256": "4a0bacc04be5c22e5dae4e89d84357e05954b9befd655ef3d6a10d1ced6e0d34",
+  "generator_configuration_sha256": "7906cb276a217c01a7ab80b370340f8d8159a304644bd04c24be1e0e122b4752",
+  "generator_dataset_sha256": "9fe538e2ee60b82842995c512c8e4c3d49c79b3e70b91d1c963b87ebe55d39c3",
+  "generator_manifest_sha256": "4a0bacc04be5c22e5dae4e89d84357e05954b9befd655ef3d6a10d1ced6e0d34",
+  "generator_source_sha256": "6dbee102f8027978da5a18cf3d0cf9431c5704e52b2355f9141ac646d1472c64",
+  "implementation_sha256": "12909d1916113f3464143f80a8124c40cbdde5c5f163a2763e0687e31ee2686b",
+  "mode": "audit",
+  "plate_operations": [
+    "Pillow LANCZOS resize",
+    "ground-truth circle overlay",
+    "prediction cross overlay",
+    "text and rules"
+  ],
+  "plate_sha256": "daf55c8d8d3481e63bbbdd48e814048208a9e80193685cb924b6b12e68a8b352",
+  "protocol": "predeclared development transfer verification",
+  "record_count": 100,
+  "report_sha256": "f6135fcc1599a2b2c650cab8f265dc7bca1032e1adfec0a4e73e591d706eeb86",
+  "schema_version": 1,
+  "selection_policy": "Per-architecture all-sample median or maximum; ID tie-break.",
+  "success_threshold_px": null,
+  "title": "Independent renderer audit evidence plate"
+}

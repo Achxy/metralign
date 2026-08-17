@@ -1,218 +1,171 @@
 <p align="center">
-  <img src="site/favicon.svg" width="64" alt="Metralign mark">
+  <img src="assets/brand/metralign-mark-128.png" width="88" alt="Metralign">
 </p>
 
 <h1 align="center">Metralign</h1>
 
 <p align="center">
-  <strong>Deterministic, training-free localization under periodic ambiguity.</strong><br>
-  Input: a finely sampled reference and a wider-field search. Output: the reference center in search pixels.
-</p>
-
-<p align="center">
-  Evaluated on a frozen 1,400-pair <strong>synthetic</strong> wafer-structure stress test.<br>
-  The results in this repository are not measurements from a calibrated microscope.
+  <strong>Absolute-site localization for periodic inspection images.</strong><br>
+  A finer-sampled reference and a wider-field search go in; one subpixel search coordinate comes out.
 </p>
 
 <p align="center">
   <a href="https://github.com/Achxy/metralign/actions/workflows/tests.yml"><img alt="Tests" src="https://github.com/Achxy/metralign/actions/workflows/tests.yml/badge.svg"></a>
-  <a href="https://www.python.org/"><img alt="Python 3.10–3.14" src="https://img.shields.io/badge/Python-3.10%E2%80%933.14-2f3437"></a>
-  <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/License-MIT-2f3437"></a>
+  <a href="https://www.python.org/"><img alt="Python 3.10–3.14" src="https://img.shields.io/badge/Python-3.10%E2%80%933.14-30363b"></a>
+  <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/License-MIT-30363b"></a>
 </p>
 
 <p align="center">
-  <a href="https://youtu.be/i7V0aO1jFd4">Project film</a> ·
-  <a href="DriftSense_LatticeLock_Frozen.pdf">Presentation</a> ·
+  <a href="#run-it">Run it</a> ·
+  <a href="docs/method.md">Method</a> ·
   <a href="results/frozen/ARTIFACTS.md">Frozen evidence</a> ·
-  <a href="references.md">Scientific references</a>
+  <a href="Metralign_Submission_Deck.pdf">Presentation</a> ·
+  <a href="references.md">References</a>
 </p>
 
----
+Metralign is deterministic, training-free, CPU-only software for locating a specific field of view inside a repeated structure. Its sealed result is **1,398 / 1,400 synthetic reporting pairs within 1 px**. Licensed real SEM/TEM checks, a separately implemented renderer, and external registration baselines are reported separately; none is pooled into that frozen number.
 
-## Abstract
-
-Metralign estimates where a finely sampled reference field appears inside a wider-field search image. Both inputs contain repeated wafer-like structure, so ordinary template matching can select a visually equivalent site one or more lattice periods away. The command-line interface returns the reference center in search-image pixels as two floating-point numbers: `x y`.
-
-The default method uses the lattice twice. Phase drift first estimates scale, rotation, and axis-aligned pitch. Matched differences at rounded pitch shifts then suppress the repeated backbone so that weaker site-specific evidence can determine absolute position. If robust-normalized backbone fallback produces multiple score-tied peaks and secondary ambiguity evidence is present, the method applies the prescribed center-nearest rule among those peaks.
-
-The Python distribution is `metralign`. The internal import namespace remains `drift_sense` for compatibility with the frozen release artifacts.
-
-<p align="center">
-  <img src="results/frozen/cases/success_iid_000002_dram/000002_dram_reference.png" width="780" alt="Synthetic DRAM reference image from frozen IID case 000002">
-</p>
-
-<p align="center"><em>Fine-sampling reference · frozen IID case 000002_dram</em></p>
-
-<p align="center">
-  <img src="results/frozen/cases/success_iid_000002_dram/000002_dram_search.png" width="780" alt="Synthetic DRAM search image from frozen IID case 000002">
-</p>
-
-<p align="center"><em>Wider-field search · seed 1011209461. Both images are 1000 × 1000 pixels; the search covers approximately ten times the physical width. Ground truth: (632.919, 234.237). Prediction: (632.832, 234.201). Error: 0.094 px.</em></p>
-
-## Frozen result
-
-The archived reporting split was evaluated once after the method and settings were fixed. It contains 200 pairs from each of seven suites, alternating synthetic DRAM and FinFET structures.
-
-| Measure | Frozen observation |
-|---|---:|
-| Pairs | 1,400 |
-| Error ≤ 0.5 px | 1,394 / 1,400 · 99.5714% |
-| Error ≤ 1 px | 1,398 / 1,400 · 99.8571% |
-| Error ≤ 5 px | 1,398 / 1,400 · 99.8571% |
-| Median error | 0.0830 px |
-| P95 error | 0.3193 px |
-| Mean runtime | 239.405 ms |
-| P95 runtime | 359.649 ms |
-
-Runtime is evaluator wall time immediately around `localize()`. It excludes image decoding and report construction. The mean error is 0.5152 px because two large outliers dominate it; the mean over the 1,398 cases within 5 px is 0.1143 px.
-
-## Method
-
-The default `full` path has six stages:
-
-1. **Normalize.** Clip each image to its 1st–99th percentile range and apply robust median/MAD normalization.
-2. **Calibrate the lattice.** Estimate two fundamental periods and use phase drift across scan lines to recover relative scale and rotation. A bounded residual search handles low-confidence estimates.
-3. **Cancel the periodic backbone.** Warp reference templates at candidate transforms. Apply the same symmetric spatial-difference operator to reference and search using integer axis shifts derived from the estimated pitches.
-4. **Match residual evidence.** Use separable one-dimensional correlation only when the measured structure supports that model. Otherwise retain both residual channels and correlate them jointly in two dimensions.
-5. **Resolve ambiguity.** Inspect every threshold-qualified local maximum, not only the stored top-K list. The center-nearest rule is allowed only when a score tie is corroborated by weak residual evidence, low transform-estimate confidence, or local score-neighborhood variation.
-6. **Refine.** Apply bounded axis-wise parabolic refinement when the local peak supports it, then return floating-point search-image coordinates.
-
-There are no learned weights, remote services, notebooks, or GPU requirements. Coordinates are reproducible when input bytes, source, arguments, CPU/software environment, and numerical backend are fixed; runtime varies between runs. The complete estimator, diagnostic fields, bounds, and legacy baselines are documented in [Method](docs/method.md).
-
-## Frozen evaluation by suite
-
-Each suite contains 200 pairs.
-
-| Synthetic stress suite | ≤0.5 px | ≤1 px | Median (px) | P95 (px) | Maximum (px) |
-|---|---:|---:|---:|---:|---:|
-| IID | 100.0% | 100.0% | 0.094 | 0.296 | 0.447 |
-| High noise | 98.5% | 99.5% | 0.090 | 0.318 | 247.665 |
-| Geometry OOD | 100.0% | 100.0% | 0.084 | 0.285 | 0.469 |
-| Transform OOD | 100.0% | 100.0% | 0.090 | 0.313 | 0.451 |
-| Periodic ambiguity | 100.0% | 100.0% | 0.025 | 0.086 | 0.165 |
-| Scan distortion | 99.5% | 99.5% | 0.125 | 0.392 | 313.800 |
-| Alternate capture renderer¹ | 99.0% | 100.0% | 0.110 | 0.366 | 0.543 |
-
-¹ The alternate renderer changes the capture and resampling paths, edge response, blur, illumination, noise ordering, and parameter distributions. It still shares the latent architecture and coordinate geometry with the primary renderer. This is a capture-renderer shift, not validation against an independent physical simulator.
-
-Every value above is recoverable from the seven schema-v2 reports in [`results/frozen/reports/`](results/frozen/reports/). The aggregate, manifests, representative cases, and environment record are indexed in [`results/frozen/ARTIFACTS.md`](results/frozen/ARTIFACTS.md).
-
-## The two cases above 5 px
-
-The reporting split contains two errors above 5 px. Both are FinFET cases, and both were flagged ambiguous by the localizer. They are shown here rather than omitted from the headline result.
-
-<p align="center">
-  <img src="results/frozen/failure_high_noise.png" width="440" alt="Verified evaluator montage for the high-noise FinFET failure">
-</p>
-
-<p align="center"><em>high_noise/000081_finfet · 247.665 px</em></p>
-
-<p align="center">
-  <img src="results/frozen/failure_scan_distortion.png" width="440" alt="Verified evaluator montage for the scan-distortion FinFET failure">
-</p>
-
-<p align="center"><em>scan_distortion/000185_finfet · 313.800 px. Green marks ground truth; red marks the prediction.</em></p>
-
-In the high-noise case, residual evidence is 0.201 and the ambiguity scan retains 4,606 periodic alternatives. In the scan-distortion case, residual evidence is 0.176, 4,428 alternatives remain, and reliable-basis coverage is 50.9%. These diagnostics are consistent with the same limitation: the synthetic FinFET pattern can become nearly one-dimensional, leaving too little site-specific evidence to distinguish an off-center location from a central periodic alias. Scale and rotation remain close in both cases. No parameter changes followed inspection of the reporting split.
-
-## Install and run
-
-Metralign supports CPython 3.10–3.14.
+## Run it
 
 ```bash
 git clone https://github.com/Achxy/metralign.git
 cd metralign
 python -m pip install -c constraints.txt .
+
+metralign --reference reference.png --search search.png
 ```
 
-Infer a coordinate:
-
-```bash
-python infer.py \
-  --reference path/to/reference.png \
-  --search path/to/search.png
-```
-
-Successful stdout contains exactly one line:
+Successful stdout contains exactly two floating-point values:
 
 ```text
 512.381204 477.992015
 ```
 
-The origin is the top-left search pixel. `x` increases rightward and `y` downward. Add `--diagnostics` to write structured diagnostics to stderr without changing stdout.
+They are the reference center `(x, y)` in search-image pixels, measured from the top-left. `--diagnostics` writes structured evidence to stderr without changing stdout.
 
-To generate and evaluate a self-contained synthetic example:
+## Acquired microscopy checks
 
-```bash
-python generate_dataset.py \
-  --architecture dram \
-  --num-pairs 1 \
-  --output-dir data/example \
-  --seed 2026
+[![Six source-bound localization cases from acquired SEM and TEM data](real_imagery/results/real-microscopy-success-plate.png)](real_imagery/results/real-microscopy-success-plate.png)
 
-python evaluate.py \
-  --data-dir data/example \
-  --method full \
-  --output results/example.json
-```
+The plate contains mechanically selected cases from four licensed dataset records across three collections. Blue denotes registered or digitally constructed truth; orange denotes the prediction. Carinthia and Boiko SEM coordinates come from deterministic crops of already acquired images. The full interface used its declared small-template fallback in 13 of 24 Carinthia cases and all 70 MiniTEM pairs. These are useful execution and texture-transfer checks, not microscope-stage ground truth.
 
-Large suites are CPU- and storage-intensive. Use a volume with adequate free space. See [Command examples](examples/README.md) for the benchmark, augmentation-sensitivity, and controlled-pipeline interfaces.
+| Evidence | Declared scope | Observation |
+|---|---|---:|
+| Frozen synthetic report | 1,400 pairs; seven fixed stress suites | 1,398 within 1 px; median 0.083 px; P95 0.319 px |
+| Separate renderer | 100 predeclared development pairs | 97 within 1 px; median 0.044 px; P95 0.238 px |
+| Carinthia wafer SEM | 24 balanced same-acquisition digital crops | 23 within 1 px; 13 / 24 used declared fallback; median 0.025 px |
+| Boiko FE-SEM | 30 same-acquisition digital crops | 29 within 1 px; 30 within 5 px; median 0.015 px |
+| Registered MiniTEM | 70 publisher-registered Low/GT crops | 43 within 1 px; 70 within 5 px; 70 / 70 used declared fallback |
 
-## Synthetic capture model
+Sources: [Carinthia wafer SEM, CC BY 4.0](https://doi.org/10.5281/zenodo.10715190); [ordered](https://doi.org/10.6084/m9.figshare.11783661.v1) and [disordered](https://doi.org/10.6084/m9.figshare.11783667.v1) FE-SEM, CC BY 4.0; [MiniTEM registered pairs, CC BY 4.0](https://doi.org/10.5281/zenodo.4113244). Exact files, hashes, selection rules, and claim boundaries are in [`real_imagery/`](real_imagery/README.md).
 
-The generator renders the reference and search independently from one continuous latent field. It does not paste a completed reference image into the search. Ground-truth centers are transformed from shared world coordinates and corrected for simulated scan-line displacement. No brightness barcode or explicit location label is embedded in the images.
+## Why periodic images are difficult
 
-The primary reference and search captures use different resampling paths, reducing reliance on a shared interpolation artifact. The alternate-renderer suite changes more of the capture process, subject to the shared-latent limitation stated above.
+A generic correlator can estimate the correct scale and rotation yet land one lattice period away. Many sites have almost identical local evidence; the task is therefore absolute-site localization, not ordinary same-field registration.
 
-This remains a phenomenological stress test. It is not calibrated to a named microscope, process node, material stack, beam energy, or dose. Literature support for an included mechanism does not establish that the configured synthetic range is physically typical. The mechanism-to-code evidence matrix and DOI bibliography are in [`references.md`](references.md).
+Metralign uses periodicity twice:
 
-## Development evidence
+1. Robust normalization makes the two captures comparable.
+2. Reciprocal and phase structure estimates scale, rotation, and pitch.
+3. Matched one-period differences attenuate the repeated backbone in both images.
+4. Correlation ranks the surviving site-specific evidence and retains bounded alternatives.
+5. Ambiguity logic applies a center or supplied stage prior only when low residual support or unstable transform evidence authorizes it.
+6. Parabolic refinement returns the final floating-point coordinate.
 
-The table below comes from one fixed 100-pair IID **development** manifest. It records cumulative stages of the selected pipeline and explains the release configuration. It is not part of the frozen reporting split.
+If a query is too small for one-period differencing, the `full` interface uses the existing normalized-correlation fallback and explicitly marks the result for review with zero absolute-site confidence. The complete estimator and diagnostic contract are documented in [`docs/method.md`](docs/method.md) and [`docs/ambiguity-safety.md`](docs/ambiguity-safety.md).
 
-| Cumulative stage | ≤1 px | P95 error (px) | Mean runtime (ms) |
+## Frozen reporting result
+
+The method and settings were fixed before the seven reporting suites were opened. Each suite contains 200 pairs, alternating synthetic DRAM and FinFET structures.
+
+| Measure | Frozen observation |
+|---|---:|
+| Pairs | 1,400 |
+| Error ≤ 0.5 px | 1,394 · 99.5714% |
+| Error ≤ 1 px | 1,398 · 99.8571% |
+| Error ≤ 5 px | 1,398 · 99.8571% |
+| Median error | 0.0830 px |
+| P95 error | 0.3193 px |
+| Mean runtime | 239.405 ms |
+| P95 runtime | 359.649 ms |
+
+Runtime is evaluator wall time around `localize()` and excludes image decoding. Reports bind the manifest, every input image, implementation fingerprint, Git commit, and environment. The full artifact inventory is [`results/frozen/ARTIFACTS.md`](results/frozen/ARTIFACTS.md).
+
+<p align="center">
+  <img src="results/frozen/cases/success_iid_000002_dram/000002_dram_reference.png" width="48%" alt="Finer-sampled synthetic DRAM reference from frozen IID case 000002">
+  <img src="results/frozen/cases/success_iid_000002_dram/000002_dram_search.png" width="48%" alt="Wider-field synthetic DRAM search from frozen IID case 000002">
+</p>
+
+<p align="center"><em>Mechanically selected suite-median frozen IID case 000002_dram. Ground truth (632.919, 234.237); prediction (632.832, 234.201); error 0.094 px.</em></p>
+
+| Suite | ≤1 px | Median px | P95 px |
 |---|---:|---:|---:|
-| ZNCC starting point | 38% | 741.941 | 51.4 |
-| + phase calibration | 46% | 639.186 | 146.7 |
-| + raw spatial residual | 95% | 13.435 | 167.5 |
-| + structural spatial residual | 100% | 0.643 | 220.0 |
-| + reliable-basis diagnostics | 100% | 0.643 | 222.9 |
-| + multi-evidence ambiguity rule | 100% | 0.643 | 220.0 |
-| + parabolic subpixel refinement | 100% | 0.259 | 217.3 |
+| IID | 100.0% | 0.094 | 0.296 |
+| High noise | 99.5% | 0.090 | 0.318 |
+| Geometry OOD | 100.0% | 0.084 | 0.285 |
+| Transform OOD | 100.0% | 0.090 | 0.313 |
+| Periodic ambiguity | 100.0% | 0.025 | 0.086 |
+| Scan distortion | 99.5% | 0.125 | 0.392 |
+| Alternate capture renderer¹ | 100.0% | 0.110 | 0.366 |
 
-The same artifact compares parabolic, local-DFT, and no subpixel refinement. It also records K = 8, 16, 32, 64, and 128. All five K values produce identical coordinates on this manifest, so K = 32 is retained as a stable middle setting rather than claimed as an optimized value. Source: [`results/frozen/development/pipeline-study.json`](results/frozen/development/pipeline-study.json).
+¹ This suite changes capture and resampling but retains primary latent architecture and coordinates. The separate renderer below removes that code-path sharing.
 
-## Reproducibility and provenance
+<details>
+<summary>Audit note: two frozen cases exceeded 5 px</summary>
 
-The archived run used algorithm commit `c9363bfce535a812eb541417f3297602e97f619a` and implementation SHA-256 `7819d767b5ab3aeadd40bb99addefcf28948bca9c07bb7a84b5fb20345f39881`. All seven reports record a clean working tree. Release verification recomputed the 1,400 report rows against their manifests, 2,800 image hashes, ground-truth coordinates, Euclidean errors, subgroup metrics, and aggregate entries.
+Both were FinFET cases and both were flagged ambiguous. Weak site-specific evidence left thousands of lattice-equivalent hypotheses, and the prescribed center-nearest rule returned an incorrect absolute location while scale and rotation remained close. No parameters were changed after inspecting the reporting split. The cases and complete diagnostics remain in [`results/frozen/ARTIFACTS.md`](results/frozen/ARTIFACTS.md).
 
-The aggregate file is [`results/frozen/benchmark_report.json`](results/frozen/benchmark_report.json). Its SHA-256 is:
+</details>
 
-```text
-a169bffa170707da166206640150702c87202670a1a22745ff6128ad46ff5b69
-```
+## External registration comparison
 
-The checked-in constraints reproduce package selection for the supported Python versions. Reproducing a recorded result also requires the recorded source commit, inputs, arguments, and platform context. The [Reproducibility protocol](docs/reproducibility.md) separates the fresh-machine smoke test, development studies, and frozen reporting procedure.
+Every method below received the same frozen image bytes, nominal 0.1 sampling ratio, and coordinate definition. Unresolved cases count against the all-sample rate. Settings were fixed across suites; these are transparent task adapters, not claims of optimal tuning for every external library.
 
-| Record | Location |
+| Method | Coverage | ≤1 px | Median resolved error | Mean runtime² |
+|---|---:|---:|---:|---:|
+| **Metralign, archived** | 100.00% | **99.86%** | **0.083 px** | 239.4 ms |
+| Official XFeat* + USAC_MAGSAC | 77.07% | 0.00% | 629.221 px | 295.7 ms |
+| OpenCV scale/rotation grid + template | 100.00% | 35.57% | 250.644 px | 1,106.8 ms |
+| OpenCV template + phase refinement | 100.00% | 32.57% | 266.028 px | 20.3 ms |
+| scikit-image template + phase refinement | 100.00% | 32.14% | 267.710 px | 110.6 ms |
+| OpenCV ECC affine | 80.71% | 30.36% | 220.515 px | 644.3 ms |
+| OpenCV SIFT + RANSAC | 0.29% | 0.00% | 613.630 px | 844.3 ms |
+
+² Timings came from separate measured runs and are not an isolated throughput benchmark. The official XFeat comparison is retrospective development evidence and uses its own predeclared population/runtime gate. Its negative result is a task-mismatch observation under a fixed adapter, not a claim about XFeat on the general matching benchmarks for which it was designed. Full settings, licenses, per-sample rows, coverage, and hashes are in [`docs/external-comparison.md`](docs/external-comparison.md) and [`results/comparisons/`](results/comparisons/).
+
+## Separate renderer
+
+[![Successful cases from the separately implemented renderer](assets/evidence/independent-renderer-final-100-success.png)](assets/evidence/independent-renderer-final-100-success.png)
+
+The transfer generator defines its own physical-nanometre homography, DRAM/FinFET layouts, persistent variation, detector model, and reference/search sampling paths. An AST regression test prevents imports from the primary architecture, geometry, distortion, renderer, or dataset modules. It remains a phenomenological synthetic model, not an independent microscope simulator.
+
+The final 100-pair seed was declared before generation and received no post-result tuning. Metralign localized **97 / 100 within 1 px**: all 50 FinFET pairs and 47 of 50 DRAM pairs. The three misses were marked for review. On the same bytes, the best fixed classic adapter reached 73 / 100. Complete bindings and separation details are in [`docs/independent-renderer.md`](docs/independent-renderer.md).
+
+## Reproducibility
+
+- CPython 3.10–3.14; CPU only; no weights or network calls in Metralign inference.
+- Universal version constraints and an isolated package-build toolchain are checked in.
+- The reporting split retains seven manifests, seven complete schema-v2 reports, 2,800 image hashes, environment details, and a clean source commit.
+- Development studies, real microscopy, external comparisons, and the independent renderer remain visibly separate from the frozen claim.
+- CI exercises the default `full` path, public API, report validation, optional comparison dependencies, sensitive-data scanning, and the complete test suite.
+
+See [`docs/reproducibility.md`](docs/reproducibility.md) for fresh-machine and evidence-rebuild commands.
+
+## Repository guide
+
+| Path | Purpose |
 |---|---|
-| Frozen artifact inventory | [`results/frozen/ARTIFACTS.md`](results/frozen/ARTIFACTS.md) |
-| Seven complete evaluation reports | [`results/frozen/reports/`](results/frozen/reports/) |
-| Exact suite manifests | [`results/frozen/manifests/`](results/frozen/manifests/) |
-| Algorithm specification | [`docs/method.md`](docs/method.md) |
-| Reproduction procedure | [`docs/reproducibility.md`](docs/reproducibility.md) |
-| Citation and mechanism audit | [`references.md`](references.md) |
-| Presentation evidence map | [`PRESENTATION.md`](PRESENTATION.md) |
-| Editable presentation | [`DriftSense_LatticeLock_Frozen.pptx`](DriftSense_LatticeLock_Frozen.pptx) |
-| Rendered presentation | [`DriftSense_LatticeLock_Frozen.pdf`](DriftSense_LatticeLock_Frozen.pdf) |
+| [`src/drift_sense/localizer.py`](src/drift_sense/localizer.py) | Frozen-compatible internal estimator and diagnostics |
+| [`src/metralign/`](src/metralign/) | Public Python and CLI namespace |
+| [`evaluate.py`](evaluate.py) | Bound evaluation reports |
+| [`results/frozen/`](results/frozen/) | Sealed 1,400-pair evidence |
+| [`real_imagery/`](real_imagery/) | Licensed SEM/TEM protocols and reports |
+| [`results/comparisons/`](results/comparisons/) | External and independent-renderer comparisons |
+| [`references.md`](references.md) | Mechanism-to-code evidence matrix and DOI bibliography |
 
 ## Scope
 
-- Evaluation is synthetic. No claim of calibrated physical accuracy is made.
-- The alternate capture renderer is not an independent generator of device geometry.
-- The frozen benchmark has two large FinFET failures despite strong median and tail performance elsewhere.
-- Runtime was measured on one CPU environment and is not a cross-platform throughput guarantee.
-- Legacy methods remain available for comparison, but they are not cumulative stages of the selected pipeline.
+The frozen result is synthetic and does not establish calibrated microscope accuracy. The real datasets do not provide native stage truth for this exact challenge. The separate renderer is independently implemented but still synthetic. Runtime depends on hardware and numerical libraries. Metralign exposes ambiguity and review diagnostics because a periodic image can be insufficient to identify an absolute site.
 
 ## Citation
 

@@ -84,15 +84,21 @@ PYTHONPATH=src /tmp/metralign-xfeat-venv/bin/python compare_xfeat.py \
   --quiet
 ```
 
-The result records the complete protocol snapshot, selected-ID hash, every
-input-image hash, adapter hash, official source and checkpoint hashes, exact
-resolved distributions, hardware label, model-load time, per-record runtime,
-matches, inliers, predictions, and errors. Timing excludes image decoding and
-one-time model loading.
+The timing probe records the complete protocol and source bindings, selected-ID
+hash, every input-image hash, hardware label, model-load time, and per-record
+runtime, but intentionally omits matches, predictions, and error outcomes. The
+final measured reports add matches, inliers, predictions, errors, and resolved
+distributions. Timing excludes image decoding and one-time model loading.
 
 ## Measured result
 
-The full-population choice is locked. Accuracy measurement remains on hold
-until the repository has a clean code/protocol freeze commit, so the eventual
-result can bind to that clean source state. No setting will be changed after
-the results are read.
+Both populations were measured from clean commit `615806cfd5c4243ecca49cbf169324b33180f160`, with `dirty=false`, adapter SHA-256 binding, official-source binding, checkpoint binding, and complete input hashes. No setting was changed after outcomes were read.
+
+| Population | Coverage | ≤1 px | ≤5 px | Median resolved error | P95 resolved error | Mean runtime |
+|---|---:|---:|---:|---:|---:|---:|
+| Frozen synthetic, all 1,400 | 1,079 / 1,400 · 77.07% | 0 / 1,400 | 0 / 1,400 | 629.221 px | 1,037.635 px | 295.692 ms |
+| Independent renderer, all 100 | 78 / 100 · 78.00% | 0 / 100 | 0 / 100 | 690.465 px | 1,098.103 px | 149.318 ms |
+
+The outputs are `results/comparisons/xfeat-frozen-all1400-development.json` and `results/comparisons/xfeat-independent-final100-development.json`. XFeat* finds enough local correspondences to estimate many homographies, but strong repetition makes those correspondences non-unique and the resulting homographies project incorrect absolute locations. This is a fixed task-adapter mismatch, not a claim about XFeat on its intended general correspondence, pose-estimation, and visual-localization benchmarks. No outcome-informed plausibility gate or tuning was added.
+
+The isolated report's distribution inventory contains a stale `drift-sense 0.1.0` entry from an ignored `src/drift_sense.egg-info` directory exposed by `PYTHONPATH`. That distribution was not installed in the XFeat environment and is not used by inference. The imported package reports 0.2.0; the actual adapter/source is independently bound by commit and SHA-256.

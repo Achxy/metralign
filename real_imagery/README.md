@@ -4,23 +4,25 @@ This directory is a source-bound evaluation track for real acquired microscopy. 
 
 ## Evidence levels
 
-The two protocols support different conclusions:
+The protocols support different conclusions:
 
-1. **Registered real TEM pair/crop localization.** A reference is constructed from the publisher-provided sharp `GT` member and localized in an independently acquired, motion-blurred `Low` member. The publisher selected and registered those frames before release. Coordinates are exact in that registered image coordinate system and digital crop construction, but residual registration error is unknown. This is not stage ground truth or a native cross-magnification test.
-2. **Real SEM digital-crop self-consistency.** A deterministic crop from an acquired SEM image is enlarged and localized back into that same image. Coordinates are exact digital construction truth. This probes real texture but not independent reacquisition.
-3. **Native SEM multimag agreement.** Same-area publisher labels at 50k×, 100k×, and 200k× are tested against a fixed SIFT/RANSAC proxy. The proxy has an explicit quality gate. Agreement is neither coordinate ground truth nor an accuracy measurement.
+1. **Carinthia production-wafer SEM self-consistency.** A fixed, class-balanced selection of 24 acquired images supplies deterministic digital crops. This is exact digital construction truth, not population-representative defect sampling or independent reacquisition.
+2. **Boiko real SEM digital-crop self-consistency.** A deterministic crop from an acquired SEM image is enlarged and localized back into that same image. Coordinates are exact digital construction truth. This probes real texture but not independent reacquisition.
+3. **Registered real TEM pair/crop localization.** A reference is constructed from the publisher-provided sharp `GT` member and localized in an independently acquired, motion-blurred `Low` member. The publisher selected and registered those frames before release. Coordinates are exact in that registered image coordinate system and digital crop construction, but residual registration error is unknown. This is not stage ground truth or a native cross-magnification test.
+4. **Native SEM multimag agreement.** Same-area publisher labels at 50k×, 100k×, and 200k× are tested against a fixed SIFT/RANSAC proxy. The proxy has an explicit quality gate. Agreement is neither coordinate ground truth nor an accuracy measurement.
 
-No source, candidate grid, scoring rule, threshold, or representative-visual rule is selected from localization outputs. Because the publisher's registered TEM intersections are short horizontal strips with blank padding, TEM query crops are selected reproducibly from each sharp GT alone: a fixed 9×9 interior grid is ranked by mean absolute Gaussian high-pass residual, then the five highest-scoring non-overlapping crops are assigned to the five sorted Low frames. Plates select a median and largest measured error per prespecified source group from a completed report and say so explicitly.
+No source, candidate grid, scoring rule, threshold, or representative-visual rule is selected from localization outputs. Because the publisher's registered TEM intersections are short horizontal strips with blank padding, TEM query crops are selected reproducibly from each sharp GT alone: a fixed 9×9 interior grid is ranked by mean absolute Gaussian high-pass residual, then the five highest-scoring non-overlapping crops are assigned to the five sorted Low frames. The public success plate selects the median and nearest-P95 successful case per prespecified source group from a completed report and says so explicitly.
 
 ## Sources and licenses
 
 | Track | Primary source | License | Pinned download |
 |---|---|---|---|
+| Production-wafer SEM | Kofler et al., [dataset DOI 10.5281/zenodo.10715190](https://doi.org/10.5281/zenodo.10715190) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | `data.zip`, 133,840,870 bytes, SHA-256 `02436de8c2d6b0c7eabdcdcf133ab5f17e59a0e3de56ebffc4cb6b2acb771490` |
 | Registered MiniTEM Low/GT | Wieslander, Wählby, and Sintorn, [dataset DOI 10.5281/zenodo.4113244](https://doi.org/10.5281/zenodo.4113244); [paper DOI 10.1371/journal.pone.0246336](https://doi.org/10.1371/journal.pone.0246336) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | `TrainTestVal.zip`, 629,335,440 bytes, MD5 `2128033df6437e5d9bcdc0d4796a7b94` |
 | Ordered real FE-SEM | Boiko et al., [dataset DOI 10.6084/m9.figshare.11783661.v1](https://doi.org/10.6084/m9.figshare.11783661.v1) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | Nine individually pinned TIFFs |
 | Disordered real FE-SEM | Boiko et al., [dataset DOI 10.6084/m9.figshare.11783667.v1](https://doi.org/10.6084/m9.figshare.11783667.v1) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | Nine individually pinned TIFFs |
 
-The FE-SEM acquisition and same-area magnification organization are described in the [Scientific Data article, DOI 10.1038/s41597-020-0439-1](https://doi.org/10.1038/s41597-020-0439-1). Exact file IDs, URLs, sizes, and MD5 values are in `sources.json`; the TEM archive and acquisition metadata are in `paired_tem_source.json`.
+The FE-SEM acquisition and same-area magnification organization are described in the [Scientific Data article, DOI 10.1038/s41597-020-0439-1](https://doi.org/10.1038/s41597-020-0439-1). Exact source identities and selection rules are in `carinthia_source.json`, `sources.json`, and `paired_tem_source.json`.
 
 ## Reproduce
 
@@ -28,7 +30,8 @@ Run from the repository root with the project environment. Raw data should live 
 
 ```bash
 export PYTHONPATH=src:.
-export REAL_DATA=/Volumes/External/drift-sense-real-imagery-2026-08-17
+export REAL_DATA=/Volumes/External/metralign-real-imagery-2026-08-17
+export CARINTHIA_ARCHIVE=/Volumes/External/metralign-real-imagery-2026-08-17/carinthia/data.zip
 
 .venv/bin/python -m real_imagery.download_subset \
   --output-dir "$REAL_DATA/boiko-sem"
@@ -38,21 +41,25 @@ export REAL_DATA=/Volumes/External/drift-sense-real-imagery-2026-08-17
 
 .venv/bin/python -m real_imagery.evaluate_real_imagery \
   --data-dir "$REAL_DATA/boiko-sem" \
+  --carinthia-archive "$CARINTHIA_ARCHIVE" \
   --output real_imagery/results/real-sem-report.json
 
 .venv/bin/python -m real_imagery.evaluate_registered_tem \
   --archive "$REAL_DATA/TrainTestVal.zip" \
   --output real_imagery/results/registered-tem-report.json
 
-.venv/bin/python -m real_imagery.make_real_imagery_plate \
-  --report real_imagery/results/real-sem-report.json \
+.venv/bin/python -m real_imagery.make_real_imagery_evidence_plate \
+  --sem-report real_imagery/results/real-sem-report.json \
+  --tem-report real_imagery/results/registered-tem-report.json \
   --sem-data-dir "$REAL_DATA/boiko-sem" \
-  --output real_imagery/results/real-sem-measured-plate.png
+  --tem-archive "$REAL_DATA/TrainTestVal.zip" \
+  --carinthia-archive "$CARINTHIA_ARCHIVE" \
+  --output real_imagery/results/real-microscopy-success-plate.png
 
 .venv/bin/python -m real_imagery.verify_report \
   --report real_imagery/results/real-sem-report.json \
   --sem-data-dir "$REAL_DATA/boiko-sem" \
-  --plate real_imagery/results/real-sem-measured-plate.png
+  --carinthia-archive "$CARINTHIA_ARCHIVE"
 
 .venv/bin/python -m real_imagery.verify_report \
   --report real_imagery/results/registered-tem-report.json \
@@ -78,26 +85,24 @@ Each evaluator refuses to overwrite a report, verifies all downloaded bytes agai
 
 These are development-track results and are not pooled with the frozen synthetic split. `≤1 px` and `≤5 px` are evaluated in the registered/search image coordinate system. Native SEM rows are proxy disagreement, not error against physical ground truth.
 
-| Evidence | Method | Completed / attempted | Median px | P95 px | Maximum px | ≤1 px | ≤5 px |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| Registered real TEM, all | baseline0 | 70 / 70 | 0.803 | 2.086 | 2.899 | 43 / 70 | 70 / 70 |
-| Registered real TEM, calibration grid | baseline0 | 40 / 40 | 0.794 | 2.167 | 2.899 | 23 / 40 | 40 / 40 |
-| Registered real TEM, kidney | baseline0 | 30 / 30 | 0.803 | 1.341 | 2.087 | 20 / 30 | 30 / 30 |
-| Registered real TEM, all | full | 0 / 70 | — | — | — | — | — |
-| Real SEM exact digital crop | full | 30 / 30 | 0.015 | 0.758 | 1.121 | 29 / 30 | 30 / 30 |
-| Real SEM exact digital crop | baseline0 | 30 / 30 | 0.006 | 0.057 | 0.103 | 30 / 30 | 30 / 30 |
-| Native SEM multimag proxy agreement | full | 18 / 18 | 0.400 | 2.364 | 2.644 | — | 18 / 18 |
-| Native SEM multimag proxy agreement | baseline0 | 18 / 18 | 0.413 | 2.016 | 3.092 | — | 18 / 18 |
+| Evidence | Method | Completed / attempted | Median px | P95 px | Maximum px | ≤1 px | ≤5 px | Declared fallback |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Registered real TEM | full interface | 70 / 70 | 0.803 | 2.086 | 2.899 | 43 / 70 | 70 / 70 | 70 / 70 |
+| Registered real TEM | baseline0 | 70 / 70 | 0.803 | 2.086 | 2.899 | 43 / 70 | 70 / 70 | 0 / 70 |
+| Carinthia wafer SEM | full interface | 24 / 24 | 0.025 | 0.274 | 3.058 | 23 / 24 | 24 / 24 | 13 / 24 |
+| Carinthia wafer SEM | baseline0 | 24 / 24 | 0.008 | 0.192 | 3.058 | 23 / 24 | 24 / 24 | 0 / 24 |
+| Boiko SEM exact digital crop | full interface | 30 / 30 | 0.015 | 0.758 | 1.121 | 29 / 30 | 30 / 30 | 0 / 30 |
+| Boiko SEM exact digital crop | baseline0 | 30 / 30 | 0.006 | 0.057 | 0.103 | 30 / 30 | 30 / 30 | 0 / 30 |
+| Native SEM multimag proxy agreement | full interface | 18 / 18 | 0.400 | 2.364 | 2.644 | — | 18 / 18 | 0 / 18 |
+| Native SEM multimag proxy agreement | baseline0 | 18 / 18 | 0.413 | 2.016 | 3.092 | — | 18 / 18 | 0 / 18 |
 
-All 70 full-method TEM attempts raised the same explicit validation error: `image is too small for its estimated lattice period`. The publisher's registered intersections are 204–276 pixels high, so a nominal 0.1× query becomes only about 20–28 pixels high. This is a geometry/domain limitation of the lattice-aware path, not a coordinate miss; no failed execution is silently removed from a denominator. The baseline completed deterministically with zero repeat delta.
+Every nominal 0.1× TEM query is only 20–28 pixels high and cannot support one-period residual estimation. The `full` interface therefore records `periodic_model_unsupported`, sets review and conservative-abstention diagnostics, assigns zero absolute-site confidence, and dispatches coordinate estimation to the existing `baseline0` matcher. Its TEM coordinates are consequently identical to baseline0. This proves deterministic interface completion and registered-coordinate performance; it does not show benefit from the periodic stage.
 
 Machine-readable evidence:
 
-- `results/registered-tem-report.json` — 70 registered Test pairs, 84 unique bound archive members, complete record/error rows, source and code fingerprints.
-- `results/real-sem-report.json` — 30 exact digital-crop cases and 18 native multimag pairs per method.
-- `results/real-sem-measured-plate.png` with its JSON sidecar — four report-selected real SEM overlays, rendered as a flat academic contact sheet.
-
-A TEM full-method overlay plate is intentionally not emitted because the method produced no TEM coordinates. The machine-readable report preserves the baseline overlays and all full-method execution errors without substituting one method's predictions for another in a figure labeled as full-pipeline output.
+- `results/real-sem-report.json` — 24 balanced Carinthia crops, 30 Boiko exact digital crops, and 18 native multimag pairs per method.
+- `results/registered-tem-report.json` — 70 registered Test pairs, 84 unique bound archive members, both methods, fallback diagnostics, and complete error rows.
+- `results/real-microscopy-success-plate.png` with its JSON sidecar — six mechanically selected successful cases spanning Carinthia, ordered/disordered Boiko SEM, calibration-grid TEM, and kidney TEM.
 
 ## Limitations
 
@@ -105,4 +110,4 @@ A TEM full-method overlay plate is intentionally not emitted because the method 
 - The GT-only informativeness rule avoids blank intersection padding but favors locally structured query regions. It does not measure performance on uniform queries and is not a random spatial sample.
 - The publisher reports manual selection, manually initialized ECC registration, intersection cropping, and GT downsampling for the prepared TEM data. The evaluator retains the archive's single-channel `uint16` arrays without clipping or per-image rescaling. It cannot quantify residual pair-registration error.
 - The SEM exact-coordinate cases reuse one acquisition and therefore cannot estimate reacquisition robustness. The native multimag comparison uses a feature proxy, not physical truth, and rejected proxy pairs remain visible rather than being silently treated as failures or successes.
-- These two public sources contain limited instruments, specimens, acquisition settings, and laboratories. They do not establish broad real-world deployment performance.
+- These four public dataset records contain limited instruments, specimens, acquisition settings, and laboratories. They do not establish broad real-world deployment performance.

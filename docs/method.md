@@ -51,13 +51,12 @@ Robust-normalized backbone correlation is used when spatial residuals are disabl
 
 Raw peaks remain authoritative for center-nearest selection. If the estimated real-space basis is reliable, the same peaks are grouped by nearest integer-lattice offset for diagnostics. Group evidence is marked reliable only when its representatives cover at least 65% of raw tied peaks.
 
-A score tie alone does not trigger center-nearest selection. It must also be supported by at least one secondary signal:
+A score tie alone does not trigger center-nearest selection. It must also be supported by at least one authorization signal:
 
-- local score-neighborhood variation,
 - low transform-estimate confidence, or
 - low residual evidence.
 
-Diagnostics report raw and grouped counts, group coverage, residual evidence, selected score, best score, runner-up score, ambiguity status, and any reliable lattice offset. The schema field `transform_stability` contains the spectral phase-confidence value; `local_perturbation` contains the standard deviation of the best peak's 3×3 score neighborhood.
+Diagnostics report raw and grouped counts, group coverage, residual evidence, selected score, best score, runner-up score, ambiguity status, and any reliable lattice offset. The schema field `transform_stability` contains the spectral phase-confidence value; `local_perturbation` contains the standard deviation of the best peak's 3×3 score neighborhood and remains diagnostic only.
 
 ### 6. Subpixel refinement
 

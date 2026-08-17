@@ -29,12 +29,12 @@ The primary comparison uses the seven untouched reporting manifests: 200 records
 | Method | Coverage | ≤0.5 px | ≤1 px | Median error, resolved | P95 error, resolved | Mean runtime |
 |---|---:|---:|---:|---:|---:|---:|
 | Metralign, archived | 100.00% | 99.57% | 99.86% | 0.083 px | 0.319 px | 239.4 ms |
-| OpenCV grid template | 100.00% | 33.86% | 35.57% | 250.644 px | 719.140 px | 3,328.5 ms |
-| OpenCV template + phase | 100.00% | 32.50% | 32.57% | 266.028 px | 719.598 px | 47.6 ms |
-| OpenCV template | 100.00% | 30.93% | 32.57% | 265.172 px | 718.396 px | 65.7 ms |
-| OpenCV ECC affine | 80.71% | 0.07% | 30.36% | 220.515 px | 702.013 px | 1,177.0 ms |
-| scikit-image template + phase | 100.00% | 32.14% | 32.14% | 267.710 px | 719.192 px | 393.7 ms |
-| OpenCV SIFT + RANSAC | 0.29% | 0.00% | 0.00% | 613.630 px | 804.181 px | 1,981.0 ms |
+| OpenCV grid template | 100.00% | 33.86% | 35.57% | 250.644 px | 719.140 px | 1,106.8 ms |
+| OpenCV template + phase | 100.00% | 32.50% | 32.57% | 266.028 px | 719.598 px | 20.3 ms |
+| OpenCV template | 100.00% | 30.93% | 32.57% | 265.172 px | 718.396 px | 19.8 ms |
+| OpenCV ECC affine | 80.71% | 0.07% | 30.36% | 220.515 px | 702.013 px | 644.3 ms |
+| scikit-image template + phase | 100.00% | 32.14% | 32.14% | 267.710 px | 719.192 px | 110.6 ms |
+| OpenCV SIFT + RANSAC | 0.29% | 0.00% | 0.00% | 613.630 px | 804.181 px | 844.3 ms |
 
 Success uses all 1,400 records as the denominator; unresolved estimates therefore count as failures. Error summaries use resolved estimates only, as labeled. Runtime is adapter wall time without image decoding. The Metralign timing comes from its archived single-method evaluator, whereas the external suite jobs ran later in parallel; accuracy is comparable, but these timings are not an isolated speed benchmark.
 
@@ -50,21 +50,32 @@ The per-suite ≤1 px rates expose the task boundary rather than hiding it in on
 | scikit-image template + phase | 48.0% | 37.5% | 35.5% | 0.0% | 19.5% | 39.0% | 45.5% |
 | OpenCV SIFT + RANSAC | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 
-## Independent-renderer development probe
+## Independent-renderer final development set
 
-A separately implemented 40-pair renderer (seed `3105198707`, dataset SHA-256 `aff1b9639de164ee8648b5d1d1527ae8171584127b6fdbbb1f29794ebd3dd6da`) provides a development-only check outside the primary generator. It was not used as a frozen claim or to tune the remaining failure.
+A separately implemented 100-pair renderer set (seed `4201709601`, evaluator dataset SHA-256 `2a1fb5ed8ddff3f0684c6f0fb04e9975f9fdc3b132c45765179d4e34c35448f8`) provides a predeclared development check outside the primary generator. The seed was fixed before generation; no method was tuned from its three Metralign misses.
 
 | Method | Coverage | ≤0.5 px | ≤1 px | Median error, resolved | P95 error, resolved |
 |---|---:|---:|---:|---:|---:|
-| Metralign | 100.0% | 97.5% | 97.5% | 0.045 px | 0.202 px |
-| OpenCV template + phase | 100.0% | 70.0% | 70.0% | 0.164 px | 612.779 px |
-| scikit-image template + phase | 100.0% | 70.0% | 70.0% | 0.058 px | 613.248 px |
-| OpenCV grid template | 100.0% | 67.5% | 70.0% | 0.383 px | 613.171 px |
-| OpenCV template | 100.0% | 67.5% | 70.0% | 0.388 px | 613.171 px |
-| OpenCV ECC affine | 100.0% | 0.0% | 52.5% | 0.735 px | 616.818 px |
-| OpenCV SIFT + RANSAC | 2.5% | 2.5% | 2.5% | 0.394 px | 0.394 px |
+| Metralign | 100.0% | 97.0% | 97.0% | 0.044 px | 0.238 px |
+| OpenCV grid template | 100.0% | 71.0% | 73.0% | 0.378 px | 688.451 px |
+| OpenCV template + phase | 100.0% | 68.0% | 68.0% | 0.133 px | 656.108 px |
+| OpenCV template | 100.0% | 65.0% | 68.0% | 0.393 px | 656.309 px |
+| scikit-image template + phase | 100.0% | 67.0% | 67.0% | 0.064 px | 601.369 px |
+| OpenCV ECC affine | 100.0% | 0.0% | 52.0% | 0.737 px | 653.258 px |
+| OpenCV SIFT + RANSAC | 6.0% | 5.0% | 5.0% | 0.331 px | 477.563 px |
 
-The subpixel external methods are precise when their coarse peak lands on the correct lattice member, but their high P95 errors show that they do not resolve absolute-site aliasing. SIFT's one resolved record must be read together with its 2.5% coverage.
+The subpixel external methods are precise when their coarse peak lands on the correct lattice member, but their high P95 errors show that they do not resolve absolute-site aliasing. SIFT's five successful records must be read together with 6% coverage.
+
+## Official XFeat retrospective study
+
+The modern learned-feature control follows a separate outcome-blind protocol in `evidence/external/xfeat-predeclared-protocol.json`. It pins the official XFeat commit and checkpoint, applies only the known nominal 0.1 area resampling, calls official `match_xfeat_star(top_k=8000)`, and uses the official notebook's USAC_MAGSAC homography settings. A runtime-only 14-record gate selected all 1,400 frozen records before any prediction was inspected.
+
+| Population | Coverage | ≤1 px | Median resolved error | P95 resolved error | Mean runtime |
+|---|---:|---:|---:|---:|---:|
+| Frozen synthetic, 1,400 | 77.07% | 0.00% | 629.221 px | 1,037.635 px | 295.7 ms |
+| Separate renderer, 100 | 78.00% | 0.00% | 690.465 px | 1,098.103 px | 149.3 ms |
+
+This is a task-mismatch result, not a claim that XFeat is weak on its intended general correspondence and visual-localization benchmarks. Strong periodic repetition makes local correspondences non-unique, while unequal fields of view make the resulting homography especially sensitive when projecting an absolute centre. No post-result gate or tuning was added.
 
 ## Implementations
 
@@ -119,12 +130,11 @@ The default expected set is all six external adapters. A custom study must repea
 Recorded outputs:
 
 - `results/comparisons/external-registration-frozen.json`: pooled frozen result and per-suite metrics;
-- `results/comparisons/external-registration-development.json`: pooled archived development result and per-suite metrics;
-- `results/comparisons/external/*.json`: OpenCV per-sample frozen records;
-- `results/comparisons/independent/*.json`: scikit-image per-sample frozen records;
-- `results/comparisons/development-archived/*.json`: complete per-sample archived development records;
-- `results/comparisons/external-registration-independent-fresh40-development.json`: development-only independent-renderer aggregate;
-- `results/comparisons/development/independent-fresh-40*.json`: its complete per-sample records.
+- `results/comparisons/external/*.json`: six-adapter per-sample frozen records, including the independent scikit-image adapter;
+- `results/comparisons/independent-renderer-final-100.json`: complete Metralign final-100 report;
+- `results/comparisons/independent-renderer-final-100-external-baselines.json`: six classic adapters on the same 100 pairs;
+- `results/comparisons/xfeat-frozen-all1400-development.json`: official XFeat* full-population report;
+- `results/comparisons/xfeat-independent-final100-development.json`: official XFeat* report on the separate renderer.
 
 The schema-v2 aggregate files retain SHA-256 hashes of every source result and recompute archived Metralign metrics from the embedded compact rows. Numeric search bounds live in each source report's `configuration`; method-specific constants and license sources live in `method_metadata` and `external_software`. CI installs the optional comparison environment on Python 3.10 and 3.14 and exercises the adapters and aggregation guards.
 
