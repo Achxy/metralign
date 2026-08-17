@@ -67,57 +67,57 @@ The result carries its score, ambiguity evidence, alternatives, and a review rec
 Finally a parabolic fit refines the selected integer peak.
 
 18
-00:01:53,640 --> 00:01:58,653
-On this sealed case, the prediction error is 0.094 pixels.
+00:01:53,640 --> 00:01:59,365
+On this benchmark example, the prediction error is 0.094 pixels.
 
 19
-00:02:00,113 --> 00:02:04,799
+00:02:00,825 --> 00:02:05,511
 This is the real command executed against the checked-in sample.
 
 20
-00:02:05,659 --> 00:02:11,719
+00:02:06,371 --> 00:02:12,430
 Standard output gives exactly the predicted x and y coordinate. Full diagnostics remain separate.
 
 21
-00:02:13,179 --> 00:02:18,903
-The sealed report contains 1400 synthetic pairs across 7 fixed stress suites.
+00:02:13,890 --> 00:02:20,310
+The frozen test set contains 1400 synthetic pairs across 7 fixed stress conditions.
 
 22
-00:02:19,663 --> 00:02:26,210
+00:02:21,070 --> 00:02:27,617
 Only 2 predictions exceeded 1 pixel; median error was 0.083 pixels.
 
 23
-00:02:26,970 --> 00:02:34,401
+00:02:28,377 --> 00:02:35,808
 The ninety-fifth percentile was 0.319 pixels, with mean localization wall time of 239 milliseconds.
 
 24
-00:02:35,561 --> 00:02:44,307
+00:02:36,968 --> 00:02:45,714
 Across 6 fixed classic adapters, the best, OpenCV grid template, reached 35.57 percent within 1 pixel.
 
 25
-00:02:45,467 --> 00:02:56,579
-A separate official XFeat control returned 0 locations within 5 pixels. This retrospective task-mismatch check is not a verdict on its intended benchmarks.
+00:02:46,874 --> 00:02:57,784
+A separate official XFeat comparison returned 0 locations within 5 pixels. Because it uses different task assumptions, this is not a verdict on its intended benchmarks.
 
 26
-00:02:58,039 --> 00:03:08,470
+00:02:59,244 --> 00:03:09,675
 Separate checks use acquired SEM and TEM records, plus a separately implemented synthetic renderer with independent code but shared task-level geometry assumptions.
 
 27
-00:03:09,230 --> 00:03:16,021
-Their protocols, fallback counts, licenses, and ground-truth limits remain separate from the sealed result.
+00:03:10,435 --> 00:03:17,904
+Their protocols, compatibility paths, licenses, and ground-truth limits remain separate from the main benchmark result.
 
 28
-00:03:17,481 --> 00:03:21,893
-The sealed report contains 2 large FinFET errors; each was flagged ambiguous.
+00:03:19,364 --> 00:03:27,043
+The frozen test set contains 2 large errors in highly repetitive line-array cases; both were flagged ambiguous.
 
 29
-00:03:22,653 --> 00:03:32,892
+00:03:27,803 --> 00:03:38,042
 Weak site-specific evidence left many plausible absolute positions; this case returned an incorrect location under the prescribed tie-breaking rule.
 
 30
-00:03:34,352 --> 00:03:42,356
+00:03:39,502 --> 00:03:47,506
 The repository includes generation, inference, evaluation, complete reports, input hashes, and reproducible build commands.
 
 31
-00:03:43,216 --> 00:03:48,855
+00:03:48,366 --> 00:03:54,005
 Metralign is available at github dot com slash Achxy slash metralign.

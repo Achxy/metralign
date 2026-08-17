@@ -2,23 +2,23 @@
 
 ## Delivery
 
-- Film duration: `230.255 s`
+- Film duration: `235.400 s`
 - Video: `1920 × 1080` at `30/1`
 - Video codec: `h264`
 - Audio codec: `aac` at `48000 Hz`, `1` channel
-- Repository commit: `c46ee0e8bc5ff99e00da8ee10f105a20db6ae087` (`dirty=false` at resolution time)
+- Repository commit: `a5b2a3daf1504f2d117a4aed8eceb73cb16abcce` (`dirty=false` at resolution time)
 - Manim: `Manim Community v0.20.1`
-- Build timestamp: `2026-08-17T05:48:12Z`
+- Build timestamp: `2026-08-17T11:50:05Z`
 - Voice profile: `Mimika Studio / Manipal / Qwen3-TTS 0.6B clone`
 - Scenes: `12`
 - Narration segments: `31`
 
 ## Files
 
-- `Metralign_Demo.mp4` — SHA-256 `9ec01b65916eb247a3787b04f6adda575b01bd03be5dd3fa08a4e7a0de7acb3b`
-- `Metralign_NoVO.mp4` — SHA-256 `1b8029e2bf3ba65350609b45f1b34e0c0138297af79a2c7fd3c26e362d803965`
-- `Metralign_VO.wav` — SHA-256 `2adeac3130f260161f3e38e8ef603953a818af098aad952c1d1166526e6871ef`
-- `Metralign_Demo.srt` — SHA-256 `7e786cf2e09f1221dd9c6f3bf9c3af122f82df55af2472dd3df0631bb963c77a`
+- `Metralign_Demo.mp4` — SHA-256 `6369d0df1f04ae405161726a308145671b5cb98c253923b695844525a096831e`
+- `Metralign_NoVO.mp4` — SHA-256 `3157a681d7ea3926bf015dde196d9dcf044c404f823dc9b807698c67598e1ec7`
+- `Metralign_VO.wav` — SHA-256 `972f1e5fad3b54ec328f76c1255c8ea86d825db44cebf37a40c59174acc10ce3`
+- `Metralign_Demo.srt` — SHA-256 `880ce637288c132ab4fbae253a0264dc01bd8eb16f3c42a292b840f1b983ada0`
 
 ## Evidence and provenance
 
@@ -28,10 +28,10 @@ The film uses project-generated scientific evidence, source-bound licensed micro
 
 ## Claim boundaries
 
-- The headline 1400-pair result is a sealed synthetic stress test.
+- The headline 1400-pair result is a locked synthetic benchmark.
 - Acquired SEM/TEM checks retain their declared digital-crop, publisher-registration, proxy, and fallback limits.
 - The separately implemented renderer remains synthetic and shares task-level geometry assumptions.
-- The demonstrated failure is an unchanged sealed case; its explanation is limited to recorded diagnostics.
+- The demonstrated limitation is an unchanged test case; its explanation is limited to recorded diagnostics.
 
 ## QA status
 
