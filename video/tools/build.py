@@ -47,7 +47,11 @@ def evidence() -> None:
     exporter = VIDEO_ROOT / "tools" / "export_evidence.py"
     if not exporter.is_file():
         raise BuildError("evidence exporter is missing: video/tools/export_evidence.py")
-    run(PYTHON, exporter)
+    # Release builds consume the checked-in, hash-bound evidence bundle.  The
+    # exporter deliberately refuses to overwrite a non-empty destination, so
+    # the production pipeline verifies the sealed bundle instead of mutating
+    # it.  New evidence is exported explicitly before the source checkpoint.
+    run(PYTHON, exporter, "--verify")
 
 
 def resolve(*, allow_missing: bool) -> None:
