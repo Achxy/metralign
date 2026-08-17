@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-17T01:56:19Z",
+  "repository_source_commit": "b9cccdd556d78047e377b393b0a19673af8ae7c0",
+  "scope": "Authentic production assets copied into video/assets for the Metralign technical film. This registry records identity, scientific-evidence, and official event marks; presence here does not enlarge any scientific claim.",
+  "asset_policy": [
+    "No generative-image system, stock-illustration pack, synthetic icon set, or decorative pseudo-chart was used.",
+    "Scientific imagery is either byte-identical project evidence or a byte-identical copy of a source-bound project plate.",
+    "Third-party marks come only from the official SEMICON India Hackathon 2026 page and remain outside the repository MIT license.",
+    "Third-party marks must remain secondary to Metralign, unaltered, and limited to truthful event-role identification."
+  ],
+  "event_record": {
+    "event": "SEMICON India Hackathon 2026",
+    "challenge": "Drift-Sense: AI-Powered Navigation-Error Recovery for Wafer Inspection Tools",
+    "authoritative_page_url": "https://i4c.in/hackathon-2026/",
+    "page_owner": "Inter Institutional Inclusive Innovations Centre (i4C), the event implementation partner",
+    "verified_roles": {
+      "organiser": "SEMI India",
+      "drift_sense_industry_partner": "Applied Materials",
+      "implementation_partner": "i4C"
+    },
+    "note": "The film may identify the official event and the Drift-Sense industry partner. It must not state or visually imply that SEMI or Applied Materials endorses Metralign."
+  },
+  "assets": [
+    {
+      "path": "video/assets/brand/metralign-mark-512.png",
+      "kind": "project_identity",
+      "source_path": "assets/brand/metralign-mark-512.png",
+      "source_url": "https://github.com/Achxy/metralign/blob/b9cccdd556d78047e377b393b0a19673af8ae7c0/assets/brand/metralign-mark-512.png",
+      "owner": "Metralign contributors: Achyuth Jayadevan and Pramit Karmakar",
+      "license_or_role": "Project-owned identity distributed in the MIT-licensed Metralign repository; not a third-party mark.",
+      "sha256": "9e51a58049d8161b3926f3e1964b0c199ac12b66687c338bc1855dc295455c56",
+      "dimensions_px": [
+        512,
+        512
+      ],
+      "modifications": [
+        "Byte-identical repository copy; no resize, crop, recolor, or effect."
+      ],
+      "use_boundary": "Primary film identity. Preserve the instrument-black, reference-ivory, search-slate, and measurement-oxide artwork exactly as supplied."
+    },
+    {
+      "path": "video/assets/evidence/real-microscopy-success-plate.png",
+      "kind": "licensed_scientific_evidence",
+      "source_path": "real_imagery/results/real-microscopy-success-plate.png",
+      "source_url": "https://github.com/Achxy/metralign/blob/b9cccdd556d78047e377b393b0a19673af8ae7c0/real_imagery/results/real-microscopy-success-plate.png",
+      "owner": "Metralign contributors for the plate layout and overlays; underlying microscopy authors are listed in source_records.",
+      "license_or_role": "Derivative scientific figure incorporating CC BY 4.0 microscopy; attribution is required and the raster is not relicensed by MIT.",
+      "sha256": "a28d54b5ddae798f6dc3bff5444832c57ed6d8c61f9765f116c1d0d6c01c6859",
+      "dimensions_px": [
+        1800,
+        1780
+      ],
+      "modifications": [
+        "Byte-identical repository copy into video/assets.",
+        "The source plate itself contains declared resized/cropped pixels, contrast windows, labels, rules, ground-truth boxes, and prediction crosses."
+      ],
+      "source_records": [
+        {
+          "title": "Carinthia dataset",
+          "url": "https://doi.org/10.5281/zenodo.10715190",
+          "owner": "Corinna Kofler, Sabrina Strauß, Anja Zernig, Ernesto Lazaro Garcia, Michael Boxleitner, Beatrix Mayr, Isabell Dicillia-Kovatsch, and Claudia Anna Dohr",
+          "license": "CC BY 4.0"
+        },
+        {
+          "title": "Electron microscopy dataset for nanoscale ordering effects - Dataset 1 (ordered)",
+          "url": "https://doi.org/10.6084/m9.figshare.11783661.v1",
+          "owner": "Daniil Boiko, Evgeniy Pentsak, Vera Cherepanova, and Valentine Ananikov",
+          "license": "CC BY 4.0"
+        },
+        {
+          "title": "Electron microscopy dataset for nanoscale ordering effects - Dataset 2 (disordered)",
+          "url": "https://doi.org/10.6084/m9.figshare.11783667.v1",
+          "owner": "Daniil Boiko, Evgeniy Pentsak, Vera Cherepanova, and Valentine Ananikov",
+          "license": "CC BY 4.0"
+        },
+        {
+          "title": "Transmission Electron Microscopy Dataset for Image Deblurring",
+          "url": "https://doi.org/10.5281/zenodo.4113244",
+          "owner": "Håkan Wieslander, Carolina Wählby, and Ida-Maria Sintorn",
+          "license": "CC BY 4.0"
+        }
+      ],
+      "use_boundary": "Measured digital-crop or publisher-registered coordinates, not native microscope-stage truth. The TEM and one Carinthia panel disclose the declared baseline0 fallback. Do not pool these cases into the sealed 1,398/1,400 synthetic claim."
+    },
+    {
+      "path": "video/assets/evidence/independent-renderer-final-100-success.png",
+      "kind": "project_scientific_evidence",
+      "source_path": "assets/evidence/independent-renderer-final-100-success.png",
+      "source_url": "https://github.com/Achxy/metralign/blob/b9cccdd556d78047e377b393b0a19673af8ae7c0/assets/evidence/independent-renderer-final-100-success.png",
+      "owner": "Metralign contributors",
+      "license_or_role": "Project evidence in the MIT-licensed repository; synthetic scientific imagery, not acquired microscopy.",
+      "sha256": "3b2031c01323b83a7f41cf3359aba89c228e240a6b9eda6bdee6581fab81b75a",
+      "dimensions_px": [
+        2480,
+        1840
+      ],
+      "modifications": [
+        "Byte-identical repository copy into video/assets.",
+        "The source plate declares Pillow LANCZOS resizing, ground-truth circles, prediction crosses, text, and rules."
+      ],
+      "use_boundary": "Label as a separately implemented synthetic renderer. The predeclared set result is 97/100 within 1 px; this success-only plate does not show the three misses. It is not an empirical data source and still shares task-level geometry assumptions with the primary benchmark."
+    },
+    {
+      "path": "video/assets/evidence/frozen-iid-000002-dram-reference.png",
+      "kind": "project_scientific_evidence",
+      "source_path": "results/frozen/cases/success_iid_000002_dram/000002_dram_reference.png",
+      "source_url": "https://github.com/Achxy/metralign/blob/b9cccdd556d78047e377b393b0a19673af8ae7c0/results/frozen/cases/success_iid_000002_dram/000002_dram_reference.png",
+      "owner": "Metralign contributors",
+      "license_or_role": "Project-generated synthetic benchmark input in the MIT-licensed repository.",
+      "sha256": "3258cacee137db2856d5ff3aee5a28a32a2d74b02946b939e807edec2fc4e212",
+      "dimensions_px": [
+        1000,
+        1000
+      ],
+      "modifications": [
+        "Byte-identical repository copy; no resize, crop, annotation, or retouch."
+      ],
+      "use_boundary": "Fine-sampled synthetic DRAM reference for frozen IID case 000002. It is an illustrative input, not real SEM and not proof of aggregate performance by itself."
+    },
+    {
+      "path": "video/assets/evidence/frozen-iid-000002-dram-search.png",
+      "kind": "project_scientific_evidence",
+      "source_path": "results/frozen/cases/success_iid_000002_dram/000002_dram_search.png",
+      "source_url": "https://github.com/Achxy/metralign/blob/b9cccdd556d78047e377b393b0a19673af8ae7c0/results/frozen/cases/success_iid_000002_dram/000002_dram_search.png",
+      "owner": "Metralign contributors",
+      "license_or_role": "Project-generated synthetic benchmark input in the MIT-licensed repository.",
+      "sha256": "f1a09837c6239e36cc195bf196843fa7b89ed44206c167b1a895daa14436a5ce",
+      "dimensions_px": [
+        1000,
+        1000
+      ],
+      "modifications": [
+        "Byte-identical repository copy; no resize, crop, annotation, or retouch."
+      ],
+      "use_boundary": "Wide-field synthetic DRAM search for frozen IID case 000002. It is an illustrative input, not real SEM and not proof of aggregate performance by itself. The sealed aggregate result is 1,398/1,400 within 1 px."
+    },
+    {
+      "path": "video/assets/external/semi-organiser-white.webp",
+      "kind": "official_event_mark",
+      "source_url": "https://i4c.in/wp-content/uploads/2026/08/semi-new.webp",
+      "source_page_url": "https://i4c.in/hackathon-2026/",
+      "owner": "SEMI",
+      "license_or_role": "Official organiser-identification mark served by the authoritative event page. SEMI trademark/copyright; no open license identified. Nominative submission-context use only; excluded from the repository MIT license.",
+      "sha256": "07246dffe6d6b705037d516e5ec10d03fbad4df37e1a781b1c7b45693cf1a133",
+      "dimensions_px": [
+        275,
+        66
+      ],
+      "retrieved_at_utc": "2026-08-17T01:56:19Z",
+      "modifications": [
+        "Byte-identical download of the official transparent white WebP; no conversion, resize, crop, recolor, or effect."
+      ],
+      "use_boundary": "Use only at modest size beside the text 'SEMICON India Hackathon 2026' or 'Organised by SEMI India'. Keep smaller than the Metralign identity and do not imply product endorsement."
+    },
+    {
+      "path": "video/assets/external/applied-materials-industry-partner.webp",
+      "kind": "official_event_partner_mark",
+      "source_url": "https://i4c.in/wp-content/uploads/2026/08/Applied-M_icon.webp",
+      "source_page_url": "https://i4c.in/hackathon-2026/",
+      "owner": "Applied Materials, Inc.",
+      "license_or_role": "Official industry-partner mark served by the authoritative event page for the Drift-Sense track. Applied Materials trademark/copyright; no open license identified. Nominative submission-context use only; excluded from the repository MIT license.",
+      "sha256": "a2fdc522c29ccd3b376ae86c712e83798524a2eec1c5c3b7d39e2325cb76ebf9",
+      "dimensions_px": [
+        208,
+        78
+      ],
+      "retrieved_at_utc": "2026-08-17T01:56:19Z",
+      "modifications": [
+        "Byte-identical download of the official WebP; no conversion, resize, crop, recolor, or effect."
+      ],
+      "use_boundary": "Use only with truthful wording such as 'Drift-Sense industry partner' or 'Problem statement by Applied Materials'. Keep smaller than the Metralign identity and do not imply endorsement of the submitted solution."
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "source_url": "https://i4c.in/wp-content/uploads/2026/08/2_logos.webp",
+      "reason": "Composite Applied Materials and KLA partner strip. KLA belongs to the other track; using the strip would imply irrelevant co-branding."
+    },
+    {
+      "source_url": "https://i4c.in/wp-content/uploads/2026/08/Frame-1000004497-5.png",
+      "reason": "Composite industry-partner lockup includes KLA and creates an unnecessary logo wall."
+    },
+    {
+      "source_url": "https://i4c.in/hackathon-2026/",
+      "reason": "Generic event-page stock photographs and decorative icons were excluded because their licensing and evidentiary relevance are not established."
+    },
+    {
+      "source_url": "https://www.appliedmaterials.com/us/en/newsroom/media-kit-digital-assets.html",
+      "reason": "Corporate b-roll was not needed to explain Metralign and would add licensing weight plus a risk of implied endorsement."
+    }
+  ]
+}

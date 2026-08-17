@@ -39,3 +39,11 @@ experiments/ledger.jsonl
 coverage.xml
 htmlcov/
 *.prof
+
+# Local film environment and derived media. Final deliverables remain tracked.
+video/.venv/
+video/build/
+video/voice/generated/
+video/voice/stems/
+video/voice/voice_manifest.json
+/media/

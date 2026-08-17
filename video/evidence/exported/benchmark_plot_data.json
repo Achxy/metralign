@@ -1,0 +1,80 @@
+{
+  "aggregate": {
+    "failure_gt_5px_count": 2,
+    "mean_runtime_ms": 239.40528598285718,
+    "median_error_px": 0.08299918763427763,
+    "outside_1px_count": 2,
+    "p95_error_px": 0.3193366812245552,
+    "pair_count": 1400,
+    "within_1px_count": 1398,
+    "within_1px_rate": 0.9985714285714286
+  },
+  "percentile_method": "NumPy linear",
+  "schema_version": 1,
+  "suites": [
+    {
+      "maximum_error_px": 0.447172878544565,
+      "median_error_px": 0.09364219406053975,
+      "p95_error_px": 0.2963150232050082,
+      "pair_count": 200,
+      "suite": "iid",
+      "within_1px_count": 200,
+      "within_1px_rate": 1.0
+    },
+    {
+      "maximum_error_px": 247.66516289616854,
+      "median_error_px": 0.09016428535982207,
+      "p95_error_px": 0.3184927126190231,
+      "pair_count": 200,
+      "suite": "high_noise",
+      "within_1px_count": 199,
+      "within_1px_rate": 0.995
+    },
+    {
+      "maximum_error_px": 0.4693539580378564,
+      "median_error_px": 0.08403883713104643,
+      "p95_error_px": 0.28536191946873235,
+      "pair_count": 200,
+      "suite": "geometry_ood",
+      "within_1px_count": 200,
+      "within_1px_rate": 1.0
+    },
+    {
+      "maximum_error_px": 0.450943556771582,
+      "median_error_px": 0.08995141816472751,
+      "p95_error_px": 0.31294762092957257,
+      "pair_count": 200,
+      "suite": "transform_ood",
+      "within_1px_count": 200,
+      "within_1px_rate": 1.0
+    },
+    {
+      "maximum_error_px": 0.16509057261383478,
+      "median_error_px": 0.025419876911073627,
+      "p95_error_px": 0.08587661466897624,
+      "pair_count": 200,
+      "suite": "periodic_ambiguity",
+      "within_1px_count": 200,
+      "within_1px_rate": 1.0
+    },
+    {
+      "maximum_error_px": 313.7996577105799,
+      "median_error_px": 0.12488003925765612,
+      "p95_error_px": 0.3922596736405208,
+      "pair_count": 200,
+      "suite": "scan_distortion",
+      "within_1px_count": 199,
+      "within_1px_rate": 0.995
+    },
+    {
+      "maximum_error_px": 0.5425066965181146,
+      "median_error_px": 0.11024057068235771,
+      "p95_error_px": 0.366444790276186,
+      "pair_count": 200,
+      "suite": "cross_generator",
+      "within_1px_count": 200,
+      "within_1px_rate": 1.0
+    }
+  ],
+  "threshold_px": 1.0
+}

@@ -1,0 +1,518 @@
+{
+  "baseline0": {
+    "error_px": 0.08561310953220899,
+    "ground_truth_xy": [
+      632.9188555403398,
+      234.23698415143411
+    ],
+    "integer_argmax_top_left_xy": [
+      583,
+      185
+    ],
+    "method": "baseline0",
+    "prediction_without_runtime": {
+      "ambiguity_evidence": {
+        "lattice_group_count": 1,
+        "lattice_group_coverage": 0.0,
+        "lattice_grouped": false,
+        "local_perturbation": 0.0,
+        "local_perturbation_support": false,
+        "low_residual_support": false,
+        "residual_evidence": 0.9517562389373779,
+        "score_threshold": 0.0,
+        "score_tied": false,
+        "secondary_evidence": false,
+        "transform_instability_support": false,
+        "transform_stability": 1.0
+      },
+      "ambiguity_flag": false,
+      "channel_scores": {
+        "structural": 0.9517562389373779
+      },
+      "confidence": 0.7698981697575438,
+      "decision_support": {
+        "absolute_site_confidence": 0.7698981697575438,
+        "calibration_scope": "thresholds derived from the archived 700-pair development split; diagnostic score is not an empirical probability",
+        "conservative_abstention_recommended": false,
+        "policy_id": "metralign-absolute-site-review-v1",
+        "reasons": [],
+        "review_recommended": false,
+        "status": "resolved"
+      },
+      "hypotheses": [
+        {
+          "center": [
+            632.8344062268734,
+            234.25105248391628
+          ],
+          "lattice_offset_from_selected": null,
+          "rank": 1,
+          "score": 0.9517562389373779,
+          "score_delta": 0.0,
+          "selected": true
+        }
+      ],
+      "hypotheses_truncated": false,
+      "hypothesis_count": 1,
+      "lattice_offset": null,
+      "method": "baseline0",
+      "pipeline_stages": {
+        "ambiguity_rule": false,
+        "evidence_channel": "structural",
+        "lattice_family_candidates": false,
+        "phase_calibration": false,
+        "spatial_residual": false,
+        "subpixel_refinement": "parabolic"
+      },
+      "runner_up_score": 0.9420113563537598,
+      "score": 0.9517562389373779,
+      "score_margin": 0.009744882583618164,
+      "selected_rotation_deg": 0.0,
+      "selected_scale": 0.1,
+      "selected_score": 0.9517562389373779,
+      "spectral_confidence": 0.0,
+      "spectral_rotation_deg": 0.0,
+      "spectral_scale": 0.1,
+      "tied_count": 1,
+      "x": 632.8344062268734,
+      "y": 234.25105248391628
+    },
+    "prediction_xy": [
+      632.8344062268734,
+      234.25105248391628
+    ],
+    "refined_top_left_xy": [
+      583.3344062268734,
+      184.75105248391628
+    ],
+    "template_shape_yx": [
+      100,
+      100
+    ],
+    "verification": "prediction_xy exactly reproduced from baseline_score_map.npy argmax, parabolic refinement, and template-center offset within 1e-12 px"
+  },
+  "candidates": [
+    {
+      "center_xy": [
+        633.0,
+        234.0
+      ],
+      "rank": 1,
+      "score": 0.9098445773124695,
+      "selected": true,
+      "top_left_xy": [
+        583,
+        184
+      ]
+    },
+    {
+      "center_xy": [
+        393.0,
+        929.0
+      ],
+      "rank": 2,
+      "score": 0.6767697930335999,
+      "selected": false,
+      "top_left_xy": [
+        343,
+        879
+      ]
+    },
+    {
+      "center_xy": [
+        92.0,
+        564.0
+      ],
+      "rank": 3,
+      "score": 0.6682109832763672,
+      "selected": false,
+      "top_left_xy": [
+        42,
+        514
+      ]
+    },
+    {
+      "center_xy": [
+        72.0,
+        519.0
+      ],
+      "rank": 4,
+      "score": 0.6673266291618347,
+      "selected": false,
+      "top_left_xy": [
+        22,
+        469
+      ]
+    },
+    {
+      "center_xy": [
+        592.0,
+        627.0
+      ],
+      "rank": 5,
+      "score": 0.6647651791572571,
+      "selected": false,
+      "top_left_xy": [
+        542,
+        577
+      ]
+    },
+    {
+      "center_xy": [
+        389.0,
+        369.0
+      ],
+      "rank": 6,
+      "score": 0.6631316542625427,
+      "selected": false,
+      "top_left_xy": [
+        339,
+        319
+      ]
+    },
+    {
+      "center_xy": [
+        362.0,
+        581.0
+      ],
+      "rank": 7,
+      "score": 0.6628088355064392,
+      "selected": false,
+      "top_left_xy": [
+        312,
+        531
+      ]
+    },
+    {
+      "center_xy": [
+        618.0,
+        627.0
+      ],
+      "rank": 8,
+      "score": 0.6575560569763184,
+      "selected": false,
+      "top_left_xy": [
+        568,
+        577
+      ]
+    },
+    {
+      "center_xy": [
+        841.0,
+        719.0
+      ],
+      "rank": 9,
+      "score": 0.652327299118042,
+      "selected": false,
+      "top_left_xy": [
+        791,
+        669
+      ]
+    },
+    {
+      "center_xy": [
+        268.0,
+        883.0
+      ],
+      "rank": 10,
+      "score": 0.6490933299064636,
+      "selected": false,
+      "top_left_xy": [
+        218,
+        833
+      ]
+    },
+    {
+      "center_xy": [
+        821.0,
+        795.0
+      ],
+      "rank": 11,
+      "score": 0.6484702229499817,
+      "selected": false,
+      "top_left_xy": [
+        771,
+        745
+      ]
+    },
+    {
+      "center_xy": [
+        482.0,
+        97.0
+      ],
+      "rank": 12,
+      "score": 0.6467055082321167,
+      "selected": false,
+      "top_left_xy": [
+        432,
+        47
+      ]
+    },
+    {
+      "center_xy": [
+        153.0,
+        126.0
+      ],
+      "rank": 13,
+      "score": 0.6458784341812134,
+      "selected": false,
+      "top_left_xy": [
+        103,
+        76
+      ]
+    },
+    {
+      "center_xy": [
+        502.0,
+        113.0
+      ],
+      "rank": 14,
+      "score": 0.6450742483139038,
+      "selected": false,
+      "top_left_xy": [
+        452,
+        63
+      ]
+    },
+    {
+      "center_xy": [
+        60.0,
+        428.0
+      ],
+      "rank": 15,
+      "score": 0.6427090167999268,
+      "selected": false,
+      "top_left_xy": [
+        10,
+        378
+      ]
+    },
+    {
+      "center_xy": [
+        580.0,
+        295.0
+      ],
+      "rank": 16,
+      "score": 0.6418485641479492,
+      "selected": false,
+      "top_left_xy": [
+        530,
+        245
+      ]
+    },
+    {
+      "center_xy": [
+        222.0,
+        928.0
+      ],
+      "rank": 17,
+      "score": 0.6411700248718262,
+      "selected": false,
+      "top_left_xy": [
+        172,
+        878
+      ]
+    },
+    {
+      "center_xy": [
+        118.0,
+        565.0
+      ],
+      "rank": 18,
+      "score": 0.640507698059082,
+      "selected": false,
+      "top_left_xy": [
+        68,
+        515
+      ]
+    },
+    {
+      "center_xy": [
+        836.0,
+        371.0
+      ],
+      "rank": 19,
+      "score": 0.6404629349708557,
+      "selected": false,
+      "top_left_xy": [
+        786,
+        321
+      ]
+    },
+    {
+      "center_xy": [
+        87.0,
+        126.0
+      ],
+      "rank": 20,
+      "score": 0.6392292976379395,
+      "selected": false,
+      "top_left_xy": [
+        37,
+        76
+      ]
+    },
+    {
+      "center_xy": [
+        373.0,
+        914.0
+      ],
+      "rank": 21,
+      "score": 0.6388489007949829,
+      "selected": false,
+      "top_left_xy": [
+        323,
+        864
+      ]
+    },
+    {
+      "center_xy": [
+        494.0,
+        400.0
+      ],
+      "rank": 22,
+      "score": 0.6387431621551514,
+      "selected": false,
+      "top_left_xy": [
+        444,
+        350
+      ]
+    },
+    {
+      "center_xy": [
+        657.0,
+        779.0
+      ],
+      "rank": 23,
+      "score": 0.6378989815711975,
+      "selected": false,
+      "top_left_xy": [
+        607,
+        729
+      ]
+    },
+    {
+      "center_xy": [
+        427.0,
+        763.0
+      ],
+      "rank": 24,
+      "score": 0.6315574645996094,
+      "selected": false,
+      "top_left_xy": [
+        377,
+        713
+      ]
+    },
+    {
+      "center_xy": [
+        749.0,
+        689.0
+      ],
+      "rank": 25,
+      "score": 0.6307706832885742,
+      "selected": false,
+      "top_left_xy": [
+        699,
+        639
+      ]
+    },
+    {
+      "center_xy": [
+        901.0,
+        614.0
+      ],
+      "rank": 26,
+      "score": 0.6306613683700562,
+      "selected": false,
+      "top_left_xy": [
+        851,
+        564
+      ]
+    },
+    {
+      "center_xy": [
+        79.0,
+        625.0
+      ],
+      "rank": 27,
+      "score": 0.6299175024032593,
+      "selected": false,
+      "top_left_xy": [
+        29,
+        575
+      ]
+    },
+    {
+      "center_xy": [
+        230.0,
+        520.0
+      ],
+      "rank": 28,
+      "score": 0.6298234462738037,
+      "selected": false,
+      "top_left_xy": [
+        180,
+        470
+      ]
+    },
+    {
+      "center_xy": [
+        285.0,
+        157.0
+      ],
+      "rank": 29,
+      "score": 0.6297151446342468,
+      "selected": false,
+      "top_left_xy": [
+        235,
+        107
+      ]
+    },
+    {
+      "center_xy": [
+        511.0,
+        899.0
+      ],
+      "rank": 30,
+      "score": 0.6283034682273865,
+      "selected": false,
+      "top_left_xy": [
+        461,
+        849
+      ]
+    },
+    {
+      "center_xy": [
+        184.0,
+        474.0
+      ],
+      "rank": 31,
+      "score": 0.6273028254508972,
+      "selected": false,
+      "top_left_xy": [
+        134,
+        424
+      ]
+    },
+    {
+      "center_xy": [
+        528.0,
+        113.0
+      ],
+      "rank": 32,
+      "score": 0.6272843480110168,
+      "selected": false,
+      "top_left_xy": [
+        478,
+        63
+      ]
+    }
+  ],
+  "decision": {
+    "ambiguous": false,
+    "score_tied": false,
+    "threshold": 0.025170980393886565,
+    "tied_count": 1
+  }
+}

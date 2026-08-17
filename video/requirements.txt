@@ -1,0 +1,6 @@
+manim==0.20.1
+PyYAML==6.0.3
+matplotlib==3.10.8
+opencv-python-headless==4.14.0.94
+soundfile==0.13.1
+requests==2.32.5

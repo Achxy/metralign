@@ -1,0 +1,711 @@
+schema_version: 1
+
+project:
+  name: Metralign
+  technical_title: Absolute-site localization under periodic ambiguity
+  submission_context: Drift-Sense submission
+  event: SEMICON India Hackathon 2026
+  repository_url: https://github.com/Achxy/metralign
+  website_url: https://achxy.github.io/metralign/
+  license: MIT
+  version_source:
+    file: ../pyproject.toml
+    key: project.version
+  team:
+    display_name: Achyuth Jayadevan · Pramit Karmakar
+    institution: MIT MANIPAL
+    members:
+      - Achyuth Jayadevan
+      - Pramit Karmakar
+
+film:
+  title: Metralign — Technical Demonstration
+  purpose: Judge-facing academic and industrial technical film
+  language: en
+  maximum_duration_seconds: 300
+  target_duration_seconds: 205
+  frame:
+    width: 1920
+    height: 1080
+    fps: 30
+    aspect_ratio: "16:9"
+    background: "#090909"
+  metadata:
+    title: Metralign — Absolute-site localization under periodic ambiguity
+    artist: Achyuth Jayadevan and Pramit Karmakar
+    project: SEMICON India Hackathon 2026
+    comment: Reproducible technical demonstration assembled from verified project evidence
+
+theme:
+  colors:
+    background: "#090909"
+    black_secondary: "#141414"
+    graphite: "#222222"
+    primary_text: "#F1F0EC"
+    muted_text: "#9A9994"
+    rule: "#343434"
+    prediction: "#D65A3A"
+    ground_truth: "#7EA6C9"
+  fonts:
+    display: DIN Condensed
+    body: Arial
+    mono: Menlo
+  grid:
+    columns: 12
+    outer_margin_px: 96
+    gutter_px: 24
+    baseline_px: 24
+  typography:
+    display_uppercase: true
+    section_uppercase: true
+    label_tracking: 0.08
+  transition_policy:
+    default: hard_cut
+    related_representation: short_dissolve
+    maximum_dissolve_seconds: 0.25
+  forbidden_visual_patterns:
+    - rounded SaaS cards
+    - gradients
+    - glows
+    - decorative iconography
+    - pseudo HUD elements
+    - synthetic scientific imagery
+
+audio:
+  sample_rate_hz: 48000
+  channels: 1
+  music: none
+  integrated_loudness_lufs: -16
+  true_peak_dbtp: -1.5
+  trim_leading_silence_seconds: 0.08
+  trim_trailing_silence_seconds: 0.12
+  inter_segment_gap_seconds: 0.16
+
+voice:
+  provider: mimika
+  adapter: qwen3_clone
+  profile_id: manipal_engineer
+  profile_label: Manipal
+  base_url: http://127.0.0.1:7693
+  endpoint: /api/qwen3/generate
+  model_size: 0.6B
+  model_quantization: bf16
+  language: English
+  speed: 1.02
+  seed: 17082026
+  style: calm, controlled, precise, moderately paced engineer narration
+  generated_directory: voice/generated
+  replacement_directory: voice/replacements/manipal_engineer
+  normalized_directory: voice/stems
+  manifest: voice/voice_manifest.json
+  replacement_precedence: true
+
+assets:
+  metralign_mark:
+    type: project_logo
+    file: assets/brand/metralign-mark-512.png
+    source: project_repository
+    modified: false
+    allowed_use: project_identity
+  frozen_success_reference:
+    type: project_evidence
+    file: assets/evidence/frozen-iid-000002-dram-reference.png
+    source: frozen_iid_report
+    modified: false
+  frozen_success_search:
+    type: project_evidence
+    file: assets/evidence/frozen-iid-000002-dram-search.png
+    source: frozen_iid_report
+    modified: false
+  frozen_failure_reference:
+    type: project_evidence
+    file: ../results/frozen/cases/failure_scan_distortion_000185_finfet/000185_finfet_reference.png
+    source: frozen_scan_distortion_report
+    modified: false
+  frozen_failure_search:
+    type: project_evidence
+    file: ../results/frozen/cases/failure_scan_distortion_000185_finfet/000185_finfet_search.png
+    source: frozen_scan_distortion_report
+    modified: false
+  real_microscopy_plate:
+    type: licensed_project_evidence
+    file: assets/evidence/real-microscopy-success-plate.png
+    source: real_imagery_results
+    provenance: ../real_imagery/ATTRIBUTION.md
+    modified: display_annotations_only
+  independent_renderer_plate:
+    type: project_evidence
+    file: assets/evidence/independent-renderer-final-100-success.png
+    source: independent_renderer_final_100
+    modified: display_annotations_only
+  exported_evidence_index:
+    type: derived_evidence_manifest
+    file: evidence/exported/evidence_index.json
+    source: tools/export_evidence.py
+  external_asset_registry:
+    type: provenance_registry
+    file: evidence/provenance/external-assets.json
+    optional: true
+  semi_organiser_mark:
+    type: official_event_mark
+    file: assets/external/semi-organiser-white.webp
+    source: https://i4c.in/wp-content/uploads/2026/08/semi-new.webp
+    provenance: evidence/provenance/external-assets.json
+    role: SEMICON India Hackathon 2026 organiser
+    modified: false
+  applied_materials_partner_mark:
+    type: official_event_partner_mark
+    file: assets/external/applied-materials-industry-partner.webp
+    source: https://i4c.in/wp-content/uploads/2026/08/Applied-M_icon.webp
+    provenance: evidence/provenance/external-assets.json
+    role: Drift-Sense industry partner
+    modified: false
+
+evidence:
+  index: evidence/exported/evidence_index.json
+  metrics:
+    frozen_pair_count:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/frozen/pair_count
+    frozen_suite_count:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/frozen/suite_count
+    frozen_within_1px_count:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/frozen/within_1px_count
+    frozen_within_1px_rate:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/frozen/within_1px_rate
+    frozen_outside_1px_count:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/frozen/outside_1px_count
+    frozen_primary_threshold_px:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/frozen/primary_threshold_px
+    frozen_median_error_px:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/frozen/median_error_px
+    frozen_p95_error_px:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/frozen/p95_error_px
+    frozen_mean_runtime_ms:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/frozen/mean_runtime_ms
+    frozen_failure_count:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/frozen/failure_gt_5px_count
+    independent_within_1px_count:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/independent_renderer/within_1px_count
+    independent_pair_count:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/independent_renderer/pair_count
+    independent_primary_threshold_px:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/independent_renderer/primary_threshold_px
+    classic_best_within_1px_rate:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/external_baselines/classic_best_within_1px_rate
+    classic_adapter_count:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/external_baselines/classic_adapter_count
+    classic_best_name:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/external_baselines/classic_best_name
+    xfeat_within_5px_count:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/external_baselines/xfeat_within_5px_count
+    xfeat_success_threshold_px:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/external_baselines/xfeat_success_threshold_px
+    safety_review_count:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/safety/review_count
+    safety_total_count:
+      source: evidence/exported/evidence_index.json
+      pointer: /metrics/safety/total_count
+    success_iid_error_px:
+      source: evidence/exported/evidence_index.json
+      pointer: /samples/success_iid/error_px
+    sem_digital_pair_count:
+      source: ../real_imagery/results/real-sem-report.json
+      pointer: /digital_crop_self_consistency/summary/full/metrics/count
+    sem_digital_within_1px_count:
+      source: ../real_imagery/results/real-sem-report.json
+      pointer: /digital_crop_self_consistency/summary/full/metrics/count_le_1_0px
+    carinthia_pair_count:
+      source: ../real_imagery/results/real-sem-report.json
+      pointer: /carinthia_semiconductor_sem_self_consistency/summary/full/metrics/count
+    carinthia_within_1px_count:
+      source: ../real_imagery/results/real-sem-report.json
+      pointer: /carinthia_semiconductor_sem_self_consistency/summary/full/metrics/count_le_1_0px
+    carinthia_fallback_count:
+      source: ../real_imagery/results/real-sem-report.json
+      pointer: /carinthia_semiconductor_sem_self_consistency/summary/full/fallback_count
+    registered_tem_pair_count:
+      source: ../real_imagery/results/registered-tem-report.json
+      pointer: /summary/full/metrics/count
+    registered_tem_within_1px_count:
+      source: ../real_imagery/results/registered-tem-report.json
+      pointer: /summary/full/metrics/count_le_1_0px
+    registered_tem_fallback_count:
+      source: ../real_imagery/results/registered-tem-report.json
+      pointer: /summary/full/fallback_count
+  samples:
+    success_iid:
+      source: evidence/exported/evidence_index.json
+      pointer: /samples/success_iid
+    failure_scan:
+      source: evidence/exported/evidence_index.json
+      pointer: /samples/failure_scan
+    live_inference:
+      source: evidence/exported/evidence_index.json
+      pointer: /samples/live_inference
+  citations:
+    project_references:
+      label: Mechanism-to-code evidence matrix
+      source: ../references.md
+
+claims:
+  task_definition:
+    text: A fine-field reference is localized inside a wider-field search image as one search-space coordinate.
+    evidence:
+      - sample:success_iid
+      - source:../docs/method.md
+  implementation_contract:
+    text: The default Metralign pipeline is deterministic, training-free, CPU-executable, and returns one search-space coordinate with diagnostics.
+    evidence:
+      - source:../src/drift_sense/localizer.py
+      - source:../src/metralign/cli.py
+      - source:../docs/method.md
+  periodic_ambiguity:
+    text: Repeated layouts create several high-scoring absolute-site hypotheses.
+    evidence:
+      - asset:evidence/exported/baseline_score_map.png
+      - sample:failure_scan
+  phase_calibration:
+    text: Reciprocal and phase structure estimate the relative sampling ratio, rotation, and real-space period.
+    evidence:
+      - asset:evidence/exported/fft_search.png
+      - asset:evidence/exported/fft_reference.png
+      - asset:evidence/exported/phase_drift_reference_y.csv
+      - asset:evidence/exported/phase_drift_search_y.csv
+      - asset:evidence/exported/phase_transform.json
+      - source:../src/drift_sense/representations.py
+  period_difference:
+    text: Applying the same one-period spatial difference to both captures attenuates the repeated backbone.
+    evidence:
+      - asset:evidence/exported/period_difference_reference.png
+      - asset:evidence/exported/period_difference_search_crop.png
+      - source:../src/drift_sense/representations.py
+  ambiguity_policy:
+    text: Center or stage-prior selection is authorized only by low residual support or unstable transform evidence.
+    evidence:
+      - source:../src/drift_sense/ambiguity.py
+      - source:../docs/ambiguity-safety.md
+  subpixel_refinement:
+    text: The release configuration applies bounded independent three-sample parabolic interpolation at the selected peak.
+    evidence:
+      - source:../src/drift_sense/refine.py
+      - source:../docs/method.md
+  frozen_accuracy:
+    text_template: "{frozen_within_1px_count} of {frozen_pair_count} sealed synthetic predictions were within {frozen_primary_threshold_px} pixel."
+    evidence:
+      - metric:frozen_within_1px_count
+      - metric:frozen_pair_count
+      - metric:frozen_primary_threshold_px
+      - source:../results/frozen/ARTIFACTS.md
+  external_comparison_scope:
+    text: External registration rows use fixed preregistered protocols on the same sealed bytes and are task-specific development controls, not universal or state-of-the-art claims.
+    evidence:
+      - source:../results/comparisons/external-registration-frozen.json
+      - source:../results/comparisons/xfeat-frozen-all1400-development.json
+      - source:../docs/external-comparison.md
+      - source:../docs/xfeat-comparison.md
+  transfer_scope:
+    text: Acquired microscopy and the standalone renderer are separate transfer checks, not additions to the frozen claim.
+    evidence:
+      - source:../real_imagery/README.md
+      - source:../docs/independent-renderer.md
+  failure_scope:
+    text_template: "{frozen_failure_count} sealed FinFET cases returned incorrect absolute locations and were flagged for review."
+    evidence:
+      - sample:failure_scan
+      - metric:frozen_failure_count
+      - metric:safety_review_count
+      - source:../results/frozen/ARTIFACTS.md
+
+narration:
+  segments:
+    - id: 000_open_a
+      scene: open
+      text: Metralign localizes a fine reference field inside a wider periodic inspection image.
+      speech_text: Metra-align localizes a fine reference field inside a wider periodic inspection image.
+      visual_action: reveal_project_identity
+      pre_hold_seconds: 0.8
+      post_hold_seconds: 0.5
+    - id: 000_open_b
+      scene: open
+      text: It is deterministic, training-free, and returns one subpixel coordinate.
+      visual_action: reveal_task_line
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.7
+
+    - id: 010_problem_a
+      scene: problem
+      text: The reference spans only a small fraction of the physical width represented by the search image.
+      visual_action: place_reference_inside_search
+      pre_hold_seconds: 0.4
+      post_hold_seconds: 0.4
+    - id: 010_problem_b
+      scene: problem
+      text: In a repeated array, many locations appear locally correct, so ordinary registration is not enough.
+      visual_action: reveal_repeated_hypotheses
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.6
+    - id: 010_problem_c
+      scene: problem
+      text: The actual task is absolute-site localization.
+      visual_action: isolate_absolute_coordinate
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.8
+
+    - id: 020_baseline_a
+      scene: baseline
+      text: A normalized template correlator produces a family of strong periodic maxima.
+      visual_action: reveal_real_baseline_map
+      pre_hold_seconds: 0.4
+      post_hold_seconds: 0.4
+    - id: 020_baseline_b
+      scene: baseline
+      text: Near-competing periodic maxima demonstrate that local appearance alone cannot certify the absolute site.
+      visual_action: compare_periodic_alternatives
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.8
+
+    - id: 030_phase_a
+      scene: calibration
+      text: Metralign first measures periodic structure in reciprocal and phase space.
+      speech_text: Metra-align first measures periodic structure in reciprocal and phase space.
+      visual_action: image_to_real_fft
+      pre_hold_seconds: 0.4
+      post_hold_seconds: 0.4
+    - id: 030_phase_b
+      scene: calibration
+      text: Peak spacing and phase drift estimate the sampling ratio, bounded rotation, and real-space pitch.
+      visual_action: mark_measured_peaks
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.5
+    - id: 030_phase_c
+      scene: calibration
+      text: These are measured from the selected sample, not drawn for illustration.
+      visual_action: reveal_sample_values
+      pre_hold_seconds: 0.1
+      post_hold_seconds: 0.7
+
+    - id: 040_difference_a
+      scene: difference
+      text: The same one-period spatial difference is then applied to both acquisitions.
+      visual_action: apply_period_shift
+      pre_hold_seconds: 0.4
+      post_hold_seconds: 0.4
+    - id: 040_difference_b
+      scene: difference
+      text: Repeated structure is attenuated; persistent site-specific variation remains.
+      visual_action: compare_original_and_difference
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.6
+    - id: 040_difference_c
+      scene: difference
+      text: Matched processing makes the residual evidence comparable across the two sampling paths.
+      visual_action: align_difference_crops
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.7
+
+    - id: 050_candidates_a
+      scene: candidates
+      text: Correlation ranks supported local maxima while retaining bounded alternative hypotheses.
+      visual_action: reveal_candidate_peaks
+      pre_hold_seconds: 0.4
+      post_hold_seconds: 0.4
+    - id: 050_candidates_b
+      scene: candidates
+      text: A center or supplied stage prior can break a tie only when residual support is low or the transform is unstable.
+      speech_speed: 0.95
+      visual_action: explain_authorization_gate
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.5
+    - id: 050_candidates_c
+      scene: candidates
+      text: The result carries its score, ambiguity evidence, alternatives, and a review recommendation.
+      visual_action: reveal_diagnostics
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.7
+
+    - id: 060_refine_a
+      scene: refinement
+      text: Finally a parabolic fit refines the selected integer peak.
+      speech_speed: 1.09
+      visual_action: zoom_local_peak
+      pre_hold_seconds: 0.4
+      post_hold_seconds: 0.4
+    - id: 060_refine_b
+      scene: refinement
+      text_template: "On this sealed case, the prediction error is {success_iid_error_px} pixels."
+      visual_action: move_integer_to_subpixel
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.8
+
+    - id: 070_live_a
+      scene: live_inference
+      text: This is the real command executed against the checked-in sample.
+      visual_action: show_terminal_capture
+      pre_hold_seconds: 0.5
+      post_hold_seconds: 0.5
+    - id: 070_live_b
+      scene: live_inference
+      text: Standard output gives exactly the predicted x and y coordinate. Full diagnostics remain separate.
+      visual_action: bind_output_to_overlay
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.8
+
+    - id: 080_results_a
+      scene: evaluation
+      text_template: "The sealed report contains {frozen_pair_count} synthetic pairs across {frozen_suite_count} fixed stress suites."
+      visual_action: reveal_suite_distribution
+      pre_hold_seconds: 0.5
+      post_hold_seconds: 0.4
+    - id: 080_results_b
+      scene: evaluation
+      text_template: "Only {frozen_outside_1px_count} predictions exceeded {frozen_primary_threshold_px} pixel; median error was {frozen_median_error_px} pixels."
+      visual_action: reveal_primary_metrics
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.4
+    - id: 080_results_c
+      scene: evaluation
+      text_template: "The ninety-fifth percentile was {frozen_p95_error_px} pixels, with mean localization wall time of {frozen_mean_runtime_ms} milliseconds."
+      visual_action: reveal_secondary_metrics
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.8
+    - id: 080_results_d
+      scene: evaluation
+      text_template: "Across {classic_adapter_count} fixed classic adapters, the best, {classic_best_name}, reached {classic_best_within_1px_rate} percent within {frozen_primary_threshold_px} pixel."
+      visual_action: reveal_external_comparison
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.8
+    - id: 080_results_e
+      scene: evaluation
+      text_template: "A separate official XFeat control returned {xfeat_within_5px_count} locations within {xfeat_success_threshold_px} pixels. This retrospective task-mismatch check is not a verdict on its intended benchmarks."
+      visual_action: hold_modern_task_mismatch_scope
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.8
+
+    - id: 090_transfer_a
+      scene: transfer
+      text: Separate checks use acquired SEM and TEM records, plus a separately implemented synthetic renderer with independent code but shared task-level geometry assumptions.
+      visual_action: reveal_transfer_evidence
+      pre_hold_seconds: 0.5
+      post_hold_seconds: 0.4
+    - id: 090_transfer_b
+      scene: transfer
+      text: Their protocols, fallback counts, licenses, and ground-truth limits remain separate from the sealed result.
+      visual_action: reveal_scope_labels
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.8
+
+    - id: 100_failure_a
+      scene: failure
+      text_template: "The sealed report contains {frozen_failure_count} large FinFET errors; each was flagged ambiguous."
+      visual_action: reveal_real_failure
+      pre_hold_seconds: 0.5
+      post_hold_seconds: 0.4
+    - id: 100_failure_b
+      scene: failure
+      text: Weak site-specific evidence left many plausible absolute positions; this case returned an incorrect location under the prescribed tie-breaking rule.
+      visual_action: compare_failure_truth_prediction
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 0.8
+
+    - id: 110_end_a
+      scene: reproducibility
+      text: The repository includes generation, inference, evaluation, complete reports, input hashes, and reproducible build commands.
+      visual_action: reveal_repository_proof
+      pre_hold_seconds: 0.5
+      post_hold_seconds: 0.5
+    - id: 110_end_b
+      scene: reproducibility
+      text: Metralign is available at github dot com slash Achxy slash metralign.
+      speech_text: Metra Align is available at GitHub dot com slash A C H X Y slash Metra Align.
+      visual_action: reveal_end_card
+      pre_hold_seconds: 0.2
+      post_hold_seconds: 1.4
+
+scenes:
+  - id: open
+    order: 0
+    class: OpenScene
+    title: METRALIGN
+    narration: [000_open_a, 000_open_b]
+    assets: [metralign_mark, frozen_success_search]
+    evidence: [claim:task_definition, claim:implementation_contract]
+    transition_out: hard_cut
+  - id: problem
+    order: 10
+    class: ProblemScene
+    title: ABSOLUTE SITE, NOT LOCAL APPEARANCE
+    narration: [010_problem_a, 010_problem_b, 010_problem_c]
+    assets: [frozen_success_reference, frozen_success_search]
+    evidence: [sample:success_iid, claim:periodic_ambiguity]
+    transition_out: hard_cut
+  - id: baseline
+    order: 20
+    class: BaselineScene
+    title: PERIODIC MAXIMA
+    narration: [020_baseline_a, 020_baseline_b]
+    assets: [frozen_success_search, exported_evidence_index]
+    evidence: [claim:periodic_ambiguity]
+    transition_out: hard_cut
+  - id: calibration
+    order: 30
+    class: CalibrationScene
+    title: MEASURE THE LATTICE
+    narration: [030_phase_a, 030_phase_b, 030_phase_c]
+    assets: [frozen_success_reference, frozen_success_search, exported_evidence_index]
+    evidence: [claim:phase_calibration, sample:success_iid]
+    transition_out: hard_cut
+  - id: difference
+    order: 40
+    class: DifferenceScene
+    title: REMOVE ONE PERIOD
+    narration: [040_difference_a, 040_difference_b, 040_difference_c]
+    assets: [exported_evidence_index]
+    evidence: [claim:period_difference]
+    transition_out: hard_cut
+  - id: candidates
+    order: 50
+    class: CandidateScene
+    title: RETAIN ALTERNATIVES
+    narration: [050_candidates_a, 050_candidates_b, 050_candidates_c]
+    assets: [frozen_success_search, exported_evidence_index]
+    evidence: [claim:ambiguity_policy, sample:success_iid]
+    transition_out: hard_cut
+  - id: refinement
+    order: 60
+    class: RefinementScene
+    title: SUBPIXEL REFINEMENT
+    narration: [060_refine_a, 060_refine_b]
+    assets: [frozen_success_search, exported_evidence_index]
+    evidence:
+      - sample:success_iid
+      - claim:subpixel_refinement
+    transition_out: hard_cut
+  - id: live_inference
+    order: 70
+    class: LiveInferenceScene
+    title: REAL EXECUTION
+    narration: [070_live_a, 070_live_b]
+    assets: [frozen_success_search, exported_evidence_index]
+    evidence: [sample:live_inference]
+    transition_out: hard_cut
+  - id: evaluation
+    order: 80
+    class: EvaluationScene
+    title: SEALED EVALUATION
+    narration: [080_results_a, 080_results_b, 080_results_c, 080_results_d, 080_results_e]
+    assets: [exported_evidence_index]
+    evidence: [claim:frozen_accuracy, claim:external_comparison_scope, metric:frozen_median_error_px, metric:frozen_p95_error_px, metric:frozen_mean_runtime_ms, metric:frozen_outside_1px_count, metric:classic_adapter_count, metric:classic_best_name, metric:classic_best_within_1px_rate, metric:xfeat_within_5px_count, metric:xfeat_success_threshold_px]
+    transition_out: hard_cut
+  - id: transfer
+    order: 90
+    class: TransferScene
+    title: SEPARATE TRANSFER CHECKS
+    narration: [090_transfer_a, 090_transfer_b]
+    assets: [real_microscopy_plate, independent_renderer_plate]
+    evidence: [claim:transfer_scope, metric:independent_within_1px_count, metric:sem_digital_within_1px_count, metric:carinthia_within_1px_count, metric:carinthia_fallback_count, metric:registered_tem_within_1px_count, metric:registered_tem_fallback_count]
+    transition_out: hard_cut
+  - id: failure
+    order: 100
+    class: FailureScene
+    title: KNOWN FAILURE / PERIODIC AMBIGUITY
+    narration: [100_failure_a, 100_failure_b]
+    assets: [frozen_failure_reference, frozen_failure_search, exported_evidence_index]
+    evidence: [claim:failure_scope, sample:failure_scan]
+    transition_out: hard_cut
+  - id: reproducibility
+    order: 110
+    class: ReproducibilityScene
+    title: REPRODUCIBLE BY CONSTRUCTION
+    narration: [110_end_a, 110_end_b]
+    assets: [metralign_mark, semi_organiser_mark, applied_materials_partner_mark, exported_evidence_index]
+    evidence: [source:../README.md, source:../results/frozen/ARTIFACTS.md]
+    transition_out: none
+
+render:
+  renderer: cairo
+  profiles:
+    preview:
+      width: 1280
+      height: 720
+      fps: 30
+      quality: low_quality
+      codec: libx264
+      crf: 23
+    final:
+      width: 1920
+      height: 1080
+      fps: 30
+      quality: production_quality
+      codec: libx264
+      pixel_format: yuv420p
+      crf: 16
+      preset: slow
+  scene_cache:
+    enabled: true
+    hash_inputs:
+      - scene_code
+      - manifest_section
+      - assets
+      - evidence
+      - narration_audio
+
+outputs:
+  directory: final
+  narrated_video: Metralign_Demo.mp4
+  captions: Metralign_Demo.srt
+  no_voice_video: Metralign_NoVO.mp4
+  voice_stem: Metralign_VO.wav
+  build_report: build_report.md
+
+qa:
+  require_clean_terminal_capture: true
+  require_evidence_hashes: true
+  require_external_provenance: true
+  require_numerical_binding: true
+  require_contact_sheet: true
+  contact_sheet_report: video/build/reports/frames_final/contact_sheet_report.json
+  require_assembly_binding: true
+  assembly_manifest: video/build/reports/assembly_final.json
+  require_muted_coherence_review: true
+  forbidden_tokens:
+    - TODO
+    - FIXME
+    - PLACEHOLDER
+    - LOREM
+    - TBD
+    - XX.X
+    - "[VALUE]"
+    - YOUR_URL
+    - LatticeLock
+  final_checks:
+    - video_exists
+    - audio_exists
+    - dimensions_1920x1080
+    - fps_30
+    - duration_under_300_seconds
+    - all_scenes_present
+    - all_narration_present
+    - all_assets_present
+    - all_evidence_resolved
+    - captions_match_timeline
+    - numerical_values_match_sources
+    - metadata_sanitized

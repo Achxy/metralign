@@ -1,0 +1,17 @@
+{
+  "command": "PYTHONPATH=src python -m metralign --reference results/frozen/cases/success_iid_000002_dram/000002_dram_reference.png --search results/frozen/cases/success_iid_000002_dram/000002_dram_search.png --diagnostics",
+  "cwd": "<repository-root>",
+  "cwd_redaction": "absolute repository path replaced with <repository-root>",
+  "environment": {
+    "PYTHONPATH": "src"
+  },
+  "interpreter_redaction": "absolute sys.executable replaced with python",
+  "return_code": 0,
+  "sanitization": [
+    "diagnostics.runtime_ms removed because it is nondeterministic wall time"
+  ],
+  "stderr_sanitized_file": "live_stderr_sanitized.json",
+  "stderr_sanitized_sha256": "07557e06b360c01f130a2354be44239769ba98a82c431d21420da392ff9ebb35",
+  "stdout": "632.831991 234.200522",
+  "stdout_sha256": "c78f9219946d9a872d2f141f3ef2971003eaf2a261177929973d668eda63984e"
+}

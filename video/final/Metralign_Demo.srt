@@ -1,0 +1,123 @@
+1
+00:00:00,800 --> 00:00:07,446
+Metralign localizes a fine reference field inside a wider periodic inspection image.
+
+2
+00:00:08,306 --> 00:00:13,576
+It is deterministic, training-free, and returns one subpixel coordinate.
+
+3
+00:00:14,836 --> 00:00:20,951
+The reference spans only a small fraction of the physical width represented by the search image.
+
+4
+00:00:21,711 --> 00:00:27,592
+In a repeated array, many locations appear locally correct, so ordinary registration is not enough.
+
+5
+00:00:28,552 --> 00:00:31,697
+The actual task is absolute-site localization.
+
+6
+00:00:33,057 --> 00:00:39,063
+A normalized template correlator produces a family of strong periodic maxima.
+
+7
+00:00:39,823 --> 00:00:46,714
+Near-competing periodic maxima demonstrate that local appearance alone cannot certify the absolute site.
+
+8
+00:00:48,074 --> 00:00:52,816
+Metralign first measures periodic structure in reciprocal and phase space.
+
+9
+00:00:53,576 --> 00:01:01,088
+Peak spacing and phase drift estimate the sampling ratio, bounded rotation, and real-space pitch.
+
+10
+00:01:01,848 --> 00:01:06,101
+These are measured from the selected sample, not drawn for illustration.
+
+11
+00:01:07,361 --> 00:01:11,692
+The same one-period spatial difference is then applied to both acquisitions.
+
+12
+00:01:12,452 --> 00:01:18,840
+Repeated structure is attenuated; persistent site-specific variation remains.
+
+13
+00:01:19,800 --> 00:01:25,890
+Matched processing makes the residual evidence comparable across the two sampling paths.
+
+14
+00:01:27,150 --> 00:01:32,660
+Correlation ranks supported local maxima while retaining bounded alternative hypotheses.
+
+15
+00:01:33,420 --> 00:01:41,138
+A center or supplied stage prior can break a tie only when residual support is low or the transform is unstable.
+
+16
+00:01:41,998 --> 00:01:47,888
+The result carries its score, ambiguity evidence, alternatives, and a review recommendation.
+
+17
+00:01:49,148 --> 00:01:52,880
+Finally a parabolic fit refines the selected integer peak.
+
+18
+00:01:53,640 --> 00:01:58,653
+On this sealed case, the prediction error is 0.094 pixels.
+
+19
+00:02:00,113 --> 00:02:04,799
+This is the real command executed against the checked-in sample.
+
+20
+00:02:05,659 --> 00:02:11,719
+Standard output gives exactly the predicted x and y coordinate. Full diagnostics remain separate.
+
+21
+00:02:13,179 --> 00:02:18,903
+The sealed report contains 1400 synthetic pairs across 7 fixed stress suites.
+
+22
+00:02:19,663 --> 00:02:26,210
+Only 2 predictions exceeded 1 pixel; median error was 0.083 pixels.
+
+23
+00:02:26,970 --> 00:02:34,401
+The ninety-fifth percentile was 0.319 pixels, with mean localization wall time of 239 milliseconds.
+
+24
+00:02:35,561 --> 00:02:44,307
+Across 6 fixed classic adapters, the best, OpenCV grid template, reached 35.57 percent within 1 pixel.
+
+25
+00:02:45,467 --> 00:02:56,579
+A separate official XFeat control returned 0 locations within 5 pixels. This retrospective task-mismatch check is not a verdict on its intended benchmarks.
+
+26
+00:02:58,039 --> 00:03:08,470
+Separate checks use acquired SEM and TEM records, plus a separately implemented synthetic renderer with independent code but shared task-level geometry assumptions.
+
+27
+00:03:09,230 --> 00:03:16,021
+Their protocols, fallback counts, licenses, and ground-truth limits remain separate from the sealed result.
+
+28
+00:03:17,481 --> 00:03:21,893
+The sealed report contains 2 large FinFET errors; each was flagged ambiguous.
+
+29
+00:03:22,653 --> 00:03:32,892
+Weak site-specific evidence left many plausible absolute positions; this case returned an incorrect location under the prescribed tie-breaking rule.
+
+30
+00:03:34,352 --> 00:03:42,356
+The repository includes generation, inference, evaluation, complete reports, input hashes, and reproducible build commands.
+
+31
+00:03:43,216 --> 00:03:48,855
+Metralign is available at github dot com slash Achxy slash metralign.

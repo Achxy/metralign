@@ -1,0 +1,2518 @@
+{
+  "assets": {
+    "baseline_candidate_overlay.png": {
+      "baseline0": {
+        "error_px": 0.08561310953220899,
+        "ground_truth_xy": [
+          632.9188555403398,
+          234.23698415143411
+        ],
+        "integer_argmax_top_left_xy": [
+          583,
+          185
+        ],
+        "method": "baseline0",
+        "prediction_without_runtime": {
+          "ambiguity_evidence": {
+            "lattice_group_count": 1,
+            "lattice_group_coverage": 0.0,
+            "lattice_grouped": false,
+            "local_perturbation": 0.0,
+            "local_perturbation_support": false,
+            "low_residual_support": false,
+            "residual_evidence": 0.9517562389373779,
+            "score_threshold": 0.0,
+            "score_tied": false,
+            "secondary_evidence": false,
+            "transform_instability_support": false,
+            "transform_stability": 1.0
+          },
+          "ambiguity_flag": false,
+          "channel_scores": {
+            "structural": 0.9517562389373779
+          },
+          "confidence": 0.7698981697575438,
+          "decision_support": {
+            "absolute_site_confidence": 0.7698981697575438,
+            "calibration_scope": "thresholds derived from the archived 700-pair development split; diagnostic score is not an empirical probability",
+            "conservative_abstention_recommended": false,
+            "policy_id": "metralign-absolute-site-review-v1",
+            "reasons": [],
+            "review_recommended": false,
+            "status": "resolved"
+          },
+          "hypotheses": [
+            {
+              "center": [
+                632.8344062268734,
+                234.25105248391628
+              ],
+              "lattice_offset_from_selected": null,
+              "rank": 1,
+              "score": 0.9517562389373779,
+              "score_delta": 0.0,
+              "selected": true
+            }
+          ],
+          "hypotheses_truncated": false,
+          "hypothesis_count": 1,
+          "lattice_offset": null,
+          "method": "baseline0",
+          "pipeline_stages": {
+            "ambiguity_rule": false,
+            "evidence_channel": "structural",
+            "lattice_family_candidates": false,
+            "phase_calibration": false,
+            "spatial_residual": false,
+            "subpixel_refinement": "parabolic"
+          },
+          "runner_up_score": 0.9420113563537598,
+          "score": 0.9517562389373779,
+          "score_margin": 0.009744882583618164,
+          "selected_rotation_deg": 0.0,
+          "selected_scale": 0.1,
+          "selected_score": 0.9517562389373779,
+          "spectral_confidence": 0.0,
+          "spectral_rotation_deg": 0.0,
+          "spectral_scale": 0.1,
+          "tied_count": 1,
+          "x": 632.8344062268734,
+          "y": 234.25105248391628
+        },
+        "prediction_xy": [
+          632.8344062268734,
+          234.25105248391628
+        ],
+        "refined_top_left_xy": [
+          583.3344062268734,
+          184.75105248391628
+        ],
+        "template_shape_yx": [
+          100,
+          100
+        ],
+        "verification": "prediction_xy exactly reproduced from baseline_score_map.npy argmax, parabolic refinement, and template-center offset within 1e-12 px"
+      },
+      "bundle_relative_file": "baseline_candidate_overlay.png",
+      "bytes": 1499762,
+      "derivation": "Top twelve shipping baseline ZNCC candidate centers plus construction truth and the shipping baseline0 prediction over exact search pixels.",
+      "file": "video/evidence/exported/baseline_candidate_overlay.png",
+      "kind": "coordinate_overlay",
+      "pixel_mode": "RGB",
+      "pixel_size_wh": [
+        1000,
+        1000
+      ],
+      "sha256": "629e855312723009cabebba2109d5358d1c6250452c302d4849411bc44d0e933",
+      "source_keys": [
+        "success_reference",
+        "success_search",
+        "frozen_report_iid"
+      ]
+    },
+    "baseline_score_map.npy": {
+      "array": {
+        "array_sha256": "86cdb6d6db1f7e5b7e3c20ac3728688c56389e45da8b0c76cc0fc903570b43e8",
+        "dtype": "float32",
+        "maximum": 0.9517562389373779,
+        "minimum": -0.45660221576690674,
+        "shape": [
+          901,
+          901
+        ]
+      },
+      "bundle_relative_file": "baseline_score_map.npy",
+      "bytes": 3247332,
+      "derivation": "ZNCC of robust-normalized search and nominal-scale reference.",
+      "file": "video/evidence/exported/baseline_score_map.npy",
+      "kind": "exact_numeric_array",
+      "sha256": "2f6bc363edbbae774ad97f1ddbdddd7ba950952e871330613370489040f39edd",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "baseline_score_map.png": {
+      "bundle_relative_file": "baseline_score_map.png",
+      "bytes": 377153,
+      "derivation": "Fixed [-1,1] to 8-bit mapping of baseline_score_map.npy.",
+      "display_interval": [
+        -1.0,
+        1.0
+      ],
+      "file": "video/evidence/exported/baseline_score_map.png",
+      "kind": "derived_evidence_raster",
+      "pixel_mode": "L",
+      "pixel_size_wh": [
+        901,
+        901
+      ],
+      "sha256": "74b515084a2958d018707481e239e256d47d6f7a8c47a7db67a72a6b7088cafb",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "benchmark_plot_data.json": {
+      "bundle_relative_file": "benchmark_plot_data.json",
+      "bytes": 2258,
+      "derivation": "Exact aggregate and suite values recomputed from all 1,400 archived sample records.",
+      "file": "video/evidence/exported/benchmark_plot_data.json",
+      "kind": "plot_data",
+      "sha256": "a0b8c2d3b0ec61fc1ee30aac74595ee99c0d083947923e289f12c853e3acd559",
+      "source_keys": [
+        "frozen_report_iid",
+        "frozen_report_high_noise",
+        "frozen_report_geometry_ood",
+        "frozen_report_transform_ood",
+        "frozen_report_periodic_ambiguity",
+        "frozen_report_scan_distortion",
+        "frozen_report_cross_generator"
+      ]
+    },
+    "benchmark_suites.csv": {
+      "bundle_relative_file": "benchmark_suites.csv",
+      "bytes": 692,
+      "derivation": "Per-suite counts and NumPy-linear percentiles recomputed from archived full-method sample rows.",
+      "file": "video/evidence/exported/benchmark_suites.csv",
+      "kind": "plot_data",
+      "sha256": "a1ae789248dff28a34d3936fae5bdf7e75b8d2f49e7ce9528e155d2db5bc6586",
+      "source_keys": [
+        "frozen_report_iid",
+        "frozen_report_high_noise",
+        "frozen_report_geometry_ood",
+        "frozen_report_transform_ood",
+        "frozen_report_periodic_ambiguity",
+        "frozen_report_scan_distortion",
+        "frozen_report_cross_generator"
+      ]
+    },
+    "candidate_overlay.png": {
+      "bundle_relative_file": "candidate_overlay.png",
+      "bytes": 1499815,
+      "derivation": "Exact top candidate centers, archived ground truth, and archived prediction drawn over the bound search pixels.",
+      "file": "video/evidence/exported/candidate_overlay.png",
+      "kind": "coordinate_overlay",
+      "pixel_mode": "RGB",
+      "pixel_size_wh": [
+        1000,
+        1000
+      ],
+      "sha256": "a5d1566ef4e7a25118d765d4af4e03c16dc97ed1855b3c3b42331f4ac1845034",
+      "source_keys": [
+        "success_search",
+        "frozen_report_iid"
+      ]
+    },
+    "candidate_score_map.npy": {
+      "array": {
+        "array_sha256": "8fcab1f0e0002d2aaee25ec145100e669b2b76371325914427b68e219e312cb8",
+        "dtype": "float32",
+        "maximum": 0.9098445773124695,
+        "minimum": -0.6005699038505554,
+        "shape": [
+          900,
+          900
+        ]
+      },
+      "bundle_relative_file": "candidate_score_map.npy",
+      "bytes": 3240128,
+      "derivation": "Equal-weight fused ZNCC of the exact period-x and period-y residual maps.",
+      "file": "video/evidence/exported/candidate_score_map.npy",
+      "kind": "exact_numeric_array",
+      "sha256": "c992051c00c033817d68fa797c5e6669a0112b3d4ed5aba157c7ce3c13d61d06",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "candidate_score_map.png": {
+      "bundle_relative_file": "candidate_score_map.png",
+      "bytes": 401715,
+      "derivation": "Fixed [-1,1] to 8-bit mapping of candidate_score_map.npy.",
+      "display_interval": [
+        -1.0,
+        1.0
+      ],
+      "file": "video/evidence/exported/candidate_score_map.png",
+      "kind": "derived_evidence_raster",
+      "pixel_mode": "L",
+      "pixel_size_wh": [
+        900,
+        900
+      ],
+      "sha256": "af9b69b55440d175b151ffe6114d85fa6c7323df98734909de9f3b78df0cf80d",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "candidate_support_map.npy": {
+      "array": {
+        "array_sha256": "c03509f6d9087761c9279651220a3fcd0077a590500dd5de7fca4065719985af",
+        "dtype": "float32",
+        "maximum": 0.8337467908859253,
+        "minimum": -0.984264612197876,
+        "shape": [
+          900,
+          900
+        ]
+      },
+      "bundle_relative_file": "candidate_support_map.npy",
+      "bytes": 3240128,
+      "derivation": "Elementwise minimum of the two exact residual-direction ZNCC maps.",
+      "file": "video/evidence/exported/candidate_support_map.npy",
+      "kind": "exact_numeric_array",
+      "sha256": "7d24d5c950c43eb29db4238d8c30e9a55ebf4c85daf6862f448f4f2ffbaa652c",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "candidates.json": {
+      "bundle_relative_file": "candidates.json",
+      "bytes": 9573,
+      "derivation": "Shipping baseline0 binding plus top-K NMS and ambiguity decision on candidate_score_map.npy.",
+      "file": "video/evidence/exported/candidates.json",
+      "kind": "exact_numeric_record",
+      "sha256": "8eaab49446a7d6eac3ab29ae295b3231fa591879a215408ee938fa5df6b39df3",
+      "source_keys": [
+        "success_reference",
+        "success_search",
+        "frozen_report_iid"
+      ]
+    },
+    "evaluation_error_distribution.png": {
+      "bin_count": 50,
+      "bundle_relative_file": "evaluation_error_distribution.png",
+      "bytes": 16771,
+      "derivation": "Fifty fixed-width bins over errors clipped at the documented 1 px primary threshold, with source-derived median and linear-P95 markers; raw values remain in the reports and benchmark_plot_data.json.",
+      "display_rounding_rule": "round-half-even to 3 decimal places",
+      "displayed_median_error_px": 0.083,
+      "displayed_p95_error_px": 0.319,
+      "displayed_pair_count": 1400,
+      "file": "video/evidence/exported/evaluation_error_distribution.png",
+      "kind": "derived_plot_raster",
+      "overflow_rule": "error values above 1 px enter the final bin",
+      "pixel_mode": "RGB",
+      "pixel_size_wh": [
+        1400,
+        560
+      ],
+      "sha256": "5efaf7772a29d9a9acc1731469538bea4c7a90afb93a44edef6de45c3fbd7dbe",
+      "source_keys": [
+        "frozen_report_iid",
+        "frozen_report_high_noise",
+        "frozen_report_geometry_ood",
+        "frozen_report_transform_ood",
+        "frozen_report_periodic_ambiguity",
+        "frozen_report_scan_distortion",
+        "frozen_report_cross_generator"
+      ],
+      "x_domain_px": [
+        0.0,
+        1.0
+      ]
+    },
+    "evaluation_suite_strip.png": {
+      "bundle_relative_file": "evaluation_suite_strip.png",
+      "bytes": 51528,
+      "derivation": "Flat, directly labeled suite rows showing exact within-1-px count over pair count and source-derived linear P95 error from benchmark_suites.csv.",
+      "displayed_rows": [
+        {
+          "p95_error_px_display": 0.296,
+          "p95_error_px_exact": 0.2963150232050082,
+          "pair_count": 200,
+          "suite": "iid",
+          "within_1px_count": 200
+        },
+        {
+          "p95_error_px_display": 0.318,
+          "p95_error_px_exact": 0.3184927126190231,
+          "pair_count": 200,
+          "suite": "high_noise",
+          "within_1px_count": 199
+        },
+        {
+          "p95_error_px_display": 0.285,
+          "p95_error_px_exact": 0.28536191946873235,
+          "pair_count": 200,
+          "suite": "geometry_ood",
+          "within_1px_count": 200
+        },
+        {
+          "p95_error_px_display": 0.313,
+          "p95_error_px_exact": 0.31294762092957257,
+          "pair_count": 200,
+          "suite": "transform_ood",
+          "within_1px_count": 200
+        },
+        {
+          "p95_error_px_display": 0.086,
+          "p95_error_px_exact": 0.08587661466897624,
+          "pair_count": 200,
+          "suite": "periodic_ambiguity",
+          "within_1px_count": 200
+        },
+        {
+          "p95_error_px_display": 0.392,
+          "p95_error_px_exact": 0.3922596736405208,
+          "pair_count": 200,
+          "suite": "scan_distortion",
+          "within_1px_count": 199
+        },
+        {
+          "p95_error_px_display": 0.366,
+          "p95_error_px_exact": 0.366444790276186,
+          "pair_count": 200,
+          "suite": "cross_generator",
+          "within_1px_count": 200
+        }
+      ],
+      "file": "video/evidence/exported/evaluation_suite_strip.png",
+      "kind": "derived_plot_raster",
+      "p95_display_rounding_rule": "round-half-even to 3 decimal places",
+      "pixel_mode": "RGB",
+      "pixel_size_wh": [
+        1400,
+        600
+      ],
+      "sha256": "2c9e4a926d10e25c8aafacc49e9c333e774d53fbe7e14013b4e02be4d4143b5d",
+      "source_keys": [
+        "frozen_report_iid",
+        "frozen_report_high_noise",
+        "frozen_report_geometry_ood",
+        "frozen_report_transform_ood",
+        "frozen_report_periodic_ambiguity",
+        "frozen_report_scan_distortion",
+        "frozen_report_cross_generator"
+      ]
+    },
+    "external_comparison_table.png": {
+      "bundle_relative_file": "external_comparison_table.png",
+      "bytes": 82850,
+      "classic_adapters": [
+        {
+          "count": 1400,
+          "coverage_exact_fraction": 0.8071428571428572,
+          "display_name": "OpenCV ECC affine",
+          "is_best": false,
+          "method_id": "opencv_ecc_affine",
+          "resolved_count": 1130,
+          "source": "results/comparisons/external-registration-frozen.json#/methods/opencv_ecc_affine/metrics",
+          "within_1px_rate_display": 30.36,
+          "within_1px_rate_exact_fraction": 0.30357142857142855
+        },
+        {
+          "count": 1400,
+          "coverage_exact_fraction": 1.0,
+          "display_name": "OpenCV grid template",
+          "is_best": true,
+          "method_id": "opencv_grid_template",
+          "resolved_count": 1400,
+          "source": "results/comparisons/external-registration-frozen.json#/methods/opencv_grid_template/metrics",
+          "within_1px_rate_display": 35.57,
+          "within_1px_rate_exact_fraction": 0.3557142857142857
+        },
+        {
+          "count": 1400,
+          "coverage_exact_fraction": 0.002857142857142857,
+          "display_name": "OpenCV SIFT + RANSAC",
+          "is_best": false,
+          "method_id": "opencv_sift_ransac",
+          "resolved_count": 4,
+          "source": "results/comparisons/external-registration-frozen.json#/methods/opencv_sift_ransac/metrics",
+          "within_1px_rate_display": 0.0,
+          "within_1px_rate_exact_fraction": 0.0
+        },
+        {
+          "count": 1400,
+          "coverage_exact_fraction": 1.0,
+          "display_name": "OpenCV template",
+          "is_best": false,
+          "method_id": "opencv_template",
+          "resolved_count": 1400,
+          "source": "results/comparisons/external-registration-frozen.json#/methods/opencv_template/metrics",
+          "within_1px_rate_display": 32.57,
+          "within_1px_rate_exact_fraction": 0.32571428571428573
+        },
+        {
+          "count": 1400,
+          "coverage_exact_fraction": 1.0,
+          "display_name": "OpenCV template + phase",
+          "is_best": false,
+          "method_id": "opencv_template_phase",
+          "resolved_count": 1400,
+          "source": "results/comparisons/external-registration-frozen.json#/methods/opencv_template_phase/metrics",
+          "within_1px_rate_display": 32.57,
+          "within_1px_rate_exact_fraction": 0.32571428571428573
+        },
+        {
+          "count": 1400,
+          "coverage_exact_fraction": 1.0,
+          "display_name": "scikit-image template + phase",
+          "is_best": false,
+          "method_id": "skimage_template_phase",
+          "resolved_count": 1400,
+          "source": "results/comparisons/external-registration-frozen.json#/methods/skimage_template_phase/metrics",
+          "within_1px_rate_display": 32.14,
+          "within_1px_rate_exact_fraction": 0.32142857142857145
+        }
+      ],
+      "derivation": "Flat table of source-named methods, all-sample classic within-1-px rates, and the separately scoped official-XFeat retrospective task-mismatch result.",
+      "file": "video/evidence/exported/external_comparison_table.png",
+      "kind": "derived_comparison_table",
+      "metralign": {
+        "count": 1400,
+        "display_name": "Metralign \u00b7 frozen",
+        "method_id": "metralign_archived",
+        "resolved_count": 1400,
+        "source": "results/comparisons/external-registration-frozen.json#/methods/metralign_archived/metrics",
+        "within_1px_count": 1398,
+        "within_1px_rate_display": 99.86,
+        "within_1px_rate_exact_fraction": 0.9985714285714286
+      },
+      "pixel_mode": "RGB",
+      "pixel_size_wh": [
+        1600,
+        900
+      ],
+      "rate_display_rounding_rule": "exact all-sample fraction multiplied by 100, then round-half-even to 2 decimal places",
+      "sha256": "6ae824f924ac1d3b3c7d2bc5d22b488cfedee9faf9c5781b284746079801f64b",
+      "source_keys": [
+        "classic_external_frozen_report",
+        "xfeat_frozen_development_report"
+      ],
+      "xfeat_development": {
+        "claim_boundary": "This is a retrospective, post-freeze external benchmark on frozen image bytes. It is development evidence and is not added to the original frozen claim or presented as a state-of-the-art comparison.",
+        "count": 1400,
+        "coverage_rate_display": 77.07,
+        "coverage_rate_exact_fraction": 0.7707142857142857,
+        "display_name": "Official XFeat* + USAC_MAGSAC",
+        "method_id": "xfeat_official_star_homography",
+        "resolved_count": 1079,
+        "source": "results/comparisons/xfeat-frozen-all1400-development.json#/pooled/metrics",
+        "upstream_commit": "e92685f57f8318b18725c5c8c0bd28c7fe188d9a",
+        "upstream_license": "Apache License 2.0",
+        "within_5px_count": 0,
+        "within_5px_rate_display": 0.0,
+        "within_5px_rate_exact_fraction": 0.0
+      },
+      "xfeat_scope_note": "Retrospective post-freeze development task-mismatch control; not part of the frozen claim and not a SOTA or intended-benchmark verdict on XFeat."
+    },
+    "failure_overlay.png": {
+      "bundle_relative_file": "failure_overlay.png",
+      "bytes": 1323532,
+      "derivation": "Archived ground truth and returned coordinate rendered over the exact sealed failure search image.",
+      "file": "video/evidence/exported/failure_overlay.png",
+      "kind": "coordinate_overlay",
+      "pixel_mode": "RGB",
+      "pixel_size_wh": [
+        1000,
+        1000
+      ],
+      "sha256": "c91107922b6c4780e7315eb91e56b3273ce591326009d6b4aeaf29184454f132",
+      "source_keys": [
+        "failure_search",
+        "frozen_report_scan_distortion",
+        "safety_audit_report"
+      ]
+    },
+    "fft_reference.npy": {
+      "array": {
+        "array_sha256": "c62408673d37ea975fedb576650269a1c334b1302d7ab70400dbe6558ba82a1d",
+        "dtype": "float32",
+        "maximum": 25.621448516845703,
+        "minimum": 0.04477774351835251,
+        "shape": [
+          1000,
+          1000
+        ]
+      },
+      "bundle_relative_file": "fft_reference.npy",
+      "bytes": 4000128,
+      "derivation": "drift_sense.spectral.log_power_spectrum",
+      "file": "video/evidence/exported/fft_reference.npy",
+      "kind": "exact_numeric_array",
+      "sha256": "38f99d4665946e5f316a4a5dcbacff42a1acb58029dc36da8af53e37314a90c2",
+      "source_keys": [
+        "success_reference"
+      ]
+    },
+    "fft_reference.png": {
+      "bundle_relative_file": "fft_reference.png",
+      "bytes": 1144756,
+      "derivation": "8-bit linear display of the exact windowed log-power array with restrained markers at every detected reciprocal peak and its conjugate; shared pair maximum.",
+      "display_interval": [
+        0.0,
+        25.621448516845703
+      ],
+      "file": "video/evidence/exported/fft_reference.png",
+      "kind": "derived_evidence_raster",
+      "marker_coordinate_derivation": "representative x = width/2 + fx*width, y = height/2 + fy*height; conjugate uses -fx,-fy",
+      "marker_count_including_conjugates": 48,
+      "peak_markers": [
+        {
+          "conjugate_pixel_xy": [
+            477.0,
+            490.0
+          ],
+          "fx": 0.023,
+          "fy": 0.01,
+          "power": 20.792760848999023,
+          "representative_pixel_xy": [
+            523.0,
+            510.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            523.0,
+            490.0
+          ],
+          "fx": -0.023,
+          "fy": 0.01,
+          "power": 20.673742294311523,
+          "representative_pixel_xy": [
+            477.0,
+            510.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            485.0,
+            480.0
+          ],
+          "fx": 0.015,
+          "fy": 0.02,
+          "power": 20.6584415435791,
+          "representative_pixel_xy": [
+            515.0,
+            520.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            515.0,
+            480.0
+          ],
+          "fx": -0.015,
+          "fy": 0.02,
+          "power": 20.430728912353516,
+          "representative_pixel_xy": [
+            485.0,
+            520.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            500.0,
+            473.0
+          ],
+          "fx": 0.0,
+          "fy": 0.027,
+          "power": 19.849525451660156,
+          "representative_pixel_xy": [
+            500.0,
+            527.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            485.0,
+            467.0
+          ],
+          "fx": 0.015,
+          "fy": 0.033,
+          "power": 19.584203720092773,
+          "representative_pixel_xy": [
+            515.0,
+            533.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            500.0,
+            467.0
+          ],
+          "fx": 0.0,
+          "fy": 0.033,
+          "power": 19.50297737121582,
+          "representative_pixel_xy": [
+            500.0,
+            533.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            469.0,
+            480.0
+          ],
+          "fx": 0.031,
+          "fy": 0.02,
+          "power": 19.48968505859375,
+          "representative_pixel_xy": [
+            531.0,
+            520.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            477.0,
+            470.0
+          ],
+          "fx": 0.023,
+          "fy": 0.03,
+          "power": 19.426931381225586,
+          "representative_pixel_xy": [
+            523.0,
+            530.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            469.0,
+            487.0
+          ],
+          "fx": 0.031,
+          "fy": 0.013000000000000001,
+          "power": 19.41020965576172,
+          "representative_pixel_xy": [
+            531.0,
+            513.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            531.0,
+            480.0
+          ],
+          "fx": -0.031,
+          "fy": 0.02,
+          "power": 19.390493392944336,
+          "representative_pixel_xy": [
+            469.0,
+            520.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            477.0,
+            477.0
+          ],
+          "fx": 0.023,
+          "fy": 0.023,
+          "power": 19.357603073120117,
+          "representative_pixel_xy": [
+            523.0,
+            523.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            508.0,
+            463.0
+          ],
+          "fx": -0.008,
+          "fy": 0.037,
+          "power": 19.246614456176758,
+          "representative_pixel_xy": [
+            492.0,
+            537.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            531.0,
+            487.0
+          ],
+          "fx": -0.031,
+          "fy": 0.013000000000000001,
+          "power": 19.24435806274414,
+          "representative_pixel_xy": [
+            469.0,
+            513.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            516.0,
+            467.0
+          ],
+          "fx": -0.016,
+          "fy": 0.033,
+          "power": 19.207679748535156,
+          "representative_pixel_xy": [
+            484.0,
+            533.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            523.0,
+            470.0
+          ],
+          "fx": -0.023,
+          "fy": 0.03,
+          "power": 19.178119659423828,
+          "representative_pixel_xy": [
+            477.0,
+            530.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            492.0,
+            463.0
+          ],
+          "fx": 0.008,
+          "fy": 0.037,
+          "power": 19.05253791809082,
+          "representative_pixel_xy": [
+            508.0,
+            537.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            523.0,
+            477.0
+          ],
+          "fx": -0.023,
+          "fy": 0.023,
+          "power": 19.017702102661133,
+          "representative_pixel_xy": [
+            477.0,
+            523.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            531.0,
+            493.0
+          ],
+          "fx": -0.031,
+          "fy": 0.007,
+          "power": 18.649446487426758,
+          "representative_pixel_xy": [
+            469.0,
+            507.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            462.0,
+            497.0
+          ],
+          "fx": 0.038,
+          "fy": 0.003,
+          "power": 18.447128295898438,
+          "representative_pixel_xy": [
+            538.0,
+            503.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            477.0,
+            457.0
+          ],
+          "fx": 0.023,
+          "fy": 0.043000000000000003,
+          "power": 18.39565658569336,
+          "representative_pixel_xy": [
+            523.0,
+            543.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            500.0,
+            460.0
+          ],
+          "fx": 0.0,
+          "fy": 0.04,
+          "power": 18.336877822875977,
+          "representative_pixel_xy": [
+            500.0,
+            540.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            469.0,
+            494.0
+          ],
+          "fx": 0.031,
+          "fy": 0.006,
+          "power": 18.286609649658203,
+          "representative_pixel_xy": [
+            531.0,
+            506.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            539.0,
+            497.0
+          ],
+          "fx": -0.039,
+          "fy": 0.003,
+          "power": 18.26300811767578,
+          "representative_pixel_xy": [
+            461.0,
+            503.0
+          ],
+          "symmetry": 1.0
+        }
+      ],
+      "pixel_mode": "RGB",
+      "pixel_size_wh": [
+        1000,
+        1000
+      ],
+      "sha256": "0754c8882c45991a8c0ed805a19e1708371ac91fa8d9ea925a73e2d7d92ad199",
+      "source_keys": [
+        "success_reference"
+      ]
+    },
+    "fft_search.npy": {
+      "array": {
+        "array_sha256": "eca36a3215b362eef5ac1cd81179fac7551550bf97a0ba798edab8203441583c",
+        "dtype": "float32",
+        "maximum": 24.61200714111328,
+        "minimum": 0.027573339641094208,
+        "shape": [
+          1000,
+          1000
+        ]
+      },
+      "bundle_relative_file": "fft_search.npy",
+      "bytes": 4000128,
+      "derivation": "drift_sense.spectral.log_power_spectrum",
+      "file": "video/evidence/exported/fft_search.npy",
+      "kind": "exact_numeric_array",
+      "sha256": "6730cee5493b132c459d281570a803726ee5718141c1841d7f3bdda1ada4ae8c",
+      "source_keys": [
+        "success_search"
+      ]
+    },
+    "fft_search.png": {
+      "bundle_relative_file": "fft_search.png",
+      "bytes": 1148308,
+      "derivation": "8-bit linear display of the exact windowed log-power array with restrained markers at every detected reciprocal peak and its conjugate; shared pair maximum.",
+      "display_interval": [
+        0.0,
+        25.621448516845703
+      ],
+      "file": "video/evidence/exported/fft_search.png",
+      "kind": "derived_evidence_raster",
+      "marker_coordinate_derivation": "representative x = width/2 + fx*width, y = height/2 + fy*height; conjugate uses -fx,-fy",
+      "marker_count_including_conjugates": 48,
+      "peak_markers": [
+        {
+          "conjugate_pixel_xy": [
+            500.0,
+            434.0
+          ],
+          "fx": 0.0,
+          "fy": 0.066,
+          "power": 24.60215950012207,
+          "representative_pixel_xy": [
+            500.0,
+            566.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            576.0,
+            467.0
+          ],
+          "fx": -0.076,
+          "fy": 0.033,
+          "power": 23.690532684326172,
+          "representative_pixel_xy": [
+            424.0,
+            533.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            424.0,
+            467.0
+          ],
+          "fx": 0.076,
+          "fy": 0.033,
+          "power": 23.616954803466797,
+          "representative_pixel_xy": [
+            576.0,
+            533.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            424.0,
+            500.0
+          ],
+          "fx": 0.076,
+          "fy": 0.0,
+          "power": 21.383541107177734,
+          "representative_pixel_xy": [
+            576.0,
+            500.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            576.0,
+            401.0
+          ],
+          "fx": -0.076,
+          "fy": 0.099,
+          "power": 21.34004020690918,
+          "representative_pixel_xy": [
+            424.0,
+            599.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            424.0,
+            400.0
+          ],
+          "fx": 0.076,
+          "fy": 0.1,
+          "power": 21.171953201293945,
+          "representative_pixel_xy": [
+            576.0,
+            600.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            501.0,
+            368.0
+          ],
+          "fx": -0.001,
+          "fy": 0.132,
+          "power": 20.75143051147461,
+          "representative_pixel_xy": [
+            499.0,
+            632.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            501.0,
+            302.0
+          ],
+          "fx": -0.001,
+          "fy": 0.198,
+          "power": 20.254833221435547,
+          "representative_pixel_xy": [
+            499.0,
+            698.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            349.0,
+            367.0
+          ],
+          "fx": 0.151,
+          "fy": 0.133,
+          "power": 20.087982177734375,
+          "representative_pixel_xy": [
+            651.0,
+            633.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            653.0,
+            368.0
+          ],
+          "fx": -0.153,
+          "fy": 0.132,
+          "power": 19.92334747314453,
+          "representative_pixel_xy": [
+            347.0,
+            632.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            577.0,
+            335.0
+          ],
+          "fx": -0.077,
+          "fy": 0.165,
+          "power": 19.91691017150879,
+          "representative_pixel_xy": [
+            423.0,
+            665.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            272.0,
+            466.0
+          ],
+          "fx": 0.228,
+          "fy": 0.034,
+          "power": 19.89151382446289,
+          "representative_pixel_xy": [
+            728.0,
+            534.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            728.0,
+            468.0
+          ],
+          "fx": -0.228,
+          "fy": 0.032,
+          "power": 19.84658432006836,
+          "representative_pixel_xy": [
+            272.0,
+            532.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            425.0,
+            334.0
+          ],
+          "fx": 0.075,
+          "fy": 0.166,
+          "power": 19.694976806640625,
+          "representative_pixel_xy": [
+            575.0,
+            666.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            348.0,
+            433.0
+          ],
+          "fx": 0.152,
+          "fy": 0.067,
+          "power": 18.289094924926758,
+          "representative_pixel_xy": [
+            652.0,
+            567.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            652.0,
+            435.0
+          ],
+          "fx": -0.152,
+          "fy": 0.065,
+          "power": 18.080127716064453,
+          "representative_pixel_xy": [
+            348.0,
+            565.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            500.0,
+            467.0
+          ],
+          "fx": 0.0,
+          "fy": 0.033,
+          "power": 17.42113494873047,
+          "representative_pixel_xy": [
+            500.0,
+            533.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            576.0,
+            434.0
+          ],
+          "fx": -0.076,
+          "fy": 0.066,
+          "power": 16.82902717590332,
+          "representative_pixel_xy": [
+            424.0,
+            566.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            348.0,
+            499.0
+          ],
+          "fx": 0.152,
+          "fy": 0.001,
+          "power": 16.626056671142578,
+          "representative_pixel_xy": [
+            652.0,
+            501.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            500.0,
+            401.0
+          ],
+          "fx": 0.0,
+          "fy": 0.099,
+          "power": 16.43770980834961,
+          "representative_pixel_xy": [
+            500.0,
+            599.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            424.0,
+            433.0
+          ],
+          "fx": 0.076,
+          "fy": 0.067,
+          "power": 16.43453025817871,
+          "representative_pixel_xy": [
+            576.0,
+            567.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            652.0,
+            468.0
+          ],
+          "fx": -0.152,
+          "fy": 0.032,
+          "power": 16.317419052124023,
+          "representative_pixel_xy": [
+            348.0,
+            532.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            348.0,
+            466.0
+          ],
+          "fx": 0.152,
+          "fy": 0.034,
+          "power": 16.258211135864258,
+          "representative_pixel_xy": [
+            652.0,
+            534.0
+          ],
+          "symmetry": 1.0
+        },
+        {
+          "conjugate_pixel_xy": [
+            424.0,
+            483.0
+          ],
+          "fx": 0.076,
+          "fy": 0.017,
+          "power": 15.724564552307129,
+          "representative_pixel_xy": [
+            576.0,
+            517.0
+          ],
+          "symmetry": 1.0
+        }
+      ],
+      "pixel_mode": "RGB",
+      "pixel_size_wh": [
+        1000,
+        1000
+      ],
+      "sha256": "fa39698952e4940b0aff4d81f76277442534c669b58132334a0cb4b6e559ad3e",
+      "source_keys": [
+        "success_search"
+      ]
+    },
+    "live_capture.json": {
+      "bundle_relative_file": "live_capture.json",
+      "bytes": 861,
+      "derivation": "Sanitized record of the real subprocess invocation and captured streams.",
+      "file": "video/evidence/exported/live_capture.json",
+      "kind": "execution_capture",
+      "sha256": "0638fdc749aef95d0550ce8696741c54a9a26bcf5d483e25443585435675c59c",
+      "source_keys": [
+        "success_reference",
+        "success_search",
+        "cli_source"
+      ]
+    },
+    "live_command.txt": {
+      "bundle_relative_file": "live_command.txt",
+      "bytes": 209,
+      "derivation": "Portable rendering of the real invocation; interpreter and working directory are sanitized.",
+      "file": "video/evidence/exported/live_command.txt",
+      "kind": "captured_command",
+      "sha256": "2c8d76d2807d86102f044e2ceea55b5ec3b332d6e7df7009cb31fa31a8b3252d",
+      "source_keys": [
+        "success_reference",
+        "success_search",
+        "cli_source"
+      ]
+    },
+    "live_overlay.png": {
+      "bundle_relative_file": "live_overlay.png",
+      "bytes": 1498709,
+      "derivation": "Captured live coordinate and archived ground truth over the exact command input search pixels.",
+      "file": "video/evidence/exported/live_overlay.png",
+      "kind": "coordinate_overlay",
+      "pixel_mode": "RGB",
+      "pixel_size_wh": [
+        1000,
+        1000
+      ],
+      "sha256": "0c1ea365011d5c8a82a919bef4346d773b814d5174b24a7facdbc08c8e93957e",
+      "source_keys": [
+        "success_search",
+        "frozen_report_iid"
+      ]
+    },
+    "live_stderr_sanitized.json": {
+      "bundle_relative_file": "live_stderr_sanitized.json",
+      "bytes": 1838,
+      "derivation": "Verbatim structured stderr after removal of only nondeterministic runtime_ms.",
+      "file": "video/evidence/exported/live_stderr_sanitized.json",
+      "kind": "captured_diagnostics",
+      "sha256": "07557e06b360c01f130a2354be44239769ba98a82c431d21420da392ff9ebb35",
+      "source_keys": [
+        "success_reference",
+        "success_search",
+        "cli_source"
+      ]
+    },
+    "live_stdout.txt": {
+      "bundle_relative_file": "live_stdout.txt",
+      "bytes": 22,
+      "derivation": "Verbatim stdout from the executed command.",
+      "file": "video/evidence/exported/live_stdout.txt",
+      "kind": "captured_stdout",
+      "sha256": "c78f9219946d9a872d2f141f3ef2971003eaf2a261177929973d668eda63984e",
+      "source_keys": [
+        "success_reference",
+        "success_search",
+        "cli_source"
+      ]
+    },
+    "matched_reference_template.npy": {
+      "array": {
+        "array_sha256": "9676179156ee07e456e17be83fdf330fdec149a5ce913b919acd97877608ded0",
+        "dtype": "float32",
+        "maximum": 241.56532287597656,
+        "minimum": 22.5798282623291,
+        "shape": [
+          101,
+          101
+        ]
+      },
+      "bundle_relative_file": "matched_reference_template.npy",
+      "bytes": 40932,
+      "derivation": "Shipping scale-and-rotation transform of the selected reference.",
+      "file": "video/evidence/exported/matched_reference_template.npy",
+      "kind": "exact_numeric_array",
+      "sha256": "ad5fa228773b29635fc2b5b11558e91d040b7bcb8f8f58b65438c9494a237530",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "matched_reference_template.png": {
+      "bundle_relative_file": "matched_reference_template.png",
+      "bytes": 6945,
+      "derivation": "8-bit display of matched_reference_template.npy; values rounded and clipped to the source grayscale domain.",
+      "file": "video/evidence/exported/matched_reference_template.png",
+      "kind": "derived_evidence_raster",
+      "pixel_mode": "L",
+      "pixel_size_wh": [
+        101,
+        101
+      ],
+      "sha256": "096f8146fd679470b81ec387422fd2e647974a294d01de1c4ed0042eda865015",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "period_difference_reference.npy": {
+      "array": {
+        "array_sha256": "a7a0345d3ecb18d78962ddc7beccbc25404448ac64dd22f48ee0f13428b5c9c3",
+        "dtype": "float32",
+        "maximum": 2.431626558303833,
+        "minimum": -3.7242038249969482,
+        "shape": [
+          71,
+          75
+        ]
+      },
+      "bundle_relative_file": "period_difference_reference.npy",
+      "bytes": 21428,
+      "derivation": "Shipping periodic_difference_channels period_x template array.",
+      "file": "video/evidence/exported/period_difference_reference.npy",
+      "kind": "exact_numeric_array",
+      "sha256": "65f73dee762d0e6a7eaa8cac466218c5f271645c64fbf6144762f1c684f22235",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "period_difference_reference.png": {
+      "bundle_relative_file": "period_difference_reference.png",
+      "bytes": 3000,
+      "derivation": "8-bit signed display of exact period_x transformed-reference residual.",
+      "display_interval": [
+        -3.7242038249969482,
+        3.7242038249969482
+      ],
+      "file": "video/evidence/exported/period_difference_reference.png",
+      "kind": "derived_evidence_raster",
+      "pixel_mode": "L",
+      "pixel_size_wh": [
+        75,
+        71
+      ],
+      "sha256": "dab372b5b401f36464c6b5f8960522a884b10b8996b4ea569197a8b89b9fd56f",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "period_difference_reference_y.npy": {
+      "array": {
+        "array_sha256": "f868e74abd841cf04ff21be2f5a67c75305cd8a2f459241b9ff968dee43e64af",
+        "dtype": "float32",
+        "maximum": 6.413722038269043,
+        "minimum": -6.40151834487915,
+        "shape": [
+          71,
+          75
+        ]
+      },
+      "bundle_relative_file": "period_difference_reference_y.npy",
+      "bytes": 21428,
+      "derivation": "Shipping periodic_difference_channels period_y template array.",
+      "file": "video/evidence/exported/period_difference_reference_y.npy",
+      "kind": "exact_numeric_array",
+      "sha256": "31dbe2f8258bb0c16a128a3a2f408c623e80ca215744181f0efa7d9c8db9f7c5",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "period_difference_reference_y.png": {
+      "bundle_relative_file": "period_difference_reference_y.png",
+      "bytes": 3369,
+      "derivation": "8-bit signed display of exact period_y transformed-reference residual.",
+      "display_interval": [
+        -6.413722038269043,
+        6.413722038269043
+      ],
+      "file": "video/evidence/exported/period_difference_reference_y.png",
+      "kind": "derived_evidence_raster",
+      "pixel_mode": "L",
+      "pixel_size_wh": [
+        75,
+        71
+      ],
+      "sha256": "a5966fa941279342d9f494914efd6eb3afdc95bee3d9190ac7da8751c19be1df",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "period_difference_search_crop.npy": {
+      "array": {
+        "array_sha256": "00ab39e049865d114e59d2312d77edd1700745e4f82282a9594e62dc27aa89ed",
+        "dtype": "float32",
+        "maximum": 2.062877655029297,
+        "minimum": -2.3113322257995605,
+        "shape": [
+          71,
+          75
+        ]
+      },
+      "bundle_relative_file": "period_difference_search_crop.npy",
+      "bytes": 21428,
+      "derivation": "Candidate-aligned crop of shipping period_x search array.",
+      "file": "video/evidence/exported/period_difference_search_crop.npy",
+      "kind": "exact_numeric_array",
+      "sha256": "0a2bd8e6cbf84c1f84bc7d0ec8de20f9d3c853317c2fc9cfa2251d96788f4878",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "period_difference_search_crop.png": {
+      "bundle_relative_file": "period_difference_search_crop.png",
+      "bytes": 3334,
+      "crop_top_left_xy": [
+        583,
+        184
+      ],
+      "derivation": "8-bit signed display of exact period_x candidate-aligned search residual.",
+      "display_interval": [
+        -3.7242038249969482,
+        3.7242038249969482
+      ],
+      "file": "video/evidence/exported/period_difference_search_crop.png",
+      "kind": "derived_evidence_raster",
+      "pixel_mode": "L",
+      "pixel_size_wh": [
+        75,
+        71
+      ],
+      "sha256": "dc2513162388e817cdb903e7f75fccd060261373a00a0ec038111b386d9ccce3",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "period_difference_search_crop_y.npy": {
+      "array": {
+        "array_sha256": "d06078ae83b107a61a79acaf1ae9c322d0888423272bb528e168ff4a0d010f97",
+        "dtype": "float32",
+        "maximum": 5.310539722442627,
+        "minimum": -5.347972393035889,
+        "shape": [
+          71,
+          75
+        ]
+      },
+      "bundle_relative_file": "period_difference_search_crop_y.npy",
+      "bytes": 21428,
+      "derivation": "Candidate-aligned crop of shipping period_y search array.",
+      "file": "video/evidence/exported/period_difference_search_crop_y.npy",
+      "kind": "exact_numeric_array",
+      "sha256": "eabcf22e3e1da92dda606e0172d86f500d69644775d91ed6ee508856e814f901",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "period_difference_search_crop_y.png": {
+      "bundle_relative_file": "period_difference_search_crop_y.png",
+      "bytes": 3648,
+      "crop_top_left_xy": [
+        583,
+        184
+      ],
+      "derivation": "8-bit signed display of exact period_y candidate-aligned search residual.",
+      "display_interval": [
+        -6.413722038269043,
+        6.413722038269043
+      ],
+      "file": "video/evidence/exported/period_difference_search_crop_y.png",
+      "kind": "derived_evidence_raster",
+      "pixel_mode": "L",
+      "pixel_size_wh": [
+        75,
+        71
+      ],
+      "sha256": "7ab3c3d1bd52a24e78c86a62f72c89dd5b3c08987bef58f2f17f48b69be4d529",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "phase_drift_reference_x.csv": {
+      "bundle_relative_file": "phase_drift_reference_x.csv",
+      "bytes": 64629,
+      "derivation": "Exact carrier amplitude, unwrapped phase, weighted fit, and keep mask from the shipping phase-lattice estimator.",
+      "file": "video/evidence/exported/phase_drift_reference_x.csv",
+      "kind": "exact_numeric_table",
+      "sha256": "58e3f3886f308a9c44b87373d651635e7a0636932379b93f5c7a8807cd3cb05f",
+      "source_keys": [
+        "success_reference"
+      ]
+    },
+    "phase_drift_reference_y.csv": {
+      "bundle_relative_file": "phase_drift_reference_y.csv",
+      "bytes": 64620,
+      "derivation": "Exact carrier amplitude, unwrapped phase, weighted fit, and keep mask from the shipping phase-lattice estimator.",
+      "file": "video/evidence/exported/phase_drift_reference_y.csv",
+      "kind": "exact_numeric_table",
+      "sha256": "724cee9f4936d2f8fa152a0adc800dcecebb55116494a70f2228b0af5b00e773",
+      "source_keys": [
+        "success_reference"
+      ]
+    },
+    "phase_drift_search_x.csv": {
+      "bundle_relative_file": "phase_drift_search_x.csv",
+      "bytes": 64692,
+      "derivation": "Exact carrier amplitude, unwrapped phase, weighted fit, and keep mask from the shipping phase-lattice estimator.",
+      "file": "video/evidence/exported/phase_drift_search_x.csv",
+      "kind": "exact_numeric_table",
+      "sha256": "33ea621436023c40de37ff94ea093e6c35d1fccddc613ff35fed3a9cd8b085db",
+      "source_keys": [
+        "success_search"
+      ]
+    },
+    "phase_drift_search_y.csv": {
+      "bundle_relative_file": "phase_drift_search_y.csv",
+      "bytes": 65991,
+      "derivation": "Exact carrier amplitude, unwrapped phase, weighted fit, and keep mask from the shipping phase-lattice estimator.",
+      "file": "video/evidence/exported/phase_drift_search_y.csv",
+      "kind": "exact_numeric_table",
+      "sha256": "c97a443f4ff3ba3092c736bca878043d6ddfa510f43ee5692b44fd89ee843968",
+      "source_keys": [
+        "success_search"
+      ]
+    },
+    "phase_transform.json": {
+      "bundle_relative_file": "phase_transform.json",
+      "bytes": 16473,
+      "derivation": "Shipping periodic transform estimator plus its exact phase-fit inputs.",
+      "file": "video/evidence/exported/phase_transform.json",
+      "kind": "exact_numeric_record",
+      "sha256": "7721fc9967c4f2d03835045633feb5d6b05189b51f599aff838989d02fc05fef",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "refinement_patch.json": {
+      "bundle_relative_file": "refinement_patch.json",
+      "bytes": 1003,
+      "derivation": "Five-by-five source window around the shipping selected integer peak and its parabolic refinement.",
+      "file": "video/evidence/exported/refinement_patch.json",
+      "kind": "exact_numeric_record",
+      "sha256": "ab9857e42fd663a2f5355daa8247869428750d12736169531f95e4ab4c101ca7",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ]
+    },
+    "refinement_patch.png": {
+      "bundle_relative_file": "refinement_patch.png",
+      "bytes": 1669,
+      "derivation": "Nearest-neighbour enlargement of the fixed [-1,1] mapped exact 5x5 score patch.",
+      "file": "video/evidence/exported/refinement_patch.png",
+      "kind": "derived_evidence_raster",
+      "pixel_mode": "L",
+      "pixel_size_wh": [
+        600,
+        600
+      ],
+      "resampler": "nearest",
+      "sha256": "c3afd80e4dfdbe4ebb5e891ba42480e2a0ca64d1e21fb0f93c2d3795548a30bc",
+      "source_keys": [
+        "success_reference",
+        "success_search"
+      ],
+      "source_patch_shape_yx": [
+        5,
+        5
+      ]
+    },
+    "success_overlay.png": {
+      "bundle_relative_file": "success_overlay.png",
+      "bytes": 1498709,
+      "derivation": "Archived prediction and construction ground truth over exact frozen search pixels.",
+      "file": "video/evidence/exported/success_overlay.png",
+      "kind": "coordinate_overlay",
+      "pixel_mode": "RGB",
+      "pixel_size_wh": [
+        1000,
+        1000
+      ],
+      "sha256": "0c1ea365011d5c8a82a919bef4346d773b814d5174b24a7facdbc08c8e93957e",
+      "source_keys": [
+        "success_search",
+        "frozen_report_iid"
+      ]
+    },
+    "terminal_capture.png": {
+      "bundle_relative_file": "terminal_capture.png",
+      "bytes": 33250,
+      "derivation": "Deterministic typesetting of the verbatim real command and captured stdout; not a GUI screenshot.",
+      "file": "video/evidence/exported/terminal_capture.png",
+      "kind": "sanitized_terminal_render",
+      "pixel_mode": "RGB",
+      "pixel_size_wh": [
+        1600,
+        520
+      ],
+      "sha256": "7e6f61c2e62166fdb502500a6f354287211f909a0e80aefcaeb052abceea037e",
+      "source_keys": [
+        "success_reference",
+        "success_search",
+        "cli_source"
+      ]
+    }
+  },
+  "claim_boundaries": {
+    "classic_comparison": "Fixed preregistered classic adapters on the same sealed image bytes; not a universal or SOTA claim.",
+    "frozen": "Synthetic, sealed reporting population; acquired microscopy and independent-renderer checks are not pooled into this result.",
+    "real_microscopy": "Acquired SEM/TEM evidence is supplied by the checked-in, hash-bound real-microscopy-success-plate.png and JSON sidecar; it remains separate from the sealed synthetic claim.",
+    "terminal_capture": "terminal_capture.png is a sanitized typesetting of a real command and verbatim captured stdout, not a GUI screenshot.",
+    "xfeat_development": "This is a retrospective, post-freeze external benchmark on frozen image bytes. It is development evidence and is not added to the original frozen claim or presented as a state-of-the-art comparison."
+  },
+  "execution_binding": {
+    "archived_prediction_match_tolerance_px": 1e-12,
+    "configuration": {
+      "ambiguity_margin": 0.004,
+      "enable_ambiguity_rule": true,
+      "enable_lattice_grouping": true,
+      "enable_phase_calibration": true,
+      "enable_spatial_residual": true,
+      "gradient_weight": 0.18,
+      "method": "full",
+      "nms_radius": 6,
+      "nominal_scale": 0.1,
+      "periodic_evidence_channel": "structural",
+      "periodic_stability_margin": 0.075,
+      "prior_center_x": null,
+      "prior_center_y": null,
+      "residual_evidence_floor": 0.25,
+      "residual_weight": 0.32,
+      "rotation_range": 3.0,
+      "rotation_steps": 5,
+      "scale_range": 0.006,
+      "scale_steps": 7,
+      "structural_weight": 0.5,
+      "subpixel_refinement": "parabolic",
+      "top_k": 32,
+      "transform_fallback_confidence": 0.35
+    },
+    "environment": {
+      "numpy": "2.5.2",
+      "opencv": "4.14.0",
+      "pillow": "12.3.0",
+      "python": "3.14.6",
+      "scipy": "1.18.0"
+    },
+    "prediction_without_runtime": {
+      "ambiguity_evidence": {
+        "lattice_group_count": 1,
+        "lattice_group_coverage": 0.0,
+        "lattice_grouped": false,
+        "local_perturbation": 0.08390326797962189,
+        "local_perturbation_support": false,
+        "low_residual_support": false,
+        "residual_evidence": 0.8337467908859253,
+        "score_threshold": 0.025170980393886565,
+        "score_tied": false,
+        "secondary_evidence": false,
+        "selection_prior_center": [
+          499.5,
+          499.5
+        ],
+        "selection_prior_source": "image_center_default",
+        "transform_instability_support": false,
+        "transform_stability": 0.9799581777826146
+      },
+      "ambiguity_flag": false,
+      "channel_scores": {
+        "period_x": 0.8337467908859253,
+        "period_y": 0.9859423637390137,
+        "residual": 0.8337467908859253
+      },
+      "confidence": 0.9954281064730481,
+      "decision_support": {
+        "absolute_site_confidence": 0.9954281064730481,
+        "calibration_scope": "thresholds derived from the archived 700-pair development split; diagnostic score is not an empirical probability",
+        "conservative_abstention_recommended": false,
+        "policy_id": "metralign-absolute-site-review-v1",
+        "reasons": [],
+        "review_recommended": false,
+        "status": "resolved"
+      },
+      "hypotheses": [
+        {
+          "center": [
+            633.0,
+            234.0
+          ],
+          "lattice_offset_from_selected": null,
+          "rank": 1,
+          "score": 0.9098445773124695,
+          "score_delta": 0.0,
+          "selected": true
+        }
+      ],
+      "hypotheses_truncated": false,
+      "hypothesis_count": 1,
+      "lattice_offset": null,
+      "method": "full",
+      "pipeline_stages": {
+        "ambiguity_rule": true,
+        "evidence_channel": "structural",
+        "lattice_family_candidates": true,
+        "phase_calibration": true,
+        "spatial_residual": true,
+        "subpixel_refinement": "parabolic"
+      },
+      "runner_up_score": 0.6767697930335999,
+      "score": 0.9098445773124695,
+      "score_margin": 0.23307478427886963,
+      "selected_rotation_deg": -0.1863784022685735,
+      "selected_scale": 0.10056356381003614,
+      "selected_score": 0.9098445773124695,
+      "spectral_confidence": 0.9799581777826146,
+      "spectral_rotation_deg": -0.1863784022685735,
+      "spectral_scale": 0.10056356381003614,
+      "tied_count": 1,
+      "x": 632.8319905102253,
+      "y": 234.20052209496498
+    }
+  },
+  "exporter": {
+    "repo_path": "video/tools/export_evidence.py",
+    "sha256": "9dff71e303ad2979fee5ef196278d06bd7d90123045f92f1860cb704d8c40c72",
+    "trace_source_bundle_sha256": "d92c05b7cb40d0a46eed216970cbd9642922666ef0bae7e5871e9d5ba0ff75b0"
+  },
+  "metrics": {
+    "external_baselines": {
+      "classic_adapter_count": 6,
+      "classic_adapter_count_binding": {
+        "display_value": 6,
+        "exact_value": 6,
+        "rounding_rule": "count of source method keys excluding metralign_archived; no rounding",
+        "source": "results/comparisons/external-registration-frozen.json#/methods"
+      },
+      "classic_adapters": [
+        {
+          "count": 1400,
+          "coverage_exact_fraction": 0.8071428571428572,
+          "display_name": "OpenCV ECC affine",
+          "is_best": false,
+          "method_id": "opencv_ecc_affine",
+          "resolved_count": 1130,
+          "source": "results/comparisons/external-registration-frozen.json#/methods/opencv_ecc_affine/metrics",
+          "within_1px_rate_display": 30.36,
+          "within_1px_rate_exact_fraction": 0.30357142857142855
+        },
+        {
+          "count": 1400,
+          "coverage_exact_fraction": 1.0,
+          "display_name": "OpenCV grid template",
+          "is_best": true,
+          "method_id": "opencv_grid_template",
+          "resolved_count": 1400,
+          "source": "results/comparisons/external-registration-frozen.json#/methods/opencv_grid_template/metrics",
+          "within_1px_rate_display": 35.57,
+          "within_1px_rate_exact_fraction": 0.3557142857142857
+        },
+        {
+          "count": 1400,
+          "coverage_exact_fraction": 0.002857142857142857,
+          "display_name": "OpenCV SIFT + RANSAC",
+          "is_best": false,
+          "method_id": "opencv_sift_ransac",
+          "resolved_count": 4,
+          "source": "results/comparisons/external-registration-frozen.json#/methods/opencv_sift_ransac/metrics",
+          "within_1px_rate_display": 0.0,
+          "within_1px_rate_exact_fraction": 0.0
+        },
+        {
+          "count": 1400,
+          "coverage_exact_fraction": 1.0,
+          "display_name": "OpenCV template",
+          "is_best": false,
+          "method_id": "opencv_template",
+          "resolved_count": 1400,
+          "source": "results/comparisons/external-registration-frozen.json#/methods/opencv_template/metrics",
+          "within_1px_rate_display": 32.57,
+          "within_1px_rate_exact_fraction": 0.32571428571428573
+        },
+        {
+          "count": 1400,
+          "coverage_exact_fraction": 1.0,
+          "display_name": "OpenCV template + phase",
+          "is_best": false,
+          "method_id": "opencv_template_phase",
+          "resolved_count": 1400,
+          "source": "results/comparisons/external-registration-frozen.json#/methods/opencv_template_phase/metrics",
+          "within_1px_rate_display": 32.57,
+          "within_1px_rate_exact_fraction": 0.32571428571428573
+        },
+        {
+          "count": 1400,
+          "coverage_exact_fraction": 1.0,
+          "display_name": "scikit-image template + phase",
+          "is_best": false,
+          "method_id": "skimage_template_phase",
+          "resolved_count": 1400,
+          "source": "results/comparisons/external-registration-frozen.json#/methods/skimage_template_phase/metrics",
+          "within_1px_rate_display": 32.14,
+          "within_1px_rate_exact_fraction": 0.32142857142857145
+        }
+      ],
+      "classic_best_method": "opencv_grid_template",
+      "classic_best_name": "OpenCV grid template",
+      "classic_best_name_binding": {
+        "display_value": "OpenCV grid template",
+        "exact_value": "opencv_grid_template",
+        "rounding_rule": "source method identifier mapped to its audit-table display label",
+        "source": "results/comparisons/external-registration-frozen.json#/methods/opencv_grid_template"
+      },
+      "classic_best_within_1px_rate": 35.57,
+      "classic_best_within_1px_rate_binding": {
+        "display_value": 35.57,
+        "exact_value": 0.3557142857142857,
+        "rounding_rule": "exact all-sample fraction multiplied by 100, then round-half-even to 2 decimal places",
+        "source": "results/comparisons/external-registration-frozen.json#/methods/opencv_grid_template/metrics/success_le_1px"
+      },
+      "scope": "Fixed preregistered classic adapters on the same sealed image bytes; not a universal or SOTA claim.",
+      "xfeat_claim_boundary": "This is a retrospective, post-freeze external benchmark on frozen image bytes. It is development evidence and is not added to the original frozen claim or presented as a state-of-the-art comparison.",
+      "xfeat_coverage_count": 1079,
+      "xfeat_coverage_count_binding": {
+        "display_value": 1079,
+        "exact_value": 1079,
+        "rounding_rule": "integer copied from source; no rounding",
+        "source": "results/comparisons/xfeat-frozen-all1400-development.json#/pooled/metrics/resolved_count"
+      },
+      "xfeat_coverage_rate": 77.07,
+      "xfeat_coverage_rate_binding": {
+        "display_value": 77.07,
+        "exact_value": 0.7707142857142857,
+        "rounding_rule": "exact all-sample fraction multiplied by 100, then round-half-even to 2 decimal places",
+        "source": "results/comparisons/xfeat-frozen-all1400-development.json#/pooled/metrics/coverage"
+      },
+      "xfeat_population_count": 1400,
+      "xfeat_population_count_binding": {
+        "display_value": 1400,
+        "exact_value": 1400,
+        "rounding_rule": "integer copied from source; no rounding",
+        "source": "results/comparisons/xfeat-frozen-all1400-development.json#/pooled/metrics/count"
+      },
+      "xfeat_success_threshold_px": 5,
+      "xfeat_success_threshold_px_binding": {
+        "display_value": 5,
+        "exact_value": 5.0,
+        "rounding_rule": "whole-pixel threshold encoded by the source metric name success_le_5px; no numerical rounding",
+        "source": "results/comparisons/xfeat-frozen-all1400-development.json#/pooled/metrics/success_le_5px"
+      },
+      "xfeat_within_5px_count": 0,
+      "xfeat_within_5px_count_binding": {
+        "display_value": 0,
+        "exact_value": 0,
+        "rounding_rule": "source all-sample fraction multiplied by source population count; exact integer result",
+        "source": "results/comparisons/xfeat-frozen-all1400-development.json#/pooled/metrics/success_le_5px"
+      },
+      "xfeat_within_5px_rate": 0.0,
+      "xfeat_within_5px_rate_binding": {
+        "display_value": 0.0,
+        "exact_value": 0.0,
+        "rounding_rule": "exact all-sample fraction multiplied by 100, then round-half-even to 2 decimal places",
+        "source": "results/comparisons/xfeat-frozen-all1400-development.json#/pooled/metrics/success_le_5px"
+      }
+    },
+    "frozen": {
+      "failure_gt_5px_count": 2,
+      "input_image_hash_count": 2800,
+      "mean_runtime_ms": 239,
+      "mean_runtime_ms_binding": {
+        "display_value": 239,
+        "exact_value": 239.40528598285718,
+        "rounding_rule": "round-half-even to nearest millisecond",
+        "source": "benchmark_plot_data.json#/aggregate/mean_runtime_ms"
+      },
+      "median_error_px": 0.083,
+      "median_error_px_binding": {
+        "display_value": 0.083,
+        "exact_value": 0.08299918763427763,
+        "rounding_rule": "round-half-even to 3 decimal places",
+        "source": "benchmark_plot_data.json#/aggregate/median_error_px"
+      },
+      "outside_1px_count": 2,
+      "outside_1px_count_binding": {
+        "display_value": 2,
+        "exact_value": 2,
+        "rounding_rule": "source pair_count minus source within_1px_count; exact integer, no rounding",
+        "source": "benchmark_plot_data.json#/aggregate/outside_1px_count"
+      },
+      "p95_error_px": 0.319,
+      "p95_error_px_binding": {
+        "display_value": 0.319,
+        "exact_value": 0.3193366812245552,
+        "rounding_rule": "round-half-even to 3 decimal places",
+        "source": "benchmark_plot_data.json#/aggregate/p95_error_px"
+      },
+      "pair_count": 1400,
+      "primary_threshold_px": 1,
+      "primary_threshold_px_binding": {
+        "display_value": 1,
+        "exact_value": 1.0,
+        "rounding_rule": "exact whole-pixel value rendered as an integer; no numerical rounding",
+        "source": "benchmark_plot_data.json#/threshold_px"
+      },
+      "suite_count": 7,
+      "threshold_px": 1.0,
+      "within_1px_count": 1398,
+      "within_1px_rate": 99.85714285714286,
+      "within_1px_rate_binding": {
+        "display_value": 99.85714285714286,
+        "exact_value": 0.9985714285714286,
+        "rounding_rule": "exact fraction multiplied by 100; no decimal rounding",
+        "source": "benchmark_plot_data.json#/aggregate/within_1px_rate"
+      }
+    },
+    "independent_renderer": {
+      "pair_count": 100,
+      "primary_threshold_px": 1,
+      "primary_threshold_px_binding": {
+        "display_value": 1,
+        "exact_value": 1.0,
+        "rounding_rule": "exact whole-pixel value rendered as an integer; no numerical rounding",
+        "source": "results/comparisons/independent-renderer-final-100.json#/methods/full/metrics/all/success_le_1px"
+      },
+      "threshold_binding": {
+        "comparison": "error <= threshold",
+        "source": "results/comparisons/independent-renderer-final-100.json#/metric_definition",
+        "source_metric": "success_le_1px"
+      },
+      "threshold_px": 1.0,
+      "within_1px_count": 97,
+      "within_1px_rate": 97.0
+    },
+    "safety": {
+      "large_error_count": 2,
+      "large_error_recall": 1.0,
+      "policy": "selective",
+      "review_count": 2,
+      "total_count": 1400
+    }
+  },
+  "project": "Metralign",
+  "samples": {
+    "failure_scan": {
+      "ambiguity_flag": true,
+      "architecture": "finfet",
+      "diagnostics": {
+        "ambiguity_evidence": {
+          "lattice_group_count": 2253,
+          "lattice_group_coverage": 0.5088075880758808,
+          "lattice_grouped": false,
+          "local_perturbation": 0.08899524062871933,
+          "local_perturbation_support": true,
+          "low_residual_support": true,
+          "residual_evidence": 0.17597852647304535,
+          "score_threshold": 0.075,
+          "score_tied": true,
+          "secondary_evidence": true,
+          "transform_instability_support": false,
+          "transform_stability": 0.9610630031013068
+        },
+        "ambiguity_flag": true,
+        "review_policy_id": "metralign-absolute-site-review-v1",
+        "review_thresholds": {
+          "residual_evidence_minimum": 0.15,
+          "transform_stability_minimum": 0.95
+        },
+        "runner_up_score": 0.9360356330871582,
+        "score": 0.9369781613349915,
+        "selected_score": 0.894558846950531,
+        "tied_count": 4428
+      },
+      "error_px": 313.7996577105799,
+      "failure_category": "periodic ambiguity",
+      "ground_truth": [
+        796.9490788663055,
+        408.9684906287427
+      ],
+      "ground_truth_xy": [
+        796.9490788663055,
+        408.9684906287427
+      ],
+      "id": "000185_finfet",
+      "overlay_asset": "failure_overlay.png",
+      "prediction": [
+        496.8765997290611,
+        500.76572611927986
+      ],
+      "prediction_xy": [
+        496.8765997290611,
+        500.76572611927986
+      ],
+      "reference": {
+        "bytes": 693796,
+        "repo_path": "results/frozen/cases/failure_scan_distortion_000185_finfet/000185_finfet_reference.png",
+        "sha256": "3b265b14ac3abf6e9211ba2edc8e8349b6bd2b16115e7000e95ddbab2900c3e0"
+      },
+      "residual_evidence": 0.17597852647304535,
+      "review_recommended": true,
+      "search": {
+        "bytes": 798194,
+        "repo_path": "results/frozen/cases/failure_scan_distortion_000185_finfet/000185_finfet_search.png",
+        "sha256": "56d379d307bfb5dd461c20d9e5e29e4e6f57048ecb297d5ec4e6f05af8e239a7"
+      },
+      "suite": "scan_distortion",
+      "tied_count": 4428,
+      "transform_stability": 0.9610630031013068
+    },
+    "live_inference": {
+      "capture_asset": "terminal_capture.png",
+      "capture_record": "live_capture.json",
+      "command": "PYTHONPATH=src python -m metralign --reference results/frozen/cases/success_iid_000002_dram/000002_dram_reference.png --search results/frozen/cases/success_iid_000002_dram/000002_dram_search.png --diagnostics",
+      "diagnostics": {
+        "ambiguity_evidence": {
+          "lattice_group_count": 1,
+          "lattice_group_coverage": 0.0,
+          "lattice_grouped": false,
+          "local_perturbation": 0.08390326797962189,
+          "local_perturbation_support": false,
+          "low_residual_support": false,
+          "residual_evidence": 0.8337467908859253,
+          "score_threshold": 0.025170980393886565,
+          "score_tied": false,
+          "secondary_evidence": false,
+          "selection_prior_center": [
+            499.5,
+            499.5
+          ],
+          "selection_prior_source": "image_center_default",
+          "transform_instability_support": false,
+          "transform_stability": 0.9799581777826146
+        },
+        "ambiguity_flag": false,
+        "channel_scores": {
+          "period_x": 0.8337467908859253,
+          "period_y": 0.9859423637390137,
+          "residual": 0.8337467908859253
+        },
+        "confidence": 0.9954281064730481,
+        "decision_support": {
+          "absolute_site_confidence": 0.9954281064730481,
+          "calibration_scope": "thresholds derived from the archived 700-pair development split; diagnostic score is not an empirical probability",
+          "conservative_abstention_recommended": false,
+          "policy_id": "metralign-absolute-site-review-v1",
+          "reasons": [],
+          "review_recommended": false,
+          "status": "resolved"
+        },
+        "hypotheses": [
+          {
+            "center": [
+              633.0,
+              234.0
+            ],
+            "lattice_offset_from_selected": null,
+            "rank": 1,
+            "score": 0.9098445773124695,
+            "score_delta": 0.0,
+            "selected": true
+          }
+        ],
+        "hypotheses_truncated": false,
+        "hypothesis_count": 1,
+        "lattice_offset": null,
+        "method": "full",
+        "pipeline_stages": {
+          "ambiguity_rule": true,
+          "evidence_channel": "structural",
+          "lattice_family_candidates": true,
+          "phase_calibration": true,
+          "spatial_residual": true,
+          "subpixel_refinement": "parabolic"
+        },
+        "runner_up_score": 0.6767697930335999,
+        "score": 0.9098445773124695,
+        "score_margin": 0.23307478427886963,
+        "selected_rotation_deg": -0.1863784022685735,
+        "selected_scale": 0.10056356381003614,
+        "selected_score": 0.9098445773124695,
+        "spectral_confidence": 0.9799581777826146,
+        "spectral_rotation_deg": -0.1863784022685735,
+        "spectral_scale": 0.10056356381003614,
+        "tied_count": 1,
+        "x": 632.8319905102253,
+        "y": 234.20052209496498
+      },
+      "id": "000002_dram",
+      "overlay_asset": "live_overlay.png",
+      "prediction_xy": [
+        632.8319905102253,
+        234.20052209496498
+      ],
+      "return_code": 0,
+      "source_sample": "success_iid",
+      "stdout": "632.831991 234.200522"
+    },
+    "success_iid": {
+      "ambiguity_flag": false,
+      "architecture": "dram",
+      "baseline0": {
+        "error_px": 0.08561310953220899,
+        "ground_truth_xy": [
+          632.9188555403398,
+          234.23698415143411
+        ],
+        "integer_argmax_top_left_xy": [
+          583,
+          185
+        ],
+        "method": "baseline0",
+        "prediction_without_runtime": {
+          "ambiguity_evidence": {
+            "lattice_group_count": 1,
+            "lattice_group_coverage": 0.0,
+            "lattice_grouped": false,
+            "local_perturbation": 0.0,
+            "local_perturbation_support": false,
+            "low_residual_support": false,
+            "residual_evidence": 0.9517562389373779,
+            "score_threshold": 0.0,
+            "score_tied": false,
+            "secondary_evidence": false,
+            "transform_instability_support": false,
+            "transform_stability": 1.0
+          },
+          "ambiguity_flag": false,
+          "channel_scores": {
+            "structural": 0.9517562389373779
+          },
+          "confidence": 0.7698981697575438,
+          "decision_support": {
+            "absolute_site_confidence": 0.7698981697575438,
+            "calibration_scope": "thresholds derived from the archived 700-pair development split; diagnostic score is not an empirical probability",
+            "conservative_abstention_recommended": false,
+            "policy_id": "metralign-absolute-site-review-v1",
+            "reasons": [],
+            "review_recommended": false,
+            "status": "resolved"
+          },
+          "hypotheses": [
+            {
+              "center": [
+                632.8344062268734,
+                234.25105248391628
+              ],
+              "lattice_offset_from_selected": null,
+              "rank": 1,
+              "score": 0.9517562389373779,
+              "score_delta": 0.0,
+              "selected": true
+            }
+          ],
+          "hypotheses_truncated": false,
+          "hypothesis_count": 1,
+          "lattice_offset": null,
+          "method": "baseline0",
+          "pipeline_stages": {
+            "ambiguity_rule": false,
+            "evidence_channel": "structural",
+            "lattice_family_candidates": false,
+            "phase_calibration": false,
+            "spatial_residual": false,
+            "subpixel_refinement": "parabolic"
+          },
+          "runner_up_score": 0.9420113563537598,
+          "score": 0.9517562389373779,
+          "score_margin": 0.009744882583618164,
+          "selected_rotation_deg": 0.0,
+          "selected_scale": 0.1,
+          "selected_score": 0.9517562389373779,
+          "spectral_confidence": 0.0,
+          "spectral_rotation_deg": 0.0,
+          "spectral_scale": 0.1,
+          "tied_count": 1,
+          "x": 632.8344062268734,
+          "y": 234.25105248391628
+        },
+        "prediction_xy": [
+          632.8344062268734,
+          234.25105248391628
+        ],
+        "refined_top_left_xy": [
+          583.3344062268734,
+          184.75105248391628
+        ],
+        "template_shape_yx": [
+          100,
+          100
+        ],
+        "verification": "prediction_xy exactly reproduced from baseline_score_map.npy argmax, parabolic refinement, and template-center offset within 1e-12 px"
+      },
+      "diagnostics": {
+        "ambiguity_evidence": {
+          "lattice_group_count": 1,
+          "lattice_group_coverage": 0.0,
+          "lattice_grouped": false,
+          "local_perturbation": 0.08390326797962189,
+          "local_perturbation_support": false,
+          "low_residual_support": false,
+          "residual_evidence": 0.8337467908859253,
+          "score_threshold": 0.025170980393886565,
+          "score_tied": false,
+          "secondary_evidence": false,
+          "selection_prior_center": [
+            499.5,
+            499.5
+          ],
+          "selection_prior_source": "image_center_default",
+          "transform_instability_support": false,
+          "transform_stability": 0.9799581777826146
+        },
+        "ambiguity_flag": false,
+        "decision_support": {
+          "absolute_site_confidence": 0.9954281064730481,
+          "calibration_scope": "thresholds derived from the archived 700-pair development split; diagnostic score is not an empirical probability",
+          "conservative_abstention_recommended": false,
+          "policy_id": "metralign-absolute-site-review-v1",
+          "reasons": [],
+          "review_recommended": false,
+          "status": "resolved"
+        },
+        "runner_up_score": 0.6767697930335999,
+        "score": 0.9098445773124695,
+        "selected_rotation_deg": -0.1863784022685735,
+        "selected_scale": 0.10056356381003614,
+        "spectral_confidence": 0.9799581777826146,
+        "tied_count": 1
+      },
+      "error_px": 0.094,
+      "error_px_binding": {
+        "display_value": 0.094,
+        "exact_value": 0.09420729811830113,
+        "rounding_rule": "round-half-even to 3 decimal places",
+        "source": "results/frozen/reports/iid.json archived sample 000002_dram"
+      },
+      "ground_truth": [
+        632.9188555403398,
+        234.23698415143411
+      ],
+      "ground_truth_xy": [
+        632.9188555403398,
+        234.23698415143411
+      ],
+      "id": "000002_dram",
+      "overlay_asset": "success_overlay.png",
+      "prediction": [
+        632.8319905102253,
+        234.20052209496498
+      ],
+      "prediction_xy": [
+        632.8319905102253,
+        234.20052209496498
+      ],
+      "reference": {
+        "bytes": 714257,
+        "repo_path": "results/frozen/cases/success_iid_000002_dram/000002_dram_reference.png",
+        "sha256": "3258cacee137db2856d5ff3aee5a28a32a2d74b02946b939e807edec2fc4e212"
+      },
+      "review_recommended": false,
+      "search": {
+        "bytes": 835425,
+        "repo_path": "results/frozen/cases/success_iid_000002_dram/000002_dram_search.png",
+        "sha256": "f1a09837c6239e36cc195bf196843fa7b89ed44206c167b1a895daa14436a5ce"
+      },
+      "suite": "iid",
+      "trace_assets": [
+        "baseline_score_map.png",
+        "baseline_candidate_overlay.png",
+        "fft_reference.png",
+        "fft_search.png",
+        "candidate_score_map.png",
+        "candidate_overlay.png",
+        "matched_reference_template.png",
+        "period_difference_reference.png",
+        "period_difference_search_crop.png",
+        "refinement_patch.png"
+      ]
+    }
+  },
+  "schema_version": 1,
+  "scope": "Judge-facing evidence export. Derived images are deterministic views of checked-in arrays, checked-in report rows, or acquired microscopy bytes; no microscopy or benchmark observation is synthesized here.",
+  "sources": {
+    "classic_external_frozen_report": {
+      "bytes": 48861,
+      "repo_path": "results/comparisons/external-registration-frozen.json",
+      "sha256": "ca84a220a3bae6cc74b33f022bbe02556b65b9980064f7d66247d34754e6b10d"
+    },
+    "cli_source": {
+      "bytes": 4401,
+      "repo_path": "src/metralign/cli.py",
+      "sha256": "f7948b45b0f7934b16a7ed754e8e95b66f6512b47311f28b21d170dae7ed1be0"
+    },
+    "exporter_source": {
+      "bytes": 86959,
+      "repo_path": "video/tools/export_evidence.py",
+      "sha256": "9dff71e303ad2979fee5ef196278d06bd7d90123045f92f1860cb704d8c40c72"
+    },
+    "failure_case_manifest": {
+      "bytes": 2598,
+      "repo_path": "results/frozen/cases/failure_scan_distortion_000185_finfet/000185_finfet.json",
+      "sha256": "44a403d811b65ca4a23465566cd8a5f2699ccddf3284abb2c596625a2d4d39b7"
+    },
+    "failure_reference": {
+      "bytes": 693796,
+      "repo_path": "results/frozen/cases/failure_scan_distortion_000185_finfet/000185_finfet_reference.png",
+      "sha256": "3b265b14ac3abf6e9211ba2edc8e8349b6bd2b16115e7000e95ddbab2900c3e0"
+    },
+    "failure_search": {
+      "bytes": 798194,
+      "repo_path": "results/frozen/cases/failure_scan_distortion_000185_finfet/000185_finfet_search.png",
+      "sha256": "56d379d307bfb5dd461c20d9e5e29e4e6f57048ecb297d5ec4e6f05af8e239a7"
+    },
+    "frozen_aggregate_report": {
+      "bytes": 352413,
+      "repo_path": "results/frozen/benchmark_report.json",
+      "sha256": "a169bffa170707da166206640150702c87202670a1a22745ff6128ad46ff5b69"
+    },
+    "frozen_report_cross_generator": {
+      "bytes": 570609,
+      "repo_path": "results/frozen/reports/cross_generator.json",
+      "sha256": "679299d0f9d93cded4ab95322e0998aa521cb8288b652112fd2a2a70addbf44e"
+    },
+    "frozen_report_geometry_ood": {
+      "bytes": 569869,
+      "repo_path": "results/frozen/reports/geometry_ood.json",
+      "sha256": "6214da001335d81ee5ce6b7e90f6de504f41566c2a7fdf54ab3cf4b1bd59f4a0"
+    },
+    "frozen_report_high_noise": {
+      "bytes": 569557,
+      "repo_path": "results/frozen/reports/high_noise.json",
+      "sha256": "bd29b1494f4593a281c486f78d2c2265e5f0905abac7fafae2f5f200ea9eb931"
+    },
+    "frozen_report_iid": {
+      "bytes": 568037,
+      "repo_path": "results/frozen/reports/iid.json",
+      "sha256": "5c889688c37d7c4554f57359883dd47e82d530fdc8186e3d906af06959d67eb6"
+    },
+    "frozen_report_periodic_ambiguity": {
+      "bytes": 570941,
+      "repo_path": "results/frozen/reports/periodic_ambiguity.json",
+      "sha256": "e22bc9178e9beb81cadc3b0e033b1d87a757b11ad566b91d3a13cab565d4fcb7"
+    },
+    "frozen_report_scan_distortion": {
+      "bytes": 570424,
+      "repo_path": "results/frozen/reports/scan_distortion.json",
+      "sha256": "7558336a2f2639687c9dabc7d576e0fa229627ff86b10c896c0754e481db56e3"
+    },
+    "frozen_report_transform_ood": {
+      "bytes": 569724,
+      "repo_path": "results/frozen/reports/transform_ood.json",
+      "sha256": "77e6c369fcf5aebfc59cf472caa11b48767c2cb7ed78e0e7fcc2d6f77bcc60ef"
+    },
+    "independent_renderer_report": {
+      "bytes": 483690,
+      "repo_path": "results/comparisons/independent-renderer-final-100.json",
+      "sha256": "f6135fcc1599a2b2c650cab8f265dc7bca1032e1adfec0a4e73e591d706eeb86"
+    },
+    "safety_audit_report": {
+      "bytes": 7830,
+      "repo_path": "results/comparisons/safety-audit.json",
+      "sha256": "e564e86f7214ca592eae79f76fb43cc15eb62bf23236d536d8a3514945ca598e"
+    },
+    "source_real_imagery_protocol_py": {
+      "bytes": 10195,
+      "repo_path": "real_imagery/protocol.py",
+      "sha256": "13f1cd10c4330e2c57ce9d99f6305b983629a26304dd05c0983f6c30e55998c2"
+    },
+    "source_src_drift_sense_ambiguity_py": {
+      "bytes": 8729,
+      "repo_path": "src/drift_sense/ambiguity.py",
+      "sha256": "78a6ab99d65fa357dbe927521c4ee0fd58f633f018c8a21ea6fa40220544df3e"
+    },
+    "source_src_drift_sense_candidates_py": {
+      "bytes": 1166,
+      "repo_path": "src/drift_sense/candidates.py",
+      "sha256": "af2117dab24990e6e48681c30f5a81962005ab1d76dbf0a754a1400936a5b8b8"
+    },
+    "source_src_drift_sense_correlation_py": {
+      "bytes": 3482,
+      "repo_path": "src/drift_sense/correlation.py",
+      "sha256": "af910ac05c6a1d084d52973697dcba16671e639bf06a8cccd759a00a84930064"
+    },
+    "source_src_drift_sense_localizer_py": {
+      "bytes": 45988,
+      "repo_path": "src/drift_sense/localizer.py",
+      "sha256": "2b1422197219688b4e001ac7494ccff97666683d6327264b0310a20b61d6347e"
+    },
+    "source_src_drift_sense_refine_py": {
+      "bytes": 3346,
+      "repo_path": "src/drift_sense/refine.py",
+      "sha256": "d0cecd41b492cd2bf7786d924de6bcdaf689d7f4507c98cfac7d60bdc4e51662"
+    },
+    "source_src_drift_sense_representations_py": {
+      "bytes": 12985,
+      "repo_path": "src/drift_sense/representations.py",
+      "sha256": "fe83f2ad1075bbf56f2d545efc0fbcaafae0f76ef5be242693923798b163ce2d"
+    },
+    "source_src_drift_sense_spectral_py": {
+      "bytes": 3719,
+      "repo_path": "src/drift_sense/spectral.py",
+      "sha256": "a61def3dc4b85fb284c2449363312afc6bf77ce50369b2bc87440463a1abc4c0"
+    },
+    "source_src_metralign_cli_py": {
+      "bytes": 4401,
+      "repo_path": "src/metralign/cli.py",
+      "sha256": "f7948b45b0f7934b16a7ed754e8e95b66f6512b47311f28b21d170dae7ed1be0"
+    },
+    "success_case_manifest": {
+      "bytes": 2586,
+      "repo_path": "results/frozen/cases/success_iid_000002_dram/000002_dram.json",
+      "sha256": "7464fe8d30662fa58c491127303a6b5d12bf9506887b5eafe5112b5b51a83d38"
+    },
+    "success_reference": {
+      "bytes": 714257,
+      "repo_path": "results/frozen/cases/success_iid_000002_dram/000002_dram_reference.png",
+      "sha256": "3258cacee137db2856d5ff3aee5a28a32a2d74b02946b939e807edec2fc4e212"
+    },
+    "success_search": {
+      "bytes": 835425,
+      "repo_path": "results/frozen/cases/success_iid_000002_dram/000002_dram_search.png",
+      "sha256": "f1a09837c6239e36cc195bf196843fa7b89ed44206c167b1a895daa14436a5ce"
+    },
+    "xfeat_frozen_development_report": {
+      "bytes": 1784575,
+      "repo_path": "results/comparisons/xfeat-frozen-all1400-development.json",
+      "sha256": "0014156be44f7db39b43ed2b7c383af13ec03f31f29a037ccfbbe18daedac2d6"
+    }
+  }
+}

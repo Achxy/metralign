@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import re
 import subprocess
 import sys
 
@@ -24,14 +25,31 @@ TERMS = (
     "fixme",
     "your_api_key",
     "api_key",
-    "secret",
-    "token",
-    "password",
+)
+
+# Bare words such as "token" and "secret" are common in parsers, security
+# documentation, and the scanner's own fixtures.  Flag credential-like values
+# and well-known key prefixes instead of treating ordinary prose as leakage.
+SENSITIVE_PATTERNS = (
+    re.compile(r"\b(?:access[_ -]?token|auth[_ -]?token|client[_ -]?secret|password)\s*[:=]\s*['\"][^'$<{][^'\"]{7,}['\"]", re.I),
+    re.compile(r"\b(?:gh[opusr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,})\b"),
+    re.compile(r"\b(?:sk-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16})\b"),
 )
 
 # Exact, non-secret strings required by checked-in infrastructure.
 SAFE_LINES = {
     "id-token: write",
+}
+
+# These exact values are the canonical final-film residue detector itself.
+# The produced film, captions, resolved manifest, and metadata are still
+# scanned; only the authored detector declaration is exempt.
+SAFE_PATH_LINES = {
+    "video/film.yaml": {
+        "- todo",
+        "- fixme",
+        "- placeholder",
+    },
 }
 
 SKIP_DIRECTORIES = {
@@ -58,13 +76,20 @@ def scan_bytes(label: str, content: bytes) -> list[str]:
     except UnicodeDecodeError:
         return []
     findings = []
+    path_safe_lines: set[str] = set()
+    for suffix, values in SAFE_PATH_LINES.items():
+        if label == suffix or label.endswith(f":{suffix}"):
+            path_safe_lines.update(values)
     for line_number, line in enumerate(text.splitlines(), 1):
         lowered = line.casefold()
-        if lowered.strip() in SAFE_LINES:
+        if lowered.strip() in SAFE_LINES or lowered.strip() in path_safe_lines:
             continue
         matched = sorted({term for term in TERMS if term in lowered})
+        matched.extend(
+            "credential-like value" for pattern in SENSITIVE_PATTERNS if pattern.search(line)
+        )
         if matched:
-            findings.append(f"{label}:{line_number}: {', '.join(matched)}")
+            findings.append(f"{label}:{line_number}: {', '.join(sorted(set(matched)))}")
     return findings
 
 

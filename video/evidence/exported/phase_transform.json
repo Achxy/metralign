@@ -1,0 +1,779 @@
+{
+  "clipped_pitch_xy_px": [
+    13.157894736842106,
+    15.124682477334865
+  ],
+  "estimate": {
+    "axis_separable": false,
+    "confidence": 0.9799581777826146,
+    "pitch_x": 13.157894736842106,
+    "pitch_y": 15.124682477334865,
+    "rotation_deg": -0.1863784022685735,
+    "scale": 0.10056356381003614,
+    "x_vector": [
+      0.0760341351917045,
+      -0.004369061557333688
+    ],
+    "y_vector": [
+      -0.0002938604984585733,
+      0.06611709049089479
+    ]
+  },
+  "phase_traces": {
+    "reference_x": {
+      "axis": "x",
+      "carrier_frequency_cycles_per_px": 0.007769183615089973,
+      "confidence": 0.503407766997937,
+      "cross_frequency_cycles_per_px": -0.001765870029980511,
+      "fit_intercept_rad": -5.184228558155352,
+      "fit_slope_rad_per_px": -0.011095288626762323,
+      "frequency_range_cycles_per_px": [
+        0.0033333333333333335,
+        0.022222222222222223
+      ],
+      "kept_count": 731,
+      "phase_rmse_rad": 1.715886918304515,
+      "reciprocal_vector": [
+        0.007769183615089973,
+        -0.001765870029980511
+      ],
+      "sample_count": 1000
+    },
+    "reference_y": {
+      "axis": "y",
+      "carrier_frequency_cycles_per_px": 0.006649031199532319,
+      "confidence": 0.9799581777826146,
+      "cross_frequency_cycles_per_px": -7.922993929266818e-06,
+      "fit_intercept_rad": 0.6552513917333052,
+      "fit_slope_rad_per_px": -4.978163904524233e-05,
+      "frequency_range_cycles_per_px": [
+        0.0033333333333333335,
+        0.022222222222222223
+      ],
+      "kept_count": 730,
+      "phase_rmse_rad": 0.05061345990045064,
+      "reciprocal_vector": [
+        -7.922993929266818e-06,
+        0.006649031199532319
+      ],
+      "sample_count": 1000
+    },
+    "search_x": {
+      "axis": "x",
+      "carrier_frequency_cycles_per_px": 0.0760341351917045,
+      "confidence": 0.18430815792343933,
+      "cross_frequency_cycles_per_px": -0.004369061557333688,
+      "fit_intercept_rad": -4.877979825378242,
+      "fit_slope_rad_per_px": -0.02745162338320219,
+      "frequency_range_cycles_per_px": [
+        0.03333333333333333,
+        0.2222222222222222
+      ],
+      "kept_count": 715,
+      "phase_rmse_rad": 4.227865377289339,
+      "reciprocal_vector": [
+        0.0760341351917045,
+        -0.004369061557333688
+      ],
+      "sample_count": 1000
+    },
+    "search_y": {
+      "axis": "y",
+      "carrier_frequency_cycles_per_px": 0.06611709049089479,
+      "confidence": 0.9925481942711849,
+      "cross_frequency_cycles_per_px": -0.0002938604984585733,
+      "fit_intercept_rad": 0.760895141144849,
+      "fit_slope_rad_per_px": -0.0018463799662753774,
+      "frequency_range_cycles_per_px": [
+        0.03333333333333333,
+        0.2222222222222222
+      ],
+      "kept_count": 716,
+      "phase_rmse_rad": 0.01869927285020814,
+      "reciprocal_vector": [
+        -0.0002938604984585733,
+        0.06611709049089479
+      ],
+      "sample_count": 1000
+    }
+  },
+  "reciprocal_peak_pixel_derivation": "FFT-shifted pixel x = width/2 + fx*width and y = height/2 + fy*height; conjugate uses -fx,-fy.",
+  "reciprocal_peaks": {
+    "reference": [
+      {
+        "conjugate_pixel_xy": [
+          477.0,
+          490.0
+        ],
+        "fx": 0.023,
+        "fy": 0.01,
+        "power": 20.792760848999023,
+        "representative_pixel_xy": [
+          523.0,
+          510.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          523.0,
+          490.0
+        ],
+        "fx": -0.023,
+        "fy": 0.01,
+        "power": 20.673742294311523,
+        "representative_pixel_xy": [
+          477.0,
+          510.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          485.0,
+          480.0
+        ],
+        "fx": 0.015,
+        "fy": 0.02,
+        "power": 20.6584415435791,
+        "representative_pixel_xy": [
+          515.0,
+          520.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          515.0,
+          480.0
+        ],
+        "fx": -0.015,
+        "fy": 0.02,
+        "power": 20.430728912353516,
+        "representative_pixel_xy": [
+          485.0,
+          520.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          500.0,
+          473.0
+        ],
+        "fx": 0.0,
+        "fy": 0.027,
+        "power": 19.849525451660156,
+        "representative_pixel_xy": [
+          500.0,
+          527.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          485.0,
+          467.0
+        ],
+        "fx": 0.015,
+        "fy": 0.033,
+        "power": 19.584203720092773,
+        "representative_pixel_xy": [
+          515.0,
+          533.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          500.0,
+          467.0
+        ],
+        "fx": 0.0,
+        "fy": 0.033,
+        "power": 19.50297737121582,
+        "representative_pixel_xy": [
+          500.0,
+          533.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          469.0,
+          480.0
+        ],
+        "fx": 0.031,
+        "fy": 0.02,
+        "power": 19.48968505859375,
+        "representative_pixel_xy": [
+          531.0,
+          520.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          477.0,
+          470.0
+        ],
+        "fx": 0.023,
+        "fy": 0.03,
+        "power": 19.426931381225586,
+        "representative_pixel_xy": [
+          523.0,
+          530.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          469.0,
+          487.0
+        ],
+        "fx": 0.031,
+        "fy": 0.013000000000000001,
+        "power": 19.41020965576172,
+        "representative_pixel_xy": [
+          531.0,
+          513.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          531.0,
+          480.0
+        ],
+        "fx": -0.031,
+        "fy": 0.02,
+        "power": 19.390493392944336,
+        "representative_pixel_xy": [
+          469.0,
+          520.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          477.0,
+          477.0
+        ],
+        "fx": 0.023,
+        "fy": 0.023,
+        "power": 19.357603073120117,
+        "representative_pixel_xy": [
+          523.0,
+          523.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          508.0,
+          463.0
+        ],
+        "fx": -0.008,
+        "fy": 0.037,
+        "power": 19.246614456176758,
+        "representative_pixel_xy": [
+          492.0,
+          537.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          531.0,
+          487.0
+        ],
+        "fx": -0.031,
+        "fy": 0.013000000000000001,
+        "power": 19.24435806274414,
+        "representative_pixel_xy": [
+          469.0,
+          513.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          516.0,
+          467.0
+        ],
+        "fx": -0.016,
+        "fy": 0.033,
+        "power": 19.207679748535156,
+        "representative_pixel_xy": [
+          484.0,
+          533.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          523.0,
+          470.0
+        ],
+        "fx": -0.023,
+        "fy": 0.03,
+        "power": 19.178119659423828,
+        "representative_pixel_xy": [
+          477.0,
+          530.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          492.0,
+          463.0
+        ],
+        "fx": 0.008,
+        "fy": 0.037,
+        "power": 19.05253791809082,
+        "representative_pixel_xy": [
+          508.0,
+          537.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          523.0,
+          477.0
+        ],
+        "fx": -0.023,
+        "fy": 0.023,
+        "power": 19.017702102661133,
+        "representative_pixel_xy": [
+          477.0,
+          523.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          531.0,
+          493.0
+        ],
+        "fx": -0.031,
+        "fy": 0.007,
+        "power": 18.649446487426758,
+        "representative_pixel_xy": [
+          469.0,
+          507.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          462.0,
+          497.0
+        ],
+        "fx": 0.038,
+        "fy": 0.003,
+        "power": 18.447128295898438,
+        "representative_pixel_xy": [
+          538.0,
+          503.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          477.0,
+          457.0
+        ],
+        "fx": 0.023,
+        "fy": 0.043000000000000003,
+        "power": 18.39565658569336,
+        "representative_pixel_xy": [
+          523.0,
+          543.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          500.0,
+          460.0
+        ],
+        "fx": 0.0,
+        "fy": 0.04,
+        "power": 18.336877822875977,
+        "representative_pixel_xy": [
+          500.0,
+          540.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          469.0,
+          494.0
+        ],
+        "fx": 0.031,
+        "fy": 0.006,
+        "power": 18.286609649658203,
+        "representative_pixel_xy": [
+          531.0,
+          506.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          539.0,
+          497.0
+        ],
+        "fx": -0.039,
+        "fy": 0.003,
+        "power": 18.26300811767578,
+        "representative_pixel_xy": [
+          461.0,
+          503.0
+        ],
+        "symmetry": 1.0
+      }
+    ],
+    "search": [
+      {
+        "conjugate_pixel_xy": [
+          500.0,
+          434.0
+        ],
+        "fx": 0.0,
+        "fy": 0.066,
+        "power": 24.60215950012207,
+        "representative_pixel_xy": [
+          500.0,
+          566.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          576.0,
+          467.0
+        ],
+        "fx": -0.076,
+        "fy": 0.033,
+        "power": 23.690532684326172,
+        "representative_pixel_xy": [
+          424.0,
+          533.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          424.0,
+          467.0
+        ],
+        "fx": 0.076,
+        "fy": 0.033,
+        "power": 23.616954803466797,
+        "representative_pixel_xy": [
+          576.0,
+          533.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          424.0,
+          500.0
+        ],
+        "fx": 0.076,
+        "fy": 0.0,
+        "power": 21.383541107177734,
+        "representative_pixel_xy": [
+          576.0,
+          500.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          576.0,
+          401.0
+        ],
+        "fx": -0.076,
+        "fy": 0.099,
+        "power": 21.34004020690918,
+        "representative_pixel_xy": [
+          424.0,
+          599.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          424.0,
+          400.0
+        ],
+        "fx": 0.076,
+        "fy": 0.1,
+        "power": 21.171953201293945,
+        "representative_pixel_xy": [
+          576.0,
+          600.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          501.0,
+          368.0
+        ],
+        "fx": -0.001,
+        "fy": 0.132,
+        "power": 20.75143051147461,
+        "representative_pixel_xy": [
+          499.0,
+          632.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          501.0,
+          302.0
+        ],
+        "fx": -0.001,
+        "fy": 0.198,
+        "power": 20.254833221435547,
+        "representative_pixel_xy": [
+          499.0,
+          698.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          349.0,
+          367.0
+        ],
+        "fx": 0.151,
+        "fy": 0.133,
+        "power": 20.087982177734375,
+        "representative_pixel_xy": [
+          651.0,
+          633.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          653.0,
+          368.0
+        ],
+        "fx": -0.153,
+        "fy": 0.132,
+        "power": 19.92334747314453,
+        "representative_pixel_xy": [
+          347.0,
+          632.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          577.0,
+          335.0
+        ],
+        "fx": -0.077,
+        "fy": 0.165,
+        "power": 19.91691017150879,
+        "representative_pixel_xy": [
+          423.0,
+          665.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          272.0,
+          466.0
+        ],
+        "fx": 0.228,
+        "fy": 0.034,
+        "power": 19.89151382446289,
+        "representative_pixel_xy": [
+          728.0,
+          534.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          728.0,
+          468.0
+        ],
+        "fx": -0.228,
+        "fy": 0.032,
+        "power": 19.84658432006836,
+        "representative_pixel_xy": [
+          272.0,
+          532.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          425.0,
+          334.0
+        ],
+        "fx": 0.075,
+        "fy": 0.166,
+        "power": 19.694976806640625,
+        "representative_pixel_xy": [
+          575.0,
+          666.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          348.0,
+          433.0
+        ],
+        "fx": 0.152,
+        "fy": 0.067,
+        "power": 18.289094924926758,
+        "representative_pixel_xy": [
+          652.0,
+          567.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          652.0,
+          435.0
+        ],
+        "fx": -0.152,
+        "fy": 0.065,
+        "power": 18.080127716064453,
+        "representative_pixel_xy": [
+          348.0,
+          565.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          500.0,
+          467.0
+        ],
+        "fx": 0.0,
+        "fy": 0.033,
+        "power": 17.42113494873047,
+        "representative_pixel_xy": [
+          500.0,
+          533.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          576.0,
+          434.0
+        ],
+        "fx": -0.076,
+        "fy": 0.066,
+        "power": 16.82902717590332,
+        "representative_pixel_xy": [
+          424.0,
+          566.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          348.0,
+          499.0
+        ],
+        "fx": 0.152,
+        "fy": 0.001,
+        "power": 16.626056671142578,
+        "representative_pixel_xy": [
+          652.0,
+          501.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          500.0,
+          401.0
+        ],
+        "fx": 0.0,
+        "fy": 0.099,
+        "power": 16.43770980834961,
+        "representative_pixel_xy": [
+          500.0,
+          599.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          424.0,
+          433.0
+        ],
+        "fx": 0.076,
+        "fy": 0.067,
+        "power": 16.43453025817871,
+        "representative_pixel_xy": [
+          576.0,
+          567.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          652.0,
+          468.0
+        ],
+        "fx": -0.152,
+        "fy": 0.032,
+        "power": 16.317419052124023,
+        "representative_pixel_xy": [
+          348.0,
+          532.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          348.0,
+          466.0
+        ],
+        "fx": 0.152,
+        "fy": 0.034,
+        "power": 16.258211135864258,
+        "representative_pixel_xy": [
+          652.0,
+          534.0
+        ],
+        "symmetry": 1.0
+      },
+      {
+        "conjugate_pixel_xy": [
+          424.0,
+          483.0
+        ],
+        "fx": 0.076,
+        "fy": 0.017,
+        "power": 15.724564552307129,
+        "representative_pixel_xy": [
+          576.0,
+          517.0
+        ],
+        "symmetry": 1.0
+      }
+    ]
+  }
+}
