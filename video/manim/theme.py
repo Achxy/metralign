@@ -10,16 +10,16 @@ from pathlib import Path
 
 @dataclass(frozen=True)
 class FilmTheme:
-    background: str = "#090909"
-    black_secondary: str = "#141414"
-    graphite: str = "#222222"
-    primary_text: str = "#F1F0EC"
-    muted_text: str = "#9A9994"
-    rule: str = "#343434"
-    prediction: str = "#D65A3A"
-    ground_truth: str = "#7EA6C9"
-    display_font: str = "DIN Condensed"
-    body_font: str = "Arial"
+    background: str = "#0B0B0E"
+    black_secondary: str = "#15151A"
+    graphite: str = "#23242A"
+    primary_text: str = "#F3F1EB"
+    muted_text: str = "#AAA8A2"
+    rule: str = "#34353D"
+    prediction: str = "#E36A45"
+    ground_truth: str = "#67A9CE"
+    display_font: str = "Avenir Next"
+    body_font: str = "Avenir Next"
     mono_font: str = "Menlo"
 
 

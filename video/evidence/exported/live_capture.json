@@ -1,13 +1,14 @@
 {
-  "command": "PYTHONPATH=src python -m metralign --reference results/frozen/cases/success_iid_000002_dram/000002_dram_reference.png --search results/frozen/cases/success_iid_000002_dram/000002_dram_search.png --diagnostics",
-  "cwd": "<repository-root>",
-  "cwd_redaction": "absolute repository path replaced with <repository-root>",
+  "command": "PYTHONPATH=src python -m metralign --reference reference.png --search search.png --diagnostics",
+  "cwd": "<temporary-input-directory>",
+  "cwd_redaction": "ephemeral input directory replaced with <temporary-input-directory>",
   "environment": {
     "PYTHONPATH": "src"
   },
   "interpreter_redaction": "absolute sys.executable replaced with python",
   "return_code": 0,
   "sanitization": [
+    "exact source-byte copies renamed reference.png and search.png for presentation",
     "diagnostics.runtime_ms removed because it is nondeterministic wall time"
   ],
   "stderr_sanitized_file": "live_stderr_sanitized.json",

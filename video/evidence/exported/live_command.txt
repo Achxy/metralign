@@ -1,1 +1,1 @@
-PYTHONPATH=src python -m metralign --reference results/frozen/cases/success_iid_000002_dram/000002_dram_reference.png --search results/frozen/cases/success_iid_000002_dram/000002_dram_search.png --diagnostics
+PYTHONPATH=src python -m metralign --reference reference.png --search search.png --diagnostics

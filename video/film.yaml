@@ -38,17 +38,17 @@ film:
 
 theme:
   colors:
-    background: "#090909"
-    black_secondary: "#141414"
-    graphite: "#222222"
-    primary_text: "#F1F0EC"
-    muted_text: "#9A9994"
-    rule: "#343434"
-    prediction: "#D65A3A"
-    ground_truth: "#7EA6C9"
+    background: "#0B0B0E"
+    black_secondary: "#15151A"
+    graphite: "#23242A"
+    primary_text: "#F3F1EB"
+    muted_text: "#AAA8A2"
+    rule: "#34353D"
+    prediction: "#E36A45"
+    ground_truth: "#67A9CE"
   fonts:
-    display: DIN Condensed
-    body: Arial
+    display: Avenir Next
+    body: Avenir Next
     mono: Menlo
   grid:
     columns: 12
@@ -56,8 +56,8 @@ theme:
     gutter_px: 24
     baseline_px: 24
   typography:
-    display_uppercase: true
-    section_uppercase: true
+    display_uppercase: false
+    section_uppercase: false
     label_tracking: 0.08
   transition_policy:
     default: hard_cut
@@ -309,15 +309,16 @@ claims:
       - source:../src/drift_sense/refine.py
       - source:../docs/method.md
   frozen_accuracy:
-    text_template: "{frozen_within_1px_count} of {frozen_pair_count} sealed synthetic predictions were within {frozen_primary_threshold_px} pixel."
+    text_template: "{frozen_within_1px_count} of {frozen_pair_count} test predictions were within {frozen_primary_threshold_px} pixel."
     evidence:
       - metric:frozen_within_1px_count
       - metric:frozen_pair_count
       - metric:frozen_primary_threshold_px
       - source:../results/frozen/ARTIFACTS.md
   external_comparison_scope:
-    text: External registration rows use fixed preregistered protocols on the same sealed bytes and are task-specific development controls, not universal or state-of-the-art claims.
+    text_template: "External registration rows use fixed preregistered protocols on the same {frozen_pair_count} pairs and are task-specific development comparisons, not universal or state-of-the-art claims."
     evidence:
+      - metric:frozen_pair_count
       - source:../results/comparisons/external-registration-frozen.json
       - source:../results/comparisons/xfeat-frozen-all1400-development.json
       - source:../docs/external-comparison.md
@@ -328,7 +329,7 @@ claims:
       - source:../real_imagery/README.md
       - source:../docs/independent-renderer.md
   failure_scope:
-    text_template: "{frozen_failure_count} sealed FinFET cases returned incorrect absolute locations and were flagged for review."
+    text_template: "{frozen_failure_count} highly repetitive line-array cases returned incorrect absolute locations and were flagged for review."
     evidence:
       - sample:failure_scan
       - metric:frozen_failure_count
@@ -451,7 +452,7 @@ narration:
       post_hold_seconds: 0.4
     - id: 060_refine_b
       scene: refinement
-      text_template: "On this sealed case, the prediction error is {success_iid_error_px} pixels."
+      text_template: "On this benchmark example, the prediction error is {success_iid_error_px} pixels."
       visual_action: move_integer_to_subpixel
       pre_hold_seconds: 0.2
       post_hold_seconds: 0.8
@@ -471,7 +472,7 @@ narration:
 
     - id: 080_results_a
       scene: evaluation
-      text_template: "The sealed report contains {frozen_pair_count} synthetic pairs across {frozen_suite_count} fixed stress suites."
+      text_template: "The frozen test set contains {frozen_pair_count} synthetic pairs across {frozen_suite_count} fixed stress conditions."
       visual_action: reveal_suite_distribution
       pre_hold_seconds: 0.5
       post_hold_seconds: 0.4
@@ -495,7 +496,7 @@ narration:
       post_hold_seconds: 0.8
     - id: 080_results_e
       scene: evaluation
-      text_template: "A separate official XFeat control returned {xfeat_within_5px_count} locations within {xfeat_success_threshold_px} pixels. This retrospective task-mismatch check is not a verdict on its intended benchmarks."
+      text_template: "A separate official XFeat comparison returned {xfeat_within_5px_count} locations within {xfeat_success_threshold_px} pixels. Because it uses different task assumptions, this is not a verdict on its intended benchmarks."
       visual_action: hold_modern_task_mismatch_scope
       pre_hold_seconds: 0.2
       post_hold_seconds: 0.8
@@ -508,14 +509,14 @@ narration:
       post_hold_seconds: 0.4
     - id: 090_transfer_b
       scene: transfer
-      text: Their protocols, fallback counts, licenses, and ground-truth limits remain separate from the sealed result.
+      text: Their protocols, compatibility paths, licenses, and ground-truth limits remain separate from the main benchmark result.
       visual_action: reveal_scope_labels
       pre_hold_seconds: 0.2
       post_hold_seconds: 0.8
 
     - id: 100_failure_a
       scene: failure
-      text_template: "The sealed report contains {frozen_failure_count} large FinFET errors; each was flagged ambiguous."
+      text_template: "The frozen test set contains {frozen_failure_count} large errors in highly repetitive line-array cases; both were flagged ambiguous."
       visual_action: reveal_real_failure
       pre_hold_seconds: 0.5
       post_hold_seconds: 0.4
@@ -610,7 +611,7 @@ scenes:
   - id: evaluation
     order: 80
     class: EvaluationScene
-    title: SEALED EVALUATION
+    title: EVALUATION
     narration: [080_results_a, 080_results_b, 080_results_c, 080_results_d, 080_results_e]
     assets: [exported_evidence_index]
     evidence: [claim:frozen_accuracy, claim:external_comparison_scope, metric:frozen_median_error_px, metric:frozen_p95_error_px, metric:frozen_mean_runtime_ms, metric:frozen_outside_1px_count, metric:classic_adapter_count, metric:classic_best_name, metric:classic_best_within_1px_rate, metric:xfeat_within_5px_count, metric:xfeat_success_threshold_px]
@@ -618,7 +619,7 @@ scenes:
   - id: transfer
     order: 90
     class: TransferScene
-    title: SEPARATE TRANSFER CHECKS
+    title: TRANSFER CHECKS
     narration: [090_transfer_a, 090_transfer_b]
     assets: [real_microscopy_plate, independent_renderer_plate]
     evidence: [claim:transfer_scope, metric:independent_within_1px_count, metric:sem_digital_within_1px_count, metric:carinthia_within_1px_count, metric:carinthia_fallback_count, metric:registered_tem_within_1px_count, metric:registered_tem_fallback_count]
@@ -626,7 +627,7 @@ scenes:
   - id: failure
     order: 100
     class: FailureScene
-    title: KNOWN FAILURE / PERIODIC AMBIGUITY
+    title: WHEN ABSOLUTE SITE IS AMBIGUOUS
     narration: [100_failure_a, 100_failure_b]
     assets: [frozen_failure_reference, frozen_failure_search, exported_evidence_index]
     evidence: [claim:failure_scope, sample:failure_scan]

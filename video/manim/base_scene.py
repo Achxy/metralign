@@ -5,15 +5,16 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, Sequence
 
-from manim import Scene, config
+from manim import MovingCameraScene, config
+from manim.utils.rate_functions import ease_in_out_cubic, ease_out_quart
 
 from video.manim.evidence import REPO_ROOT, load_json, metric_value, resolve_repo_path, sample_value
 from video.manim.theme import THEME
 
 
-class FilmScene(Scene):
+class FilmScene(MovingCameraScene):
     scene_id = ""
 
     def setup(self) -> None:
@@ -64,7 +65,13 @@ class FilmScene(Scene):
         duration = float(record["audio_duration_seconds"])
         return max(0.28, duration * fraction)
 
-    def cue(self, segment_id: str, animations: Iterable = ()) -> None:
+    def cue(
+        self,
+        segment_id: str,
+        animations: Iterable = (),
+        *,
+        run_time: float | None = None,
+    ) -> None:
         record = self.segment(segment_id)
         pre = float(record["pre_hold_seconds"])
         post = float(record["post_hold_seconds"])
@@ -73,12 +80,51 @@ class FilmScene(Scene):
             self.wait(pre)
         animation_list = list(animations)
         if animation_list:
-            run_time = min(max(0.28, audio * 0.58), max(audio, 0.28))
-            self.play(*animation_list, run_time=run_time)
-            if audio > run_time:
-                self.wait(audio - run_time)
+            animation_time = min(run_time if run_time is not None else 0.48, audio)
+            self.play(
+                *animation_list,
+                run_time=animation_time,
+                rate_func=ease_out_quart,
+            )
+            if audio > animation_time:
+                self.wait(audio - animation_time)
         elif audio:
             self.wait(audio)
+        if post:
+            self.wait(post)
+        if segment_id != self.resolved["timeline"]["segments"][-1]["id"]:
+            self.wait(float(self.resolved["timeline"].get("inter_segment_gap_seconds", 0.0)))
+
+    def cue_sequence(
+        self,
+        segment_id: str,
+        steps: Sequence[tuple[Iterable, float]],
+    ) -> None:
+        """Play a short semantic sequence while preserving the bound cue time."""
+
+        record = self.segment(segment_id)
+        pre = float(record["pre_hold_seconds"])
+        post = float(record["post_hold_seconds"])
+        audio = float(record["audio_duration_seconds"])
+        if pre:
+            self.wait(pre)
+        consumed = 0.0
+        for animations, seconds in steps:
+            duration = min(float(seconds), max(0.0, audio - consumed))
+            if duration <= 0:
+                break
+            animation_list = list(animations)
+            if animation_list:
+                self.play(
+                    *animation_list,
+                    run_time=duration,
+                    rate_func=ease_in_out_cubic,
+                )
+            else:
+                self.wait(duration)
+            consumed += duration
+        if audio > consumed:
+            self.wait(audio - consumed)
         if post:
             self.wait(post)
         if segment_id != self.resolved["timeline"]["segments"][-1]["id"]:

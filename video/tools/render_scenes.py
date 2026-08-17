@@ -177,6 +177,18 @@ def render_scenes(
     rendered: list[dict[str, Any]] = []
     env = dict(os.environ)
     env["PYTHONPATH"] = f"{REPO_ROOT}:{REPO_ROOT / 'src'}"
+    homebrew_texlive_share = Path("/opt/homebrew/opt/texlive/share")
+    if homebrew_texlive_share.is_dir():
+        homebrew_bin = Path("/opt/homebrew/bin")
+        if homebrew_bin.is_dir():
+            env["PATH"] = f"{homebrew_bin}:{env.get('PATH', '')}"
+        env.setdefault(
+            "TEXMFCNF",
+            str(homebrew_texlive_share / "texmf-dist" / "web2c"),
+        )
+        env.setdefault("TEXMFROOT", str(homebrew_texlive_share))
+        env.setdefault("TEXMFDIST", str(homebrew_texlive_share / "texmf-dist"))
+        env.setdefault("TEXMFLOCAL", str(homebrew_texlive_share / "texmf-local"))
     env["METRALIGN_RESOLVED_FILM"] = str(resolved_file.resolve())
 
     for scene in resolved["timeline"]["scenes"]:
@@ -227,7 +239,7 @@ def render_scenes(
             "-o",
             output_name,
         ]
-        if profile == "final":
+        if profile == "final" or force:
             command.append("--disable_caching")
         command.extend([str(SCENE_SOURCE), str(scene["class"])])
         print(f"render {scene_id} [{profile}] {scene_hash[:12]}")

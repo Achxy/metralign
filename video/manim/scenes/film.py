@@ -1,33 +1,58 @@
-"""Twelve independently renderable shots for the Metralign technical film."""
+"""Twelve evidence-bound explanatory scenes for the Metralign film."""
 
 from __future__ import annotations
 
 import csv
 import math
 
+import numpy as np
 from manim import (
-    Axes,
     DOWN,
     LEFT,
+    ORIGIN,
     RIGHT,
     UP,
+    AnimationGroup,
+    Arrow,
+    Axes,
+    Circle,
+    Circumscribe,
     Create,
+    DashedLine,
     Dot,
     FadeIn,
     FadeOut,
+    FadeTransform,
+    Group,
+    GrowFromCenter,
+    Indicate,
+    LaggedStart,
     Line,
+    ManimColor,
     Rectangle,
     ReplacementTransform,
+    Restore,
+    ShowIncreasingSubsets,
+    Square,
     Transform,
+    TransformFromCopy,
+    TransformMatchingTex,
     VGroup,
+    Write,
+    interpolate_color,
 )
 
+from drift_sense.candidates import top_k_candidates
 from video.manim.base_scene import FilmScene
+from video.manim.charts import comparison_bars, empirical_cdf, suite_dot_rows
 from video.manim.components import (
+    crop_image,
+    equation,
     fit_image,
+    framed_image,
     image_panel,
     label,
-    metric_block,
+    metric_statement,
     registration_cross,
     scope_note,
     section_header,
@@ -37,6 +62,12 @@ from video.manim.coordinates import ImageCoordinateMap
 from video.manim.evidence import load_json
 from video.manim.grid import GRID
 from video.manim.theme import THEME
+
+
+BODY_TOP = 2.42
+BODY_BOTTOM = -2.55
+BODY_CENTER = (BODY_TOP + BODY_BOTTOM) / 2
+BODY_HEIGHT = BODY_TOP - BODY_BOTTOM
 
 
 def _float(value, digits: int = 3) -> str:
@@ -52,29 +83,15 @@ def _panel_image(panel):
     return panel[0]
 
 
-def _case_id(sample: dict) -> str:
-    value = sample.get("id") or sample.get("case_id")
-    return str(value).upper() if value else "BOUND CASE"
-
-
-def synthetic_case_stamp(sample: dict) -> VGroup:
-    """Small, persistent scope disclosure for the synthetic method trace."""
-
-    architecture = str(sample.get("architecture", "")).upper() or "ARCHITECTURE"
-    stamp = label(
-        f"SEALED SYNTHETIC · {architecture} · {_case_id(sample)}",
-        size=12,
-    )
-    stamp.move_to(
-        [GRID.right - stamp.width / 2, GRID.top - 0.16, 0]
-    )
-    return VGroup(stamp)
+def image_mapper(image) -> ImageCoordinateMap:
+    height, width = image.pixel_array.shape[:2]
+    return ImageCoordinateMap.from_mobject(image, width, height)
 
 
 def phase_drift_panel(reference_path, search_path) -> VGroup:
-    """Plot the measured Y-carrier phase samples and fitted drift lines."""
+    """Vector plot of the measured selected-Y phase traces."""
 
-    def read_rows(path):
+    def rows(path):
         with path.open(newline="", encoding="utf-8") as handle:
             return [
                 {
@@ -86,84 +103,67 @@ def phase_drift_panel(reference_path, search_path) -> VGroup:
                 for row in csv.DictReader(handle)
             ]
 
-    reference = read_rows(reference_path)
-    search = read_rows(search_path)
+    reference = rows(reference_path)
+    search = rows(search_path)
     all_rows = reference + search
     x_min = min(row["x"] for row in all_rows)
     x_max = max(row["x"] for row in all_rows)
-    used_phases = [row["phase"] for row in all_rows if row["used"]]
-    y_min = math.floor(min(used_phases) * 2.0) / 2.0
-    y_max = math.ceil(max(used_phases) * 2.0) / 2.0
-
+    phases = [row["phase"] for row in all_rows if row["used"]]
+    y_min = math.floor(min(phases) * 2.0) / 2.0
+    y_max = math.ceil(max(phases) * 2.0) / 2.0
     axes = Axes(
         x_range=[x_min, x_max, x_max - x_min],
         y_range=[y_min, y_max, 0.5],
-        x_length=3.18,
-        y_length=2.42,
+        x_length=6.15,
+        y_length=3.65,
         tips=False,
-        axis_config={"color": THEME.rule, "stroke_width": 1.0},
+        axis_config={"color": THEME.rule, "stroke_width": 1.2},
     )
 
-    def measured_points(rows, color):
-        used = [row for row in rows if row["used"]]
-        stride = max(1, len(used) // 100)
+    def dots(source, color):
+        used = [row for row in source if row["used"]]
+        stride = max(1, len(used) // 150)
         return VGroup(
             *[
                 Dot(
                     axes.c2p(row["x"], row["phase"]),
-                    radius=0.010,
+                    radius=0.014,
                     color=color,
-                    fill_opacity=0.48,
+                    fill_opacity=0.5,
                     stroke_width=0,
                 )
                 for row in used[::stride]
             ]
         )
 
-    def fit_line(rows, color):
+    def fit(source, color):
         return Line(
-            axes.c2p(rows[0]["x"], rows[0]["fit"]),
-            axes.c2p(rows[-1]["x"], rows[-1]["fit"]),
+            axes.c2p(source[0]["x"], source[0]["fit"]),
+            axes.c2p(source[-1]["x"], source[-1]["fit"]),
             color=color,
-            stroke_width=2.1,
+            stroke_width=3,
         )
 
-    reference_points = measured_points(reference, THEME.ground_truth)
-    search_points = measured_points(search, THEME.prediction)
-    reference_fit = fit_line(reference, THEME.ground_truth)
-    search_fit = fit_line(search, THEME.prediction)
-    reference_label = label("REFERENCE", size=11, color=THEME.ground_truth)
-    search_label = label("SEARCH", size=11, color=THEME.prediction)
-    reference_at = reference[int(0.68 * (len(reference) - 1))]
-    search_at = search[int(0.68 * (len(search) - 1))]
-    reference_label.next_to(
-        axes.c2p(reference_at["x"], reference_at["fit"]), UP, buff=0.06
-    )
-    search_label.next_to(
-        axes.c2p(search_at["x"], search_at["fit"]), DOWN, buff=0.06
-    )
-    x_label = label("SCAN COORDINATE / PX", size=10)
-    x_label.next_to(axes, DOWN, buff=0.09)
-    title = label("Y-CARRIER PHASE DRIFT", size=15)
-    title.next_to(axes, UP, buff=0.12).align_to(axes, LEFT)
-    border = Rectangle(
-        width=3.55,
-        height=3.28,
-        color=THEME.rule,
-        stroke_width=1.0,
-        fill_opacity=0.0,
-    ).move_to(axes)
+    title = text("Measured Y-carrier phase drift", size=24, weight="SEMIBOLD")
+    title.next_to(axes, UP, buff=0.2).align_to(axes, LEFT)
+    x_label = label("Scan coordinate / px", size=16)
+    x_label.next_to(axes, DOWN, buff=0.12)
+    legend = VGroup(
+        Dot(radius=0.035, color=THEME.ground_truth),
+        label("reference", size=15, color=THEME.ground_truth),
+        Dot(radius=0.035, color=THEME.prediction),
+        label("search", size=15, color=THEME.prediction),
+    ).arrange(RIGHT, buff=0.14)
+    legend.next_to(axes, UP, buff=0.22).align_to(axes, RIGHT)
     return VGroup(
         axes,
-        reference_points,
-        search_points,
-        reference_fit,
-        search_fit,
-        reference_label,
-        search_label,
-        x_label,
+        dots(reference, THEME.ground_truth),
+        dots(search, THEME.prediction),
+        fit(reference, THEME.ground_truth),
+        fit(search, THEME.prediction),
         title,
-        border,
+        x_label,
+        legend,
     )
 
 
@@ -172,58 +172,58 @@ class OpenScene(FilmScene):
 
     def construct(self) -> None:
         project = self.resolved["project"]
-        success = self.sample("success_iid")
-        plate = fit_image(self.asset("frozen_success_search"), 5.7, 6.65)
-        plate.move_to(GRID.center(7, 12, -0.08))
-        plate.set_opacity(0.86)
-        plate_rule = Rectangle(
-            width=plate.width,
-            height=plate.height,
-            color=THEME.rule,
-            stroke_width=1,
-        ).move_to(plate)
-        plate_scope = label(
-            f"SEALED SYNTHETIC · {str(success['architecture']).upper()} · {_case_id(success)}",
-            size=12,
-        )
-        plate_scope.next_to(plate, UP, buff=0.12).align_to(plate, LEFT)
-
-        mark = fit_image(self.asset("metralign_mark"), 1.18, 1.18)
-        mark.move_to(GRID.center(0, 2, 1.78))
-        title = text(project["name"].upper(), size=86, font=THEME.display_font, weight="BOLD")
-        title.move_to(GRID.center(0, 7, 0.56)).align_to([GRID.left, 0, 0], LEFT)
+        sample = self.sample("success_iid")
+        search = fit_image(self.asset("frozen_success_search"), 7.1, 7.1)
+        search.move_to([3.62, 0.05, 0]).set_opacity(0.56)
+        mapper = image_mapper(search)
+        gt = _xy(sample, "ground_truth")
+        scale = float(sample["diagnostics"]["selected_scale"])
+        roi = Rectangle(
+            width=search.width * scale,
+            height=search.height * scale,
+            color=THEME.ground_truth,
+            stroke_width=2.6,
+        ).move_to(mapper.point(*gt))
+        reference = fit_image(self.asset("frozen_success_reference"), 2.45, 2.45)
+        reference.move_to([-4.83, -1.05, 0])
+        reference_border = Rectangle(
+            width=reference.width,
+            height=reference.height,
+            color=THEME.ground_truth,
+            stroke_width=2.0,
+        ).move_to(reference)
+        mark = fit_image(self.asset("metralign_mark"), 0.72, 0.72)
+        mark.move_to([-5.68, 2.92, 0])
+        title = text(project["name"], size=68, weight="SEMIBOLD")
+        title.move_to([-4.48, 2.05, 0]).align_to(reference, LEFT)
         subtitle = text(
-            project["technical_title"].replace(" under ", "\nunder "),
-            size=31,
+            "Absolute-site localization\nunder periodic ambiguity",
+            size=30,
             color=THEME.primary_text,
+            line_spacing=0.92,
         )
-        subtitle.move_to(GRID.center(0, 7, -0.65)).align_to(title, LEFT)
+        subtitle.next_to(title, DOWN, buff=0.34).align_to(title, LEFT)
+        scope = text(
+            "Synthetic benchmark example",
+            size=18,
+            color=THEME.muted_text,
+        )
+        scope.next_to(reference, DOWN, buff=0.28).align_to(reference, LEFT)
         event = label(
             f"{project['event']} · {project['submission_context']}",
-            size=16,
+            size=15,
         )
-        event.move_to(GRID.center(0, 7, -2.25)).align_to(title, LEFT)
-        method = label("DETERMINISTIC · TRAINING-FREE · CPU-ONLY", size=15)
-        method.next_to(event, DOWN, buff=0.18).align_to(event, LEFT)
-        edge_rule = Line(
-            [GRID.col(7) - 0.18, GRID.top, 0],
-            [GRID.col(7) - 0.18, GRID.bottom, 0],
-            color=THEME.rule,
-            stroke_width=1,
-        )
+        event.move_to([GRID.left + event.width / 2, -3.05, 0])
 
-        self.cue(
+        self.cue_sequence(
             "000_open_a",
             [
-                FadeIn(plate),
-                Create(plate_rule),
-                Create(edge_rule),
-                FadeIn(plate_scope),
-                FadeIn(mark),
-                FadeIn(title),
+                ([FadeIn(search), FadeIn(reference), Create(reference_border)], 0.45),
+                ([TransformFromCopy(reference_border, roi)], 0.75),
+                ([FadeIn(mark), Write(title)], 0.65),
             ],
         )
-        self.cue("000_open_b", [FadeIn(subtitle), FadeIn(event), FadeIn(method)])
+        self.cue("000_open_b", [FadeIn(subtitle), FadeIn(scope), FadeIn(event)], run_time=0.35)
         self.pad_to_resolved_duration()
 
 
@@ -231,58 +231,52 @@ class ProblemScene(FilmScene):
     scene_id = "problem"
 
     def construct(self) -> None:
-        success = self.sample("success_iid")
-        header = VGroup(
-            section_header("01", self.scene_record["title"]),
-            synthetic_case_stamp(success),
+        sample = self.sample("success_iid")
+        self.add(section_header("01", self.scene_record["title"]))
+        reference = fit_image(self.asset("frozen_success_reference"), 2.75, 2.75)
+        search = fit_image(self.asset("frozen_success_search"), 5.05, 5.05)
+        reference.move_to([-4.55, 0.20, 0])
+        search.move_to([2.55, -0.05, 0])
+        reference_caption = text("Fine reference field", size=22)
+        reference_caption.next_to(reference, DOWN, buff=0.18).align_to(reference, LEFT)
+        search_caption = text("Wider periodic search", size=22)
+        search_caption.next_to(search, DOWN, buff=0.18).align_to(search, LEFT)
+        mapper = image_mapper(search)
+        candidates = load_json(self.exported("candidates.json"))["candidates"][:14]
+        markers = VGroup(
+            *[
+                Circle(
+                    radius=0.055,
+                    color=THEME.muted_text,
+                    stroke_width=1.35,
+                    fill_opacity=0,
+                ).move_to(mapper.point(*record["center_xy"]))
+                for record in candidates
+            ]
         )
-        reference = image_panel(
-            self.asset("frozen_success_reference"), width=3.8, height=4.5, panel_label="REFERENCE / FINE FIELD"
-        )
-        search = image_panel(
-            self.asset("frozen_success_search"), width=5.45, height=5.45, panel_label="SEARCH / WIDE FIELD"
-        )
-        reference.move_to(GRID.center(0, 4, -0.22))
-        search.move_to(GRID.center(6, 12, -0.22))
-        search_image = _panel_image(search)
-        gt = _xy(success, "ground_truth")
-        pred = _xy(success, "prediction")
-        pixel_height, pixel_width = search_image.pixel_array.shape[:2]
-        mapper = ImageCoordinateMap.from_mobject(search_image, pixel_width, pixel_height)
-        relative_field_width = float(success["diagnostics"]["selected_scale"])
-        roi = Rectangle(
-            width=search_image.width * relative_field_width,
-            height=search_image.height * relative_field_width,
-            color=THEME.ground_truth,
-            stroke_width=2,
-        ).move_to(mapper.point(*gt))
-        physical = label("APPROX. REFERENCE FOV", size=13, color=THEME.ground_truth)
-        physical.next_to(roi, UP, buff=0.1)
-        gt_cross = registration_cross(mapper.point(*gt), color=THEME.ground_truth, size=0.1)
-        pred_cross = registration_cross(mapper.point(*pred), color=THEME.prediction, size=0.14)
-        coordinate = text(
-            f"PRED  ({_float(pred[0])}, {_float(pred[1])}) px",
-            size=21,
-            font=THEME.mono_font,
-            color=THEME.prediction,
-        )
-        coordinate.move_to(GRID.center(6, 12, -3.25))
-        absolute = text("ONE ABSOLUTE COORDINATE", size=35, font=THEME.display_font, weight="BOLD")
-        absolute.set_width(min(absolute.width, GRID.width(0, 5)))
-        absolute.move_to(GRID.center(0, 5, -3.0))
+        gt = _xy(sample, "ground_truth")
+        pred = _xy(sample, "prediction")
+        gt_cross = registration_cross(mapper.point(*gt), color=THEME.ground_truth, size=0.11)
+        pred_cross = registration_cross(mapper.point(*pred), color=THEME.prediction, size=0.16)
+        answer = VGroup(
+            text("One absolute coordinate", size=30, weight="SEMIBOLD"),
+            text(
+                f"({_float(pred[0])}, {_float(pred[1])}) px",
+                size=26,
+                color=THEME.prediction,
+                font=THEME.mono_font,
+            ),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.16)
+        answer.move_to([-4.55, -2.10, 0]).align_to(reference, LEFT)
+        arrow = Arrow(reference.get_right(), search.get_left(), color=THEME.ground_truth, buff=0.28)
 
-        self.add(header)
-        self.cue("010_problem_a", [FadeIn(reference), FadeIn(search), Create(roi), FadeIn(physical)])
-        candidate_overlay = fit_image(self.exported("candidate_overlay.png"), search_image.width, search_image.height)
-        candidate_overlay.move_to(search_image)
+        self.cue("010_problem_a", [FadeIn(reference), FadeIn(search), FadeIn(reference_caption), FadeIn(search_caption), Create(arrow)])
         self.cue(
             "010_problem_b",
-            [FadeOut(roi), FadeOut(physical), FadeIn(candidate_overlay)],
+            [LaggedStart(*[GrowFromCenter(marker) for marker in markers], lag_ratio=0.07)],
+            run_time=0.75,
         )
-        self.cue(
-            "010_problem_c",
-            [FadeIn(gt_cross), FadeIn(pred_cross), FadeIn(coordinate), FadeIn(absolute)],
-        )
+        self.cue("010_problem_c", [FadeIn(gt_cross), FadeIn(pred_cross), FadeIn(answer)], run_time=0.45)
         self.pad_to_resolved_duration()
 
 
@@ -290,32 +284,49 @@ class BaselineScene(FilmScene):
     scene_id = "baseline"
 
     def construct(self) -> None:
-        success = self.sample("success_iid")
-        self.add(
-            section_header("02", self.scene_record["title"]),
-            synthetic_case_stamp(success),
+        sample = self.sample("success_iid")
+        self.add(section_header("02", self.scene_record["title"]))
+        search = fit_image(self.asset("frozen_success_search"), 5.0, 5.0)
+        score = fit_image(self.exported("baseline_score_map.png"), 5.0, 5.0)
+        search.move_to([-3.22, -0.08, 0])
+        score.move_to(search)
+        map_array = np.load(self.exported("baseline_score_map.npy"), allow_pickle=False)
+        maxima = top_k_candidates(map_array, k=16, nms_radius=13)
+        mapper = ImageCoordinateMap.from_mobject(score, map_array.shape[1], map_array.shape[0])
+        rings = VGroup(
+            *[
+                Circle(
+                    radius=0.055 if index else 0.085,
+                    color=THEME.ground_truth if index == 0 else THEME.muted_text,
+                    stroke_width=2.0 if index == 0 else 1.2,
+                ).move_to(mapper.point(record.x, record.y))
+                for index, record in enumerate(maxima)
+            ]
         )
-        score_map = image_panel(
-            self.exported("baseline_score_map.png"),
-            width=5.8,
-            height=5.45,
-            panel_label="NORMALIZED TEMPLATE CORRELATION",
+        explanation = VGroup(
+            text("Many local answers", size=40, weight="SEMIBOLD"),
+            text("The correlation map repeats\nwith the lattice phase.", size=28, line_spacing=0.9),
+            Line(LEFT * 2.2, RIGHT * 2.2, color=THEME.rule, stroke_width=1.2),
+            text(
+                "Local similarity can identify\na phase family — not the site.",
+                size=25,
+                color=THEME.muted_text,
+                line_spacing=0.9,
+            ),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.27)
+        explanation.move_to([3.65, -0.05, 0]).align_to([1.6, 0, 0], LEFT)
+        map_caption = label("Normalized template correlation", size=17)
+        map_caption.next_to(score, DOWN, buff=0.18).align_to(score, LEFT)
+
+        self.cue_sequence(
+            "020_baseline_a",
+            [
+                ([FadeIn(search)], 0.35),
+                ([FadeTransform(search, score), FadeIn(map_caption)], 0.65),
+                ([LaggedStart(*[GrowFromCenter(ring) for ring in rings], lag_ratio=0.05)], 0.85),
+            ],
         )
-        overlay = image_panel(
-            self.exported("baseline_candidate_overlay.png"),
-            width=5.8,
-            height=5.45,
-            panel_label="PERIODIC LOCAL MAXIMA / ACTUAL MAP",
-        )
-        score_map.move_to(GRID.center(0, 6, -0.25))
-        overlay.move_to(GRID.center(6, 12, -0.25))
-        note = scope_note(
-            "Local similarity identifies a phase family; it does not establish the absolute site.",
-            width=10.8,
-        )
-        note.move_to(GRID.center(1, 11, -3.28))
-        self.cue("020_baseline_a", [FadeIn(score_map)])
-        self.cue("020_baseline_b", [FadeIn(overlay), FadeIn(note)])
+        self.cue("020_baseline_b", [FadeIn(explanation)], run_time=0.45)
         self.pad_to_resolved_duration()
 
 
@@ -323,67 +334,56 @@ class CalibrationScene(FilmScene):
     scene_id = "calibration"
 
     def construct(self) -> None:
-        success = self.sample("success_iid")
-        self.add(
-            section_header("03", self.scene_record["title"]),
-            synthetic_case_stamp(success),
-        )
-        source = image_panel(
-            self.asset("frozen_success_search"), width=3.65, height=3.65, panel_label="SEARCH"
-        )
-        fft_search = image_panel(
-            self.exported("fft_search.png"), width=3.65, height=3.65, panel_label="LOG-MAGNITUDE FFT"
-        )
-        fft_reference = image_panel(
-            self.exported("fft_reference.png"), width=3.65, height=3.65, panel_label="REFERENCE FFT"
-        )
-        phase_drift = phase_drift_panel(
+        sample = self.sample("success_iid")
+        self.add(section_header("03", self.scene_record["title"]))
+        source = fit_image(self.asset("frozen_success_search"), 5.15, 5.15)
+        fft = fit_image(self.exported("fft_search.png"), 5.15, 5.15)
+        source.move_to([-3.25, -0.08, 0])
+        fft.move_to(source)
+        phase = phase_drift_panel(
             self.exported("phase_drift_reference_y.csv"),
             self.exported("phase_drift_search_y.csv"),
         )
-        phase_transform = load_json(self.exported("phase_transform.json"))
-        source.move_to(GRID.center(0, 4, 0.15))
-        phase_drift.move_to(source)
-        fft_search.move_to(GRID.center(4, 8, 0.15))
-        fft_reference.move_to(GRID.center(8, 12, 0.15))
-        diagnostics = success["diagnostics"]
-        measured = label(f"MEASURED ON CASE {_case_id(success)}", size=15)
-        transform_values = VGroup(
+        phase.scale(0.79).move_to([-2.58, -0.08, 0])
+        transform = load_json(self.exported("phase_transform.json"))
+        pitch_x, pitch_y = transform["clipped_pitch_xy_px"]
+        estimate = transform["estimate"]
+        values = VGroup(
+            metric_statement(f"{estimate['scale']:.6f}", "sampling ratio", accent=THEME.ground_truth),
+            metric_statement(f"{estimate['rotation_deg']:.3f}°", "bounded rotation", accent=THEME.prediction),
             text(
-                f"scale  {_float(diagnostics['selected_scale'], 6)}",
-                size=22,
-                font=THEME.mono_font,
+                f"real-space pitch  {pitch_x:.3f} × {pitch_y:.3f} px",
+                size=19,
+                color=THEME.primary_text,
             ),
             text(
-                f"rotation  {_float(diagnostics['selected_rotation_deg'], 3)}°",
-                size=22,
-                font=THEME.mono_font,
-            ),
-        ).arrange(RIGHT, buff=0.7)
-        pitch_x, pitch_y = phase_transform["clipped_pitch_xy_px"]
-        period_and_confidence = VGroup(
-            text(
-                f"period  {_float(pitch_x, 3)} × {_float(pitch_y, 3)} px",
+                f"spectral confidence  {estimate['confidence']:.3f}",
                 size=20,
-                font=THEME.mono_font,
+                color=THEME.muted_text,
             ),
-            text(
-                f"confidence  {_float(diagnostics['spectral_confidence'], 3)}",
-                size=20,
-                font=THEME.mono_font,
-            ),
-        ).arrange(RIGHT, buff=0.7)
-        values = VGroup(measured, transform_values, period_and_confidence).arrange(
-            DOWN, buff=0.12
-        )
-        values.move_to(GRID.center(0, 12, -2.55))
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.26)
+        values[0].scale(0.72)
+        values[1].scale(0.72)
+        values.move_to([3.85, -0.1, 0]).align_to([1.48, 0, 0], LEFT)
+        transform_arrow = Arrow([-0.42, 0, 0], [1.35, 0, 0], color=THEME.ground_truth, buff=0.15)
 
-        self.cue("030_phase_a", [FadeIn(source), FadeIn(fft_search)])
-        self.cue(
-            "030_phase_b",
-            [FadeOut(source), FadeIn(phase_drift), FadeIn(fft_reference), FadeIn(values)],
+        self.cue_sequence(
+            "030_phase_a",
+            [
+                ([FadeIn(source)], 0.35),
+                ([FadeTransform(source, fft)], 0.75),
+                ([Circumscribe(fft, color=THEME.ground_truth, fade_out=True)], 0.65),
+            ],
         )
-        self.cue("030_phase_c")
+        self.cue_sequence(
+            "030_phase_b",
+            [
+                ([FadeOut(fft), FadeIn(phase), Create(transform_arrow)], 0.55),
+                ([FadeIn(values[0]), FadeIn(values[1])], 0.45),
+                ([FadeIn(values[2:])], 0.35),
+            ],
+        )
+        self.cue("030_phase_c", [Indicate(values, color=THEME.ground_truth)], run_time=0.7)
         self.pad_to_resolved_duration()
 
 
@@ -391,44 +391,70 @@ class DifferenceScene(FilmScene):
     scene_id = "difference"
 
     def construct(self) -> None:
-        success = self.sample("success_iid")
-        self.add(
-            section_header("04", self.scene_record["title"]),
-            synthetic_case_stamp(success),
+        sample = self.sample("success_iid")
+        self.add(section_header("04", self.scene_record["title"]))
+        formula_x = equation(
+            r"R_x(x,y)",
+            "=",
+            r"I(x,y)",
+            "-",
+            r"\frac{1}{2}\left[",
+            r"I(x-p_x,y)",
+            "+",
+            r"I(x+p_x,y)",
+            r"\right]",
+            size=48,
+            color_map={r"R_x": THEME.ground_truth, r"p_x": THEME.prediction},
         )
-        original = image_panel(
-            self.exported("matched_reference_template.png"), width=3.75, height=4.2, panel_label="MATCHED REFERENCE"
+        formula_y = equation(
+            r"R_y(x,y)",
+            "=",
+            r"I(x,y)",
+            "-",
+            r"\frac{1}{2}\left[",
+            r"I(x,y-p_y)",
+            "+",
+            r"I(x,y+p_y)",
+            r"\right]",
+            size=48,
+            color_map={r"R_y": THEME.ground_truth, r"p_y": THEME.prediction},
         )
-        ref_difference = image_panel(
-            self.exported("period_difference_reference.png"),
-            width=3.75,
-            height=4.2,
-            panel_label="REFERENCE RESIDUAL",
+        formula_x.move_to([0, 1.92, 0])
+        formula_y.move_to(formula_x)
+        original = fit_image(self.exported("matched_reference_template.png"), 3.15, 2.75)
+        ref_x = fit_image(self.exported("period_difference_reference.png"), 3.15, 2.75)
+        search_x = fit_image(self.exported("period_difference_search_crop.png"), 3.15, 2.75)
+        original.move_to([-4.25, -0.42, 0])
+        ref_x.move_to([0, -0.42, 0])
+        search_x.move_to([4.25, -0.42, 0])
+        captions = VGroup(
+            text("Matched reference", size=21),
+            text("Reference residual", size=21, color=THEME.ground_truth),
+            text("Search residual", size=21, color=THEME.prediction),
         )
-        search_difference = image_panel(
-            self.exported("period_difference_search_crop.png"),
-            width=3.75,
-            height=4.2,
-            panel_label="SEARCH RESIDUAL",
+        for caption, image in zip(captions, [original, ref_x, search_x]):
+            caption.next_to(image, DOWN, buff=0.15).align_to(image, LEFT)
+        self.cue_sequence(
+            "040_difference_a",
+            [
+                ([FadeIn(original), FadeIn(captions[0])], 0.35),
+                ([Write(formula_x)], 0.9),
+                ([FadeIn(ref_x, shift=RIGHT * 0.18), FadeIn(captions[1])], 0.6),
+            ],
         )
-        original.move_to(GRID.center(0, 4, -0.05))
-        ref_difference.move_to(GRID.center(4, 8, -0.05))
-        search_difference.move_to(GRID.center(8, 12, -0.05))
-        operator = text(
-            "R_x = I(x,y) − ½[I(x−p_x,y) + I(x+p_x,y)]",
-            size=26,
-            font=THEME.mono_font,
+        self.cue_sequence(
+            "040_difference_b",
+            [
+                ([TransformMatchingTex(
+                    formula_x,
+                    formula_y,
+                    key_map={r"R_x": r"R_y", r"p_x": r"p_y"},
+                )], 0.9),
+                ([FadeIn(search_x, shift=RIGHT * 0.18), FadeIn(captions[2])], 0.55),
+                ([Circumscribe(Group(ref_x, search_x), color=THEME.prediction)], 0.65),
+            ],
         )
-        operator.move_to(GRID.center(0, 12, -2.9))
-        note = label(
-            "X CHANNEL SHOWN · Y ANALOGOUS · CORRELATION SCORES FUSED",
-            size=14,
-        )
-        note.next_to(operator, DOWN, buff=0.18)
-
-        self.cue("040_difference_a", [FadeIn(original), FadeIn(ref_difference), FadeIn(operator)])
-        self.cue("040_difference_b", [FadeIn(search_difference)])
-        self.cue("040_difference_c", [FadeIn(note)])
+        self.cue("040_difference_c", [])
         self.pad_to_resolved_duration()
 
 
@@ -436,48 +462,75 @@ class CandidateScene(FilmScene):
     scene_id = "candidates"
 
     def construct(self) -> None:
-        success = self.sample("success_iid")
-        self.add(
-            section_header("05", self.scene_record["title"]),
-            synthetic_case_stamp(success),
-        )
-        overlay = image_panel(
-            self.exported("candidate_overlay.png"),
-            width=6.2,
-            height=5.8,
-            panel_label="SUPPORTED LOCAL MAXIMA",
-        )
-        overlay.move_to(GRID.center(0, 7, -0.15))
-        d = success["diagnostics"]
-        diagnostics = VGroup(
-            label("BOUND DIAGNOSTICS", size=16),
-            text(f"top score       {_float(d['score'], 6)}", size=20, font=THEME.mono_font),
-            text(f"runner-up       {_float(d['runner_up_score'], 6)}", size=20, font=THEME.mono_font),
-            text(f"residual support {_float(d['ambiguity_evidence']['residual_evidence'], 6)}", size=20, font=THEME.mono_font),
-            text(f"tied candidates  {int(d['tied_count'])}", size=20, font=THEME.mono_font),
+        sample = self.sample("success_iid")
+        self.add(section_header("05", self.scene_record["title"]))
+        search = fit_image(self.asset("frozen_success_search"), 5.0, 5.0)
+        search.move_to([-3.35, -0.08, 0])
+        mapper = image_mapper(search)
+        records = load_json(self.exported("candidates.json"))["candidates"][:16]
+        rings = VGroup()
+        rank_labels = VGroup()
+        for record in records:
+            point = mapper.point(*record["center_xy"])
+            selected = bool(record["selected"])
+            ring = Circle(
+                radius=0.075 if selected else 0.045,
+                color=THEME.prediction if selected else THEME.muted_text,
+                stroke_width=2.4 if selected else 1.1,
+            ).move_to(point)
+            rings.add(ring)
+            if int(record["rank"]) <= 3:
+                rank = label(str(record["rank"]), size=14, color=ring.color)
+                rank.next_to(ring, UP, buff=0.04)
+                rank_labels.add(rank)
+        diagnostics = sample["diagnostics"]
+        score_delta = float(diagnostics["score"]) - float(diagnostics["runner_up_score"])
+        statements = VGroup(
+            text("Supported peaks", size=38, weight="SEMIBOLD"),
             text(
-                f"ambiguous         {str(bool(d['ambiguity_flag'])).upper()}",
-                size=20,
+                f"best score  {diagnostics['score']:.6f}",
+                size=24,
+                color=THEME.ground_truth,
                 font=THEME.mono_font,
-                color=THEME.primary_text,
             ),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.24)
-        diagnostics.move_to(GRID.center(8, 12, 0.35)).align_to([GRID.col(8), 0, 0], LEFT)
-        gate = scope_note(
-            "Tie prior enabled only with low residual support or transform instability.",
-            width=4.15,
-        )
-        gate.move_to(GRID.center(8, 12, -2.15)).align_to(diagnostics, LEFT)
-        rule = Line(
-            [GRID.col(8), -1.72, 0],
-            [GRID.right, -1.72, 0],
-            color=THEME.rule,
-            stroke_width=1,
-        )
+            text(
+                f"margin      {score_delta:.6f}",
+                size=24,
+                color=THEME.primary_text,
+                font=THEME.mono_font,
+            ),
+            text(
+                f"residual support  {diagnostics['ambiguity_evidence']['residual_evidence']:.3f}",
+                size=23,
+                font=THEME.mono_font,
+            ),
+            Line(LEFT * 2.2, RIGHT * 2.2, color=THEME.rule, stroke_width=1.1),
+            text(
+                "A center or stage prior may break a tie\nonly when residual support is low\nor the transform is unstable.",
+                size=23,
+                color=THEME.muted_text,
+                line_spacing=0.85,
+            ),
+            label(
+                "No ambiguity flag" if not diagnostics["ambiguity_flag"] else "Ambiguity flagged",
+                size=17,
+                color=THEME.ground_truth,
+            ),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.25)
+        statements.move_to([3.75, -0.12, 0]).align_to([1.15, 0, 0], LEFT)
+        image_caption = text("Candidate locations", size=18, color=THEME.muted_text)
+        image_caption.next_to(search, DOWN, buff=0.16).align_to(search, LEFT)
 
-        self.cue("050_candidates_a", [FadeIn(overlay), FadeIn(diagnostics[:4])])
-        self.cue("050_candidates_b", [Create(rule), FadeIn(gate)])
-        self.cue("050_candidates_c", [FadeIn(diagnostics[4:])])
+        self.cue_sequence(
+            "050_candidates_a",
+            [
+                ([FadeIn(search), FadeIn(image_caption)], 0.35),
+                ([LaggedStart(*[GrowFromCenter(ring) for ring in rings], lag_ratio=0.05)], 0.85),
+                ([FadeIn(rank_labels), FadeIn(statements[:4])], 0.45),
+            ],
+        )
+        self.cue("050_candidates_b", [FadeIn(statements[4:6])], run_time=0.4)
+        self.cue("050_candidates_c", [FadeIn(statements[6]), Indicate(rings[0], color=THEME.prediction)], run_time=0.65)
         self.pad_to_resolved_duration()
 
 
@@ -485,86 +538,91 @@ class RefinementScene(FilmScene):
     scene_id = "refinement"
 
     def construct(self) -> None:
-        success = self.sample("success_iid")
-        self.add(
-            section_header("06", self.scene_record["title"]),
-            synthetic_case_stamp(success),
-        )
-        patch = image_panel(
-            self.exported("refinement_patch.png"), width=6.45, height=5.65, panel_label="LOCAL SCORE SURFACE / ACTUAL PEAK"
-        )
-        patch.move_to(GRID.center(0, 7, -0.18))
-        pred = _xy(success, "prediction")
-        gt = _xy(success, "ground_truth")
-        coarse = success.get("coarse_prediction", [round(pred[0]), round(pred[1])])
-        detail = VGroup(
-            label(f"SEALED IID CASE {_case_id(success)}", size=16),
-            text(
-                f"integer  ({_float(coarse[0], 0)}, {_float(coarse[1], 0)})",
-                size=22,
-                font=THEME.mono_font,
-            ),
-            text(
-                f"refined  ({_float(pred[0])}, {_float(pred[1])})",
-                size=22,
-                font=THEME.mono_font,
-                color=THEME.prediction,
-            ),
-            text(
-                f"truth    ({_float(gt[0])}, {_float(gt[1])})",
-                size=22,
-                font=THEME.mono_font,
-                color=THEME.ground_truth,
-            ),
-            text(
-                f"error     {_float(success['error_px'])} px",
-                size=34,
-                font=THEME.display_font,
-                weight="BOLD",
-            ),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.3)
-        detail.set_width(min(detail.width, GRID.width(8, 12)))
-        detail.move_to(GRID.center(8, 12, 0.0)).align_to([GRID.col(8), 0, 0], LEFT)
+        sample = self.sample("success_iid")
+        self.add(section_header("06", self.scene_record["title"]))
         refinement = load_json(self.exported("refinement_patch.json"))
-        patch_origin_x, patch_origin_y = refinement["score_patch_top_left_xy"]
-        coarse_x, coarse_y = refinement["integer_peak_top_left_xy"]
-        refined_x, refined_y = refinement["refined_top_left_xy"]
-        patch_image = _panel_image(patch)
-        raster_height, raster_width = patch_image.pixel_array.shape[:2]
-        score_height = len(refinement["score_values"])
-        score_width = len(refinement["score_values"][0])
-        patch_mapper = ImageCoordinateMap.from_mobject(
-            patch_image,
-            raster_width,
-            raster_height,
+        scores = np.asarray(refinement["score_values"], dtype=float)
+        low_color = ManimColor(THEME.graphite)
+        high_color = ManimColor(THEME.ground_truth)
+        cells = VGroup()
+        for row in range(scores.shape[0]):
+            for column in range(scores.shape[1]):
+                normalized = (scores[row, column] - scores.min()) / (scores.max() - scores.min())
+                color = interpolate_color(low_color, high_color, float(normalized))
+                cell = Square(
+                    side_length=0.78,
+                    fill_color=color,
+                    fill_opacity=0.96,
+                    stroke_color=THEME.background,
+                    stroke_width=1.8,
+                )
+                cell.move_to([(column - 2) * 0.78, (2 - row) * 0.78, 0])
+                cells.add(cell)
+        cells.move_to([-2.75, -0.05, 0])
+        frame = Rectangle(
+            width=cells.width,
+            height=cells.height,
+            color=THEME.rule,
+            stroke_width=1.4,
+        ).move_to(cells)
+        peak_origin = cells.get_center()
+        coarse = refinement["integer_peak_top_left_xy"]
+        refined = refinement["refined_top_left_xy"]
+        delta = np.array([float(refined[0]) - float(coarse[0]), -(float(refined[1]) - float(coarse[1])), 0]) * 0.78
+        coarse_mark = registration_cross(peak_origin, color=THEME.primary_text, size=0.24, stroke_width=2.4)
+        refined_mark = registration_cross(peak_origin + delta, color=THEME.prediction, size=0.24, stroke_width=2.8)
+        trajectory = Arrow(
+            peak_origin,
+            peak_origin + delta,
+            color=THEME.prediction,
+            stroke_width=3,
+            buff=0.02,
+            max_tip_length_to_length_ratio=0.35,
         )
-
-        def score_cell_center(index: float, cell_count: int, raster_size: int) -> float:
-            return (index + 0.5) * raster_size / cell_count - 0.5
-
-        coarse_point = patch_mapper.point(
-            score_cell_center(
-                float(coarse_x) - float(patch_origin_x), score_width, raster_width
+        pred = _xy(sample, "prediction")
+        gt = _xy(sample, "ground_truth")
+        details = VGroup(
+            text("Parabolic fit", size=40, weight="SEMIBOLD"),
+            equation(r"\hat{\delta}=-\frac{b}{2a}", size=50, color_map={r"\hat{\delta}": THEME.prediction}),
+            text(
+                f"integer peak  ({coarse[0]:.0f}, {coarse[1]:.0f})",
+                size=23,
+                font=THEME.mono_font,
             ),
-            score_cell_center(
-                float(coarse_y) - float(patch_origin_y), score_height, raster_height
+            text(
+                f"refined      ({pred[0]:.3f}, {pred[1]:.3f})",
+                size=23,
+                color=THEME.prediction,
+                font=THEME.mono_font,
             ),
+            text(
+                f"ground truth ({gt[0]:.3f}, {gt[1]:.3f})",
+                size=23,
+                color=THEME.ground_truth,
+                font=THEME.mono_font,
+            ),
+            text(
+                f"error  {sample['error_px']:.3f} px",
+                size=42,
+                weight="SEMIBOLD",
+            ),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.25)
+        details.move_to([3.45, -0.05, 0]).align_to([0.8, 0, 0], LEFT)
+
+        self.cue_sequence(
+            "060_refine_a",
+            [
+                ([LaggedStart(*[FadeIn(cell) for cell in cells], lag_ratio=0.02), Create(frame)], 0.65),
+                ([FadeIn(coarse_mark), FadeIn(details[:3])], 0.4),
+            ],
         )
-        refined_point = patch_mapper.point(
-            score_cell_center(
-                float(refined_x) - float(patch_origin_x), score_width, raster_width
-            ),
-            score_cell_center(
-                float(refined_y) - float(patch_origin_y), score_height, raster_height
-            ),
-        )
-        coarse_mark = registration_cross(coarse_point, color=THEME.muted_text, size=0.2)
-        refined_mark = registration_cross(refined_point, color=THEME.prediction, size=0.2)
-
-        self.cue("060_refine_a", [FadeIn(patch), FadeIn(detail[:2]), FadeIn(coarse_mark)])
-        self.cue(
+        self.cue_sequence(
             "060_refine_b",
-            [Transform(coarse_mark, refined_mark), FadeIn(detail[2:])],
+            [
+                ([Create(trajectory), Transform(coarse_mark, refined_mark)], 0.75),
+                ([FadeIn(details[3:])], 0.4),
+                ([Circumscribe(details[-1], color=THEME.ground_truth)], 0.55),
+            ],
         )
         self.pad_to_resolved_duration()
 
@@ -573,33 +631,29 @@ class LiveInferenceScene(FilmScene):
     scene_id = "live_inference"
 
     def construct(self) -> None:
-        success = self.sample("success_iid")
-        self.add(
-            section_header("07", self.scene_record["title"]),
-            synthetic_case_stamp(success),
-        )
-        terminal = image_panel(
-            self.exported("terminal_capture.png"),
-            width=11.9,
-            height=5.75,
-            panel_label="REAL COMMAND / CAPTURED STDOUT",
-        )
-        terminal.move_to(GRID.center(0, 12, -0.18))
-        overlay = image_panel(
-            self.exported("live_overlay.png"), width=6.15, height=5.75, panel_label="OUTPUT MAPPED TO SEARCH COORDINATES"
-        )
-        overlay.move_to(GRID.center(6, 12, -0.18))
-        terminal_left = terminal.copy()
-        terminal_left.scale(0.55).move_to(GRID.center(0, 6, -0.18))
+        sample = self.sample("success_iid")
+        self.add(section_header("07", self.scene_record["title"]))
+        terminal = fit_image(self.exported("terminal_capture.png"), 11.4, 4.9)
+        terminal.move_to([0, -0.1, 0])
+        capture_label = label("Captured command and stdout", size=17)
+        capture_label.next_to(terminal, DOWN, buff=0.16).align_to(terminal, LEFT)
         live = self.sample("live_inference")
-        output = live.get("stdout") or live.get("coordinate_stdout") or ""
-        proof = text(output.strip(), size=27, font=THEME.mono_font, color=THEME.prediction)
-        proof.move_to(GRID.center(0, 6, -3.25))
+        stdout = (live.get("stdout") or live.get("coordinate_stdout") or "").strip()
+        proof = text(stdout, size=40, font=THEME.mono_font, color=THEME.prediction)
+        proof.move_to([0, 1.75, 0])
+        output = fit_image(self.exported("live_overlay.png"), 6.1, 5.0)
+        output.move_to([0, -0.15, 0])
+        output_label = text("The two stdout values map directly to the search coordinate", size=24)
+        output_label.next_to(output, DOWN, buff=0.16)
 
-        self.cue("070_live_a", [FadeIn(terminal)])
-        self.cue(
+        self.cue("070_live_a", [FadeIn(terminal), FadeIn(capture_label)], run_time=0.35)
+        self.cue_sequence(
             "070_live_b",
-            [ReplacementTransform(terminal, terminal_left), FadeIn(overlay), FadeIn(proof)],
+            [
+                ([FadeOut(terminal), FadeOut(capture_label), FadeIn(proof)], 0.3),
+                ([FadeOut(proof), FadeIn(output, shift=UP * 0.12)], 0.75),
+                ([FadeIn(output_label)], 0.3),
+            ],
         )
         self.pad_to_resolved_duration()
 
@@ -609,61 +663,94 @@ class EvaluationScene(FilmScene):
 
     def construct(self) -> None:
         self.add(section_header("08", self.scene_record["title"]))
-        plot = image_panel(
-            self.exported("evaluation_error_distribution.png"),
-            width=6.15,
-            height=4.45,
-            panel_label=f"ERROR DISTRIBUTION / {int(self.metric('frozen_pair_count')):,} SEALED PAIRS",
+        plot_data = load_json(self.exported("benchmark_plot_data.json"))
+        suite_rows = suite_dot_rows(plot_data["suites"], width=11.6)
+        suite_rows.scale(0.93).move_to([0, -0.08, 0])
+        suite_heading = VGroup(
+            text("Seven fixed suites", size=34, weight="SEMIBOLD"),
+            text("Each dot represents one pair · orange marks error above 1 px", size=18, color=THEME.muted_text),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.12)
+        suite_heading.move_to([GRID.left + suite_heading.width / 2, 2.25, 0])
+        count = metric_statement("1,398 / 1,400", "predictions within 1 px", accent=THEME.ground_truth)
+        count.move_to([-3.85, 0.75, 0]).align_to([-5.6, 0, 0], LEFT)
+        rate = text("99.86%", size=28, color=THEME.ground_truth, weight="SEMIBOLD")
+        rate.next_to(count, DOWN, buff=0.36).align_to(count, LEFT)
+        cdf, axes = empirical_cdf(width=6.0, height=3.65)
+        cdf.move_to([2.75, -0.22, 0])
+        median_line = DashedLine(
+            axes.c2p(0.083, 0),
+            axes.c2p(0.083, 100),
+            color=THEME.ground_truth,
+            stroke_width=2,
         )
-        plot.move_to(GRID.center(0, 7, -0.05))
-        pair_count = int(self.metric("frozen_pair_count"))
-        within = int(self.metric("frozen_within_1px_count"))
-        threshold = float(self.metric("frozen_primary_threshold_px"))
-        rate = float(self.metric("frozen_within_1px_rate"))
-        if rate <= 1.0:
-            rate *= 100.0
-        blocks = VGroup(
-            metric_block(f"{within:,}/{pair_count:,}", f"WITHIN {threshold:g} PX", width=4.3),
-            metric_block(f"{_float(self.metric('frozen_median_error_px'))} PX", "MEDIAN ERROR", width=4.3),
-            metric_block(f"{_float(self.metric('frozen_p95_error_px'))} PX", "P95 ERROR", width=4.3),
-            metric_block(f"{_float(self.metric('frozen_mean_runtime_ms'), 0)} MS", "MEAN LOCALIZATION WALL TIME", width=4.3),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.28)
-        blocks.move_to(GRID.center(8, 12, -0.25)).align_to([GRID.col(8), 0, 0], LEFT)
-        suite_table = image_panel(
-            self.exported("evaluation_suite_strip.png"),
-            width=11.75,
-            height=5.05,
-            panel_label="PER-SUITE SEALED RESULTS / EXACT COUNTS",
+        p95_line = DashedLine(
+            axes.c2p(0.319, 0),
+            axes.c2p(0.319, 100),
+            color=THEME.prediction,
+            stroke_width=2,
         )
-        suite_table.move_to(GRID.center(0, 12, -0.2))
-        primary_scope = label(
-            f"SEALED SYNTHETIC REPORT · {rate:.2f}% WITHIN {threshold:g} PX",
-            size=15,
+        cdf.add(median_line, p95_line)
+        cdf_labels = VGroup(
+            text("median  0.083 px", size=21, color=THEME.ground_truth),
+            text("P95     0.319 px", size=21, color=THEME.prediction),
+            text("mean wall time  239 ms", size=21),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.16)
+        cdf_labels.move_to([-4.4, -1.02, 0]).align_to(count, LEFT)
+        external = self.evidence_index["metrics"]["external_baselines"]
+        metralign, best, others = comparison_bars(
+            external["classic_adapters"],
+            metralign_rate=float(self.metric("frozen_within_1px_rate")),
+            width=11.2,
         )
-        primary_scope.move_to(GRID.center(0, 12, -3.2))
-        comparison = fit_image(
-            self.exported("external_comparison_table.png"),
-            11.75,
-            5.65,
-        )
-        comparison.move_to(GRID.center(0, 12, -0.16))
+        metralign.move_to([0, 1.48, 0])
+        best.move_to([0, 0.55, 0])
+        others.move_to([0, -1.1, 0])
+        comparison_title = text("Fixed comparison on the same 1,400 pairs", size=30, weight="SEMIBOLD")
+        comparison_title.move_to([GRID.left + comparison_title.width / 2, 2.25, 0])
+        comparison_scope = label("Six fixed classic adapters · all-pair success rate", size=16)
+        comparison_scope.next_to(comparison_title, DOWN, buff=0.12).align_to(comparison_title, LEFT)
+        xfeat = VGroup(
+            text("Additional development comparison", size=19, color=THEME.prediction),
+            text("Official XFeat* + USAC_MAGSAC", size=33, weight="SEMIBOLD"),
+            metric_statement("0 / 1,400", "locations within 5 px", accent=THEME.prediction),
+            text("1,079 / 1,400 returned a homography", size=24, color=THEME.muted_text),
+            text(
+                "Different task assumptions; included as a scoped comparison, not a general benchmark verdict.",
+                size=20,
+                color=THEME.muted_text,
+            ),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.26)
+        xfeat[2].scale(0.82)
+        xfeat.move_to([0, -0.1, 0])
 
-        self.cue("080_results_a", [FadeIn(suite_table)])
+        self.cue(
+            "080_results_a",
+            [FadeIn(suite_heading), LaggedStart(*[FadeIn(row) for row in suite_rows], lag_ratio=0.08)],
+            run_time=0.85,
+        )
         self.cue(
             "080_results_b",
-            [FadeOut(suite_table), FadeIn(plot), FadeIn(blocks[:2])],
+            [FadeOut(suite_rows), FadeOut(suite_heading), FadeIn(count), FadeIn(rate)],
+            run_time=0.28,
         )
-        self.cue("080_results_c", [FadeIn(blocks[2:]), FadeIn(primary_scope)])
         self.cue(
+            "080_results_c",
+            [FadeOut(rate), FadeIn(cdf), FadeIn(cdf_labels)],
+            run_time=0.45,
+        )
+        self.cue_sequence(
             "080_results_d",
             [
-                FadeOut(plot),
-                FadeOut(blocks),
-                FadeOut(primary_scope),
-                FadeIn(comparison),
+                ([FadeOut(count), FadeOut(cdf), FadeOut(cdf_labels), FadeIn(comparison_title), FadeIn(comparison_scope)], 0.28),
+                ([FadeIn(metralign), FadeIn(best)], 0.45),
+                ([LaggedStart(*[FadeIn(row) for row in others], lag_ratio=0.08)], 0.7),
             ],
         )
-        self.cue("080_results_e")
+        self.cue(
+            "080_results_e",
+            [FadeOut(comparison_title), FadeOut(comparison_scope), FadeOut(metralign), FadeOut(best), FadeOut(others), FadeIn(xfeat)],
+            run_time=0.28,
+        )
         self.pad_to_resolved_duration()
 
 
@@ -672,49 +759,65 @@ class TransferScene(FilmScene):
 
     def construct(self) -> None:
         self.add(section_header("09", self.scene_record["title"]))
-        real = image_panel(
-            self.asset("real_microscopy_plate"),
-            width=5.8,
-            height=4.75,
-            panel_label="ACQUIRED MICROSCOPY / MECHANICALLY SELECTED SUCCESSES",
+        real_path = self.asset("real_microscopy_plate")
+        independent_path = self.asset("independent_renderer_plate")
+        sem = crop_image(real_path, (0.02, 0.08, 0.49, 0.36), width=11.0, height=4.05)
+        tem = crop_image(real_path, (0.02, 0.65, 0.49, 0.94), width=11.0, height=4.05)
+        sem.move_to([0, -0.5, 0])
+        tem.move_to(sem)
+        real_heading = text("Acquired microscopy", size=32, weight="SEMIBOLD")
+        real_heading.move_to([GRID.left + real_heading.width / 2, 2.28, 0])
+        real_scope = text(
+            "Representative successful cases from independently published datasets",
+            size=20,
+            color=THEME.muted_text,
         )
-        independent = image_panel(
-            self.asset("independent_renderer_plate"),
-            width=5.8,
-            height=4.75,
-            panel_label="SEPARATE RENDERER / MECHANICALLY SELECTED SUCCESSES",
+        real_scope.next_to(real_heading, DOWN, buff=0.1).align_to(real_heading, LEFT)
+        sem_note = label(
+            f"SEM digital crops: {int(self.metric('sem_digital_within_1px_count'))} of {int(self.metric('sem_digital_pair_count'))} within 1 px",
+            size=17,
         )
-        real.move_to(GRID.center(0, 6, 0.12))
-        independent.move_to(GRID.center(6, 12, 0.12))
-        real_note = VGroup(
-            label(
-                f"DIGITAL-CROP SEM · {int(self.metric('sem_digital_within_1px_count'))}/{int(self.metric('sem_digital_pair_count'))} ≤ 1 PX",
-                size=12,
-            ),
-            label(
-                f"CARINTHIA SEM · {int(self.metric('carinthia_within_1px_count'))}/{int(self.metric('carinthia_pair_count'))} ≤ 1 PX · {int(self.metric('carinthia_fallback_count'))} FALLBACKS",
-                size=12,
-            ),
-            label(
-                f"REGISTERED TEM · {int(self.metric('registered_tem_within_1px_count'))}/{int(self.metric('registered_tem_pair_count'))} ≤ 1 PX · {int(self.metric('registered_tem_fallback_count'))} FALLBACKS",
-                size=12,
-            ),
-            label("DEVELOPMENT TRANSFER · NO MICROSCOPE-STAGE ACCURACY CLAIM", size=11),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.07)
-        real_note.move_to(GRID.center(0, 6, -3.03))
-        independent_threshold = float(self.metric("independent_primary_threshold_px"))
-        independent_note = VGroup(
-            label(
-                f"{int(self.metric('independent_within_1px_count'))}/{int(self.metric('independent_pair_count'))} WITHIN {independent_threshold:g} PX",
-                size=13,
-            ),
-            label("INDEPENDENT CODE · SHARED TASK-LEVEL GEOMETRY ASSUMPTIONS", size=11),
-            label("DEVELOPMENT TRANSFER CHECK · NOT PART OF THE SEALED CLAIM", size=11),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.1)
-        independent_note.move_to(GRID.center(6, 12, -3.18))
+        tem_note = label(
+            f"Registered TEM: {int(self.metric('registered_tem_within_1px_count'))} of {int(self.metric('registered_tem_pair_count'))} within 1 px",
+            size=17,
+        )
+        sem_note.move_to([GRID.right - sem_note.width / 2, 2.22, 0])
+        tem_note.move_to([GRID.right - tem_note.width / 2, 2.22, 0])
+        dram = crop_image(independent_path, (0.02, 0.105, 0.49, 0.414), width=11.0, height=4.05)
+        finfet = crop_image(independent_path, (0.50, 0.105, 0.98, 0.414), width=11.0, height=4.05)
+        dram.move_to([0, -0.5, 0])
+        finfet.move_to(dram)
+        independent_heading = text("Separately implemented renderer", size=32, weight="SEMIBOLD")
+        independent_heading.move_to([GRID.left + independent_heading.width / 2, 2.28, 0])
+        independent_scope = text(
+            "Different capture code · shared benchmark geometry assumptions",
+            size=20,
+            color=THEME.muted_text,
+        )
+        independent_scope.next_to(independent_heading, DOWN, buff=0.1).align_to(independent_heading, LEFT)
+        independent_note = label(
+            f"Independent renderer: {int(self.metric('independent_within_1px_count'))} of {int(self.metric('independent_pair_count'))} within {float(self.metric('independent_primary_threshold_px')):g} px",
+            size=17,
+            color=THEME.ground_truth,
+        )
+        independent_note.move_to([GRID.right - independent_note.width / 2, 2.22, 0])
 
-        self.cue("090_transfer_a", [FadeIn(real), FadeIn(independent)])
-        self.cue("090_transfer_b", [FadeIn(real_note), FadeIn(independent_note)])
+        self.cue_sequence(
+            "090_transfer_a",
+            [
+                ([FadeIn(real_heading), FadeIn(real_scope), FadeIn(sem), FadeIn(sem_note)], 0.3),
+                ([], 3.6),
+                ([FadeTransform(sem, tem), FadeTransform(sem_note, tem_note)], 0.55),
+            ],
+        )
+        self.cue_sequence(
+            "090_transfer_b",
+            [
+                ([FadeOut(tem), FadeOut(tem_note), FadeOut(real_heading), FadeOut(real_scope), FadeIn(independent_heading), FadeIn(independent_scope), FadeIn(dram), FadeIn(independent_note)], 0.3),
+                ([], 2.25),
+                ([FadeTransform(dram, finfet)], 0.55),
+            ],
+        )
         self.pad_to_resolved_duration()
 
 
@@ -723,36 +826,60 @@ class FailureScene(FilmScene):
 
     def construct(self) -> None:
         self.add(section_header("10", self.scene_record["title"]))
-        reference = image_panel(
-            self.asset("frozen_failure_reference"), width=3.45, height=4.45, panel_label="REFERENCE"
-        )
-        overlay = image_panel(
-            self.exported("failure_overlay.png"), width=6.35, height=5.8, panel_label="SEARCH / TRUTH AND RETURNED LOCATION"
-        )
-        reference.move_to(GRID.center(0, 4, -0.1))
-        overlay.move_to(GRID.center(5, 12, -0.1))
         failure = self.sample("failure_scan")
-        pred = _xy(failure, "prediction")
+        reference = fit_image(self.asset("frozen_failure_reference"), 2.45, 2.45)
+        search = fit_image(self.asset("frozen_failure_search"), 5.15, 5.15)
+        reference.move_to([-4.75, 1.00, 0])
+        search.move_to([2.25, -0.05, 0])
+        mapper = image_mapper(search)
         gt = _xy(failure, "ground_truth")
-        details = VGroup(
-            text(f"error  {_float(failure['error_px'])} px", size=34, font=THEME.display_font, weight="BOLD"),
-            text(f"pred   ({_float(pred[0])}, {_float(pred[1])})", size=18, font=THEME.mono_font, color=THEME.prediction),
-            text(f"truth  ({_float(gt[0])}, {_float(gt[1])})", size=18, font=THEME.mono_font, color=THEME.ground_truth),
-            label(
-                f"AMBIGUOUS · {str(bool(failure['diagnostics']['ambiguity_flag'])).upper()}",
-                size=15,
-                color=THEME.primary_text,
-            ),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.2)
-        details.move_to(GRID.center(0, 4, -2.78)).align_to([GRID.left, 0, 0], LEFT)
-        note = scope_note(
-            "Observed: low site-specific support and thousands of plausible positions. The report does not claim a more specific physical cause.",
-            width=6.4,
+        pred = _xy(failure, "prediction")
+        gt_point = mapper.point(*gt)
+        pred_point = mapper.point(*pred)
+        gt_mark = registration_cross(gt_point, color=THEME.ground_truth, size=0.16, stroke_width=2.7)
+        pred_mark = registration_cross(pred_point, color=THEME.prediction, size=0.16, stroke_width=2.7)
+        displacement = Line(gt_point, pred_point, color=THEME.prediction, stroke_width=2.2)
+        displacement_label = text(
+            f"{failure['error_px']:.3f} px",
+            size=24,
+            color=THEME.prediction,
+            weight="SEMIBOLD",
         )
-        note.move_to(GRID.center(5, 12, -3.27))
+        displacement_label.next_to(displacement.get_center(), UP, buff=0.12)
+        facts = VGroup(
+            text("Ambiguity detected", size=29, weight="SEMIBOLD", color=THEME.prediction),
+            text(
+                f"{int(failure['diagnostics']['tied_count']):,} plausible locations",
+                size=22,
+                font=THEME.mono_font,
+            ),
+            text(
+                f"residual support  {failure['diagnostics']['ambiguity_evidence']['residual_evidence']:.3f}",
+                size=20,
+                font=THEME.mono_font,
+            ),
+            text(
+                "Weak site-specific evidence leaves\nmany plausible absolute positions.",
+                size=21,
+                color=THEME.muted_text,
+                line_spacing=0.9,
+            ),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.18)
+        facts.move_to([-4.75, -1.43, 0]).align_to(reference, LEFT)
+        legend = VGroup(
+            label("truth", size=15, color=THEME.ground_truth),
+            label("returned", size=15, color=THEME.prediction),
+        ).arrange(RIGHT, buff=0.35)
+        legend.next_to(search, DOWN, buff=0.16).align_to(search, LEFT)
 
-        self.cue("100_failure_a", [FadeIn(reference), FadeIn(overlay), FadeIn(details)])
-        self.cue("100_failure_b", [FadeIn(note)])
+        self.cue_sequence(
+            "100_failure_a",
+            [
+                ([FadeIn(reference), FadeIn(search), FadeIn(facts[:2])], 0.35),
+                ([FadeIn(gt_mark), FadeIn(pred_mark), Create(displacement), FadeIn(displacement_label), FadeIn(legend)], 0.65),
+            ],
+        )
+        self.cue("100_failure_b", [FadeIn(facts[2:]), Indicate(displacement, color=THEME.prediction)], run_time=0.65)
         self.pad_to_resolved_duration()
 
 
@@ -764,70 +891,47 @@ class ReproducibilityScene(FilmScene):
         repository = project["repository_url"]
         website = project["website_url"]
         self.add(section_header("11", self.scene_record["title"]))
-        command_lines = VGroup(
-            text(f"git clone {repository}.git", size=21, font=THEME.mono_font),
-            text("python -m pip install -c constraints.txt .", size=21, font=THEME.mono_font),
-            text("metralign --reference reference.png --search search.png", size=21, font=THEME.mono_font),
-            text("python evaluate.py --data-dir data/smoke --method full", size=21, font=THEME.mono_font),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.34)
-        if command_lines.width > GRID.width(0, 7):
-            command_lines.scale_to_fit_width(GRID.width(0, 7))
-        command_lines.move_to(GRID.center(0, 8, 0.3)).align_to([GRID.left, 0, 0], LEFT)
-        rule = Line(
-            [GRID.left, -1.45, 0], [GRID.col(8), -1.45, 0], color=THEME.rule, stroke_width=1
-        )
-        manifest_note = VGroup(
-            label("BOUND RELEASE", size=15),
-            text("SEALED MANIFESTS · COMPLETE REPORTS · PER-IMAGE HASHES", size=23),
-            text("FULL TEST SUITE · HISTORY-AWARE RELEASE SCAN", size=23),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.2)
-        if manifest_note.width > GRID.width(0, 7):
-            manifest_note.scale_to_fit_width(GRID.width(0, 7))
-        manifest_note.move_to(GRID.center(0, 8, -2.25)).align_to(command_lines, LEFT)
-
-        divider = Line(
-            [GRID.col(8) - 0.18, GRID.top - 0.72, 0],
-            [GRID.col(8) - 0.18, GRID.bottom, 0],
-            color=THEME.rule,
-            stroke_width=1,
-        )
-
-        mark = fit_image(self.asset("metralign_mark"), 1.0, 1.0)
-        mark.move_to(GRID.center(9, 11, 1.62))
-        version = self.resolved["project"]["version"]
-        name = text(
-            f"{project['name'].upper()} {version}",
-            size=42,
-            font=THEME.display_font,
-            weight="BOLD",
-        )
-        name.move_to(GRID.center(8, 12, 0.48))
-        team = label(project["team"]["display_name"], size=15)
-        team.next_to(name, DOWN, buff=0.25)
-        repo = text(repository.removeprefix("https://"), size=23, font=THEME.mono_font)
-        repo.next_to(team, DOWN, buff=0.42)
-        site = text(
-            website.removeprefix("https://").rstrip("/"),
-            size=19,
-            font=THEME.mono_font,
+        commands = VGroup(
+            text(f"$ git clone {repository}.git", size=25, font=THEME.mono_font),
+            text("$ python -m pip install -c constraints.txt .", size=25, font=THEME.mono_font),
+            text("$ metralign --reference reference.png --search search.png", size=25, font=THEME.mono_font),
+            text("$ python evaluate.py --data-dir data/smoke --method full", size=25, font=THEME.mono_font),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.43)
+        commands.move_to([0, 0.45, 0])
+        evidence_line = text(
+            "generation · inference · evaluation · reports · input hashes",
+            size=24,
             color=THEME.muted_text,
         )
-        site.next_to(repo, DOWN, buff=0.15)
+        evidence_line.next_to(commands, DOWN, buff=0.6).align_to(commands, LEFT)
+        mark = fit_image(self.asset("metralign_mark"), 1.05, 1.05)
+        name = text(f"{project['name']} {project['version']}", size=52, weight="SEMIBOLD")
+        team = text(project["team"]["display_name"], size=24, color=THEME.muted_text)
+        repo = text(repository.removeprefix("https://"), size=27, font=THEME.mono_font)
+        site = text(website.removeprefix("https://").rstrip("/"), size=22, color=THEME.muted_text)
+        identity = Group(mark, name, team, repo, site).arrange(DOWN, buff=0.25)
+        identity.move_to([0, 0.2, 0])
+        partners = Group(
+            fit_image(self.asset("semi_organiser_mark"), 1.55, 0.48),
+            fit_image(self.asset("applied_materials_partner_mark"), 1.2, 0.48),
+        ).arrange(RIGHT, buff=1.25)
+        partner_labels = VGroup(
+            label("organiser", size=14),
+            label("Drift-Sense industry partner", size=14),
+        )
+        for partner_label, partner in zip(partner_labels, partners):
+            partner_label.next_to(partner, UP, buff=0.1)
+        partner_group = Group(partners, partner_labels)
+        partner_group.move_to([0, -2.43, 0])
 
-        semi = fit_image(self.asset("semi_organiser_mark"), 1.55, 0.45)
-        applied = fit_image(self.asset("applied_materials_partner_mark"), 1.15, 0.45)
-        semi_label = label("ORGANISER", size=11)
-        applied_label = label("DRIFT-SENSE INDUSTRY PARTNER", size=11)
-        semi.next_to(semi_label, DOWN, buff=0.1)
-        applied.next_to(applied_label, DOWN, buff=0.1)
-        brand_row = VGroup(semi_label, applied_label).arrange(RIGHT, buff=1.15)
-        brand_row.move_to(GRID.center(8, 12, -2.62))
-        semi.next_to(semi_label, DOWN, buff=0.1)
-        applied.next_to(applied_label, DOWN, buff=0.1)
-
-        self.cue("110_end_a", [FadeIn(command_lines), Create(rule), FadeIn(manifest_note)])
+        self.cue(
+            "110_end_a",
+            [LaggedStart(*[FadeIn(command, shift=UP * 0.08) for command in commands], lag_ratio=0.13), FadeIn(evidence_line)],
+            run_time=0.85,
+        )
         self.cue(
             "110_end_b",
-            [Create(divider), FadeIn(mark), FadeIn(name), FadeIn(team), FadeIn(repo), FadeIn(site), FadeIn(semi_label), FadeIn(semi), FadeIn(applied_label), FadeIn(applied)],
+            [FadeOut(commands), FadeOut(evidence_line), FadeIn(identity), FadeIn(partner_group)],
+            run_time=0.28,
         )
         self.pad_to_resolved_duration()

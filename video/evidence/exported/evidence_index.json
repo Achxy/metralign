@@ -1282,11 +1282,11 @@
     },
     "live_capture.json": {
       "bundle_relative_file": "live_capture.json",
-      "bytes": 861,
+      "bytes": 854,
       "derivation": "Sanitized record of the real subprocess invocation and captured streams.",
       "file": "video/evidence/exported/live_capture.json",
       "kind": "execution_capture",
-      "sha256": "0638fdc749aef95d0550ce8696741c54a9a26bcf5d483e25443585435675c59c",
+      "sha256": "b4de62d4451b05b722ddf4c7331ffcbf3ec27869a92f3941d276f8715910a997",
       "source_keys": [
         "success_reference",
         "success_search",
@@ -1295,11 +1295,11 @@
     },
     "live_command.txt": {
       "bundle_relative_file": "live_command.txt",
-      "bytes": 209,
+      "bytes": 95,
       "derivation": "Portable rendering of the real invocation; interpreter and working directory are sanitized.",
       "file": "video/evidence/exported/live_command.txt",
       "kind": "captured_command",
-      "sha256": "2c8d76d2807d86102f044e2ceea55b5ec3b332d6e7df7009cb31fa31a8b3252d",
+      "sha256": "93bcec6adde39bf6c34e9cd3a5d58bd06a9d7ba71d3fe08be15ed5b07e6714ae",
       "source_keys": [
         "success_reference",
         "success_search",
@@ -1677,7 +1677,7 @@
     },
     "terminal_capture.png": {
       "bundle_relative_file": "terminal_capture.png",
-      "bytes": 33250,
+      "bytes": 21894,
       "derivation": "Deterministic typesetting of the verbatim real command and captured stdout; not a GUI screenshot.",
       "file": "video/evidence/exported/terminal_capture.png",
       "kind": "sanitized_terminal_render",
@@ -1686,7 +1686,7 @@
         1600,
         520
       ],
-      "sha256": "7e6f61c2e62166fdb502500a6f354287211f909a0e80aefcaeb052abceea037e",
+      "sha256": "47084ac27e514d9ca504c18f9429cb44fc8379d8f697705e50f71111ba8d276e",
       "source_keys": [
         "success_reference",
         "success_search",
@@ -1732,7 +1732,7 @@
       "numpy": "2.5.2",
       "opencv": "4.14.0",
       "pillow": "12.3.0",
-      "python": "3.14.6",
+      "python": "3.12.13",
       "scipy": "1.18.0"
     },
     "prediction_without_runtime": {
@@ -1812,7 +1812,7 @@
   },
   "exporter": {
     "repo_path": "video/tools/export_evidence.py",
-    "sha256": "9dff71e303ad2979fee5ef196278d06bd7d90123045f92f1860cb704d8c40c72",
+    "sha256": "19012cd597aab723996378f911b80eafd757bd7fa0da96158ec2a00debf59db1",
     "trace_source_bundle_sha256": "d92c05b7cb40d0a46eed216970cbd9642922666ef0bae7e5871e9d5ba0ff75b0"
   },
   "metrics": {
@@ -2098,7 +2098,7 @@
     "live_inference": {
       "capture_asset": "terminal_capture.png",
       "capture_record": "live_capture.json",
-      "command": "PYTHONPATH=src python -m metralign --reference results/frozen/cases/success_iid_000002_dram/000002_dram_reference.png --search results/frozen/cases/success_iid_000002_dram/000002_dram_search.png --diagnostics",
+      "command": "PYTHONPATH=src python -m metralign --reference reference.png --search search.png --diagnostics",
       "diagnostics": {
         "ambiguity_evidence": {
           "lattice_group_count": 1,
@@ -2380,9 +2380,9 @@
       "sha256": "f7948b45b0f7934b16a7ed754e8e95b66f6512b47311f28b21d170dae7ed1be0"
     },
     "exporter_source": {
-      "bytes": 86959,
+      "bytes": 87536,
       "repo_path": "video/tools/export_evidence.py",
-      "sha256": "9dff71e303ad2979fee5ef196278d06bd7d90123045f92f1860cb704d8c40c72"
+      "sha256": "19012cd597aab723996378f911b80eafd757bd7fa0da96158ec2a00debf59db1"
     },
     "failure_case_manifest": {
       "bytes": 2598,

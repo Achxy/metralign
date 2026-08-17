@@ -20,8 +20,10 @@ import math
 import os
 from pathlib import Path
 import platform
+import shutil
 import subprocess
 import sys
+import tempfile
 import textwrap
 from typing import Any
 from zipfile import ZipFile
@@ -1365,7 +1367,7 @@ def live_capture(writer: Writer, sources: dict[str, Any], success: dict[str, Any
     reference = success["reference"]["repo_path"]
     search = success["search"]["repo_path"]
     display_argv = [
-        "python", "-m", "metralign", "--reference", reference, "--search", search, "--diagnostics"
+        "python", "-m", "metralign", "--reference", "reference.png", "--search", "search.png", "--diagnostics"
     ]
     display_command = "PYTHONPATH=src " + " ".join(display_argv)
     actual_argv = [
@@ -1373,14 +1375,25 @@ def live_capture(writer: Writer, sources: dict[str, Any], success: dict[str, Any
         "-m",
         "metralign",
         "--reference",
-        reference,
+        "reference.png",
         "--search",
-        search,
+        "search.png",
         "--diagnostics",
     ]
     environment = dict(os.environ)
     environment["PYTHONPATH"] = str(ROOT / "src")
-    completed = subprocess.run(actual_argv, cwd=ROOT, env=environment, capture_output=True, text=True, check=False)
+    with tempfile.TemporaryDirectory(prefix="metralign-live-") as temporary_directory:
+        input_directory = Path(temporary_directory)
+        shutil.copyfile(ROOT / reference, input_directory / "reference.png")
+        shutil.copyfile(ROOT / search, input_directory / "search.png")
+        completed = subprocess.run(
+            actual_argv,
+            cwd=input_directory,
+            env=environment,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
     if completed.returncode != 0:
         raise RuntimeError(f"live inference failed: {completed.stderr}")
     diagnostics = json.loads(completed.stderr)
@@ -1398,11 +1411,14 @@ def live_capture(writer: Writer, sources: dict[str, Any], success: dict[str, Any
         "return_code": completed.returncode,
         "stdout": stdout.rstrip("\n"),
         "stderr_sanitized_file": "live_stderr_sanitized.json",
-        "cwd": "<repository-root>",
-        "cwd_redaction": "absolute repository path replaced with <repository-root>",
+        "cwd": "<temporary-input-directory>",
+        "cwd_redaction": "ephemeral input directory replaced with <temporary-input-directory>",
         "interpreter_redaction": "absolute sys.executable replaced with python",
         "environment": {"PYTHONPATH": "src"},
-        "sanitization": ["diagnostics.runtime_ms removed because it is nondeterministic wall time"],
+        "sanitization": [
+            "exact source-byte copies renamed reference.png and search.png for presentation",
+            "diagnostics.runtime_ms removed because it is nondeterministic wall time",
+        ],
         "stdout_sha256": sha256(stdout.encode("utf-8")).hexdigest(),
         "stderr_sanitized_sha256": sha256(sanitized_stderr.encode("utf-8")).hexdigest(),
     }

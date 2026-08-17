@@ -12,12 +12,12 @@ import numpy as np
 
 @dataclass(frozen=True)
 class MasterGrid:
-    left: float = -6.42
-    right: float = 6.42
-    top: float = 3.58
-    bottom: float = -3.58
+    left: float = -6.40
+    right: float = 6.40
+    top: float = 3.2889
+    bottom: float = -3.2889
     columns: int = 12
-    gutter: float = 0.18
+    gutter: float = 0.1778
 
     @property
     def column_width(self) -> float:

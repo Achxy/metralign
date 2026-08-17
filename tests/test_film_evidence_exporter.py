@@ -135,6 +135,10 @@ def test_exported_arrays_capture_real_pipeline_values_and_live_output() -> None:
 
     live = index["samples"]["live_inference"]
     assert live["return_code"] == 0
+    assert "--reference reference.png" in live["command"]
+    assert "--search search.png" in live["command"]
+    assert "000002" not in live["command"]
+    assert "dram" not in live["command"].lower()
     assert [float(value) for value in live["stdout"].split()] == [
         round(float(value), 6) for value in success["prediction"]
     ]
